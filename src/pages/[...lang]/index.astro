@@ -1,0 +1,128 @@
+---
+import Base from '../../layouts/Base.astro';
+import HeroWords from '../../components/HeroWords.astro';
+import SectionLabel from '../../components/SectionLabel.astro';
+import ServiceCard from '../../components/ServiceCard.astro';
+import { services } from '../../data/site';
+import { langParams, useTranslations } from '../../i18n';
+
+export const getStaticPaths = () => langParams.map((params) => ({ params }));
+
+const { lang, t, path } = useTranslations(Astro.url);
+// The "Nosotros" page is still a test page that only exists in development, so its link is dev-only too.
+const showAboutLink = import.meta.env.DEV || process.env.PREVIEW === 'true'; // test page link: dev + GitHub Pages preview only
+---
+<Base title={t.home.title}>
+  <HeroWords />
+
+  <section class="about">
+    <SectionLabel text={t.home.aboutLabel} />
+    <h2 class="about-text t-body-xl reveal">
+      {t.home.aboutLead}{' '}<span class="muted">{t.home.aboutRest}</span>
+    </h2>
+
+    <div class="about-row">
+      <div class="about-img reveal">
+        <img src="/images/about-fortress-cropped.png" alt={t.home.imageAlt} width="368" height="391" loading="lazy" />
+      </div>
+      <p class="about-side reveal">
+        <span class="lead">{t.home.sideLead}</span>{' '}{t.home.sideRest}
+        {showAboutLink && (
+          <a href={path('/nosotros')} class="about-more">
+            {lang === 'es' ? 'Conozca más sobre nosotros' : 'Learn more about us'} <span aria-hidden="true">→</span>
+          </a>
+        )}
+      </p>
+    </div>
+  </section>
+
+  <section class="services">
+    <div class="services-head">
+      <SectionLabel text={t.home.servicesLabel} />
+      <h2 class="services-title reveal">
+        {t.home.servicesTitle}{' '}<span class="strong">{t.home.servicesTitleStrong}</span>
+      </h2>
+    </div>
+    <div class="grid">
+      {services.map((s) => <div class="reveal"><ServiceCard service={s} /></div>)}
+    </div>
+  </section>
+</Base>
+
+<style>
+  .about { padding: 20px var(--gutter) 0; }
+  .about-text { margin-top: 16px; text-align: justify; font-weight: 200; }
+  .muted { color: var(--color-muted); }
+
+  .about-row { display: flex; flex-direction: column; margin-top: 60px; }
+  .about-img { height: 255px; }
+  .about-img img { width: 100%; height: 100%; object-fit: contain; }
+  .about-side {
+    margin-top: 54px;
+    text-align: justify;
+    font-family: var(--font-mono);
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 21px;
+    letter-spacing: -0.02em;
+    color: var(--color-gray);
+  }
+  .about-side .lead { color: rgb(34, 52, 79); }
+  .about-more {
+    display: flex; /* on its own line, below the paragraph */
+    width: fit-content;
+    gap: 8px;
+    margin-top: 22px;
+    padding-bottom: 3px;
+    border-bottom: 1px solid currentColor;
+    color: var(--color-ink);
+    text-align: left;
+    transition: color 0.2s, gap 0.3s var(--spring);
+  }
+  .about-more:hover { color: var(--color-maroon); gap: 14px; }
+
+  .services { margin-top: 135px; }
+  .services-head { display: flex; flex-direction: column; align-items: center; padding: 0 var(--gutter); }
+  .services-title {
+    margin-top: 26px;
+    max-width: 1270px;
+    text-align: center;
+    font-family: var(--font-mono);
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 27px;
+    letter-spacing: -0.02em;
+    color: var(--color-gray);
+  }
+  .services-title .strong { color: var(--color-ink); }
+  .grid { display: grid; grid-template-columns: minmax(0, 1fr); margin-top: 32px; padding: 0 var(--gutter); }
+
+  @media (min-width: 810px) {
+    .about-text { text-indent: 402px; }
+    /* Image and text side by side, vertically centered, the pair centered on the page */
+    .about-row { flex-direction: row; justify-content: center; align-items: center; gap: clamp(40px, 6vw, 80px); margin-top: 100px; }
+    .about-img { width: clamp(280px, 30vw, 400px); height: auto; flex-shrink: 0; }
+    .about-side {
+      width: 498px;
+      max-width: 50%;
+      margin: 0;
+      font-family: 'Monaspace Neon Wide', var(--font-mono);
+      font-weight: 500;
+      line-height: 27px;
+    }
+    .about-side .lead { color: inherit; }
+
+    .services { margin-top: 124px; }
+    .services-title {
+      margin-top: 26px;
+      font-family: 'Monaspace Xenon', var(--font-mono);
+      font-size: 34px;
+      line-height: 46px;
+    }
+    .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 16px; margin-top: 60px; padding: 0 var(--gutter); }
+  }
+  @media (min-width: 1200px) {
+    .services-title { font-size: 45px; line-height: 60px; }
+    .grid { padding: 0 60px; }
+  }
+</style>

@@ -1,0 +1,45 @@
+---
+// A single 404 serves every missing URL. It renders in Spanish; if the URL is under /en/,
+// the inline script swaps the texts to English before paint.
+import Base from '../layouts/Base.astro';
+import { ui } from '../i18n/ui';
+const es = ui.es.notFound;
+const en = { ...ui.en.notFound, home: '/en/' };
+---
+<Base title={es.title} bare>
+  <section class="nf">
+    <h1 class="digits" aria-label="404"><span>4</span><span>0</span><span>4</span></h1>
+    <div class="copy">
+      <h2 class="t-body-xl" data-t="heading">{es.heading}</h2>
+      <p class="lede" data-t="text">{es.text}</p>
+      <a href="/" class="btn swap-host home" data-t-href="home">
+        <span class="swap"><span data-t="back">{es.back}</span><span data-t="back">{es.back}</span></span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+      </a>
+    </div>
+  </section>
+  <script is:inline define:vars={{ en }}>
+    if (/^\/en(\/|$)/.test(location.pathname)) {
+      document.documentElement.lang = 'en';
+      document.title = en.title;
+      document.querySelectorAll('[data-t]').forEach((el) => (el.textContent = en[el.dataset.t]));
+      document.querySelectorAll('[data-t-href]').forEach((el) => (el.href = en[el.dataset.tHref]));
+    }
+  </script>
+</Base>
+
+<style>
+  .nf { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; gap: 30px; padding: 60px var(--gutter); }
+  .digits { display: flex; flex-direction: row; gap: 10px; font-weight: 700; font-size: 120px; line-height: 1; letter-spacing: -0.02em; }
+  .lede { margin-top: 10px; font-weight: 500; font-size: 18px; line-height: 1.2; letter-spacing: -0.02em; }
+  .home { margin-top: 34px; }
+
+  @media (min-width: 810px) {
+    .nf { flex-direction: row; align-items: center; justify-content: flex-start; gap: 74px; padding-left: 266px; }
+    .digits { flex-direction: column; gap: 10px; font-size: 185px; line-height: 200px; }
+    .lede { font-size: 24px; line-height: 28.8px; }
+  }
+  @media (max-width: 1199px) and (min-width: 810px) {
+    .nf { padding-left: 80px; }
+  }
+</style>

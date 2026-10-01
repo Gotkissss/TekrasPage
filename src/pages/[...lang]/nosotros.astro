@@ -1,0 +1,535 @@
+---
+// TEST PAGE — "Nosotros / About". Only exists in development (npm run dev) and in the
+// GitHub Pages preview (PREVIEW=true): the production build for Railway skips it.
+import Base from '../../layouts/Base.astro';
+import SectionLabel from '../../components/SectionLabel.astro';
+import { langParams, useTranslations } from '../../i18n';
+
+export const getStaticPaths = () =>
+  import.meta.env.DEV || process.env.PREVIEW === 'true' ? langParams.map((params) => ({ params })) : [];
+
+const { lang, t, path } = useTranslations(Astro.url);
+
+const copy = {
+  es: {
+    title: 'Nosotros - Tekras',
+    badge: 'Página de prueba — no se publica',
+    label: 'Nosotros',
+    heading: 'Quiénes Somos',
+    intro:
+      'Un equipo de ciberseguridad con sede en Guatemala, cercano a cada cliente y enfocado en lo que realmente protege su negocio.',
+    aboutLabel: 'Nuestra Historia',
+    about: [
+      t.home.aboutLead + ' ' + t.home.aboutRest,
+      'Nacimos en Guatemala con una idea sencilla: la seguridad debe adaptarse al negocio, no al revés. Por eso cada proyecto empieza por entender cómo opera su organización antes de proponer una solución.',
+    ],
+    purposeLabel: 'Propósito',
+    mission: 'Misión',
+    missionText:
+      'Proteger la continuidad operativa y los activos digitales de las organizaciones mediante arquitecturas Zero Trust, seguridad ofensiva, prevención de fraude y auditorías de seguridad, simplificando el acceso seguro y reduciendo la superficie de ataque en entornos complejos.',
+    vision: 'Visión',
+    visionText:
+      'Establecer el estándar de Zero Trust en Latinoamérica, convirtiendo infraestructuras complejas y vulnerables en entornos invisibles, ágiles y protegidos.',
+    valuesLabel: 'Valores',
+    valuesTitle: 'Lo que guía cada proyecto.',
+    values: [
+      { title: 'Rigor Técnico', text: 'Garantizar el máximo nivel de especialización y precisión en cada evaluación, implementación y soporte que realizamos.' },
+      { title: 'Transparencia', text: 'Hablar con la verdad sobre la postura de riesgo real del cliente y las capacidades operativas, sin falsas promesas tecnológicas.' },
+      { title: 'Agilidad', text: 'Eliminar la fricción en la ciberseguridad para asegurar que la protección no paralice ni ralentice el negocio.' },
+      { title: 'Proactividad', text: 'Buscar las debilidades antes que los atacantes y actuar antes de que se conviertan en incidentes.' },
+    ],
+    teamLabel: 'Equipo',
+    teamTitle: 'Las personas detrás de Tekras.',
+    partnersLabel: 'Aliados',
+    partnersTitle: 'Tecnología de clase mundial, junto a nuestros aliados.',
+    partnersText:
+      'Trabajamos con fabricantes líderes en ciberseguridad para llevar a Latinoamérica soluciones probadas a nivel global.',
+    cta: 'Hablemos',
+  },
+  en: {
+    title: 'About - Tekras',
+    badge: 'Test page — not published',
+    label: 'About',
+    heading: 'Who We Are',
+    intro: 'A Guatemala-based cybersecurity team that stays close to every client and focuses on what truly protects your business.',
+    aboutLabel: 'Our Story',
+    about: [
+      t.home.aboutLead + ' ' + t.home.aboutRest,
+      'We were born in Guatemala with a simple idea: security should adapt to the business, not the other way around. That’s why every project starts by understanding how your organization operates before we propose a solution.',
+    ],
+    purposeLabel: 'Purpose',
+    mission: 'Mission',
+    missionText:
+      'To protect the operational continuity and digital assets of organizations through Zero Trust architectures, offensive security, fraud prevention and security audits, simplifying secure access and reducing the attack surface in complex environments.',
+    vision: 'Vision',
+    visionText:
+      'To set the Zero Trust standard in Latin America, turning complex, vulnerable infrastructures into invisible, agile and protected environments.',
+    valuesLabel: 'Values',
+    valuesTitle: 'What guides every project.',
+    values: [
+      { title: 'Technical Rigor', text: 'Ensuring the highest level of expertise and precision in every assessment, implementation and support engagement we deliver.' },
+      { title: 'Transparency', text: 'Telling the truth about each client’s real risk posture and operational capabilities, with no false technology promises.' },
+      { title: 'Agility', text: 'Removing friction from cybersecurity so that protection never stalls or slows down the business.' },
+      { title: 'Proactivity', text: 'Finding weaknesses before attackers do, and acting before they turn into incidents.' },
+    ],
+    teamLabel: 'Team',
+    teamTitle: 'The people behind Tekras.',
+    partnersLabel: 'Partners',
+    partnersTitle: 'World-class technology, together with our partners.',
+    partnersText: 'We work with leading cybersecurity vendors to bring globally proven solutions to Latin America.',
+    cta: 'Let’s Talk',
+  },
+}[lang];
+
+// Team. `photo` is the base name in public/images/team/ — there are -240, -480 and -720 versions of each
+// (pre-shrunk so the fine pencil lines don't turn into moiré at small sizes).
+const team = [
+  { name: 'Diego Quixchan', role: lang === 'es' ? 'Líder de Seguridad Ofensiva' : 'Head of Offensive Security', photo: '/images/team/ventas-pentesting' },
+  { name: 'Oliver Quixchan', role: lang === 'es' ? 'Director General (CEO)' : 'Chief Executive Officer', photo: '/images/team/ceo' },
+  { name: 'Cecilia Amezquita', role: lang === 'es' ? 'Gerente de Ventas' : 'Sales Manager', photo: '/images/team/gerente-ventas' },
+] as { name: string; role: string; photo?: string }[];
+
+// Partners = electrons of the Tekras "atom". Put the official logo at `logo` (public/partners/).
+// orbit: which of the 3 tilted orbits it rides; phase: starting position on it (degrees).
+const partners = [
+  { name: 'Appgate', logo: '/partners/appgate.png', orbit: 0, phase: 0 },
+  { name: 'Odoo', logo: '/partners/odoo.png', orbit: 0, phase: 180 },
+  { name: 'Lumu', logo: '/partners/lumu.png', orbit: 1, phase: 0 },
+  { name: 'iProov', logo: '/partners/iproov.png', orbit: 1, phase: 180 },
+  { name: 'Proofpoint', logo: '/partners/proofpoint.png', orbit: 2, phase: 0, round: true },
+];
+// Orbit planes: rotation on screen (deg) and seconds per full turn.
+const orbits = [
+  { angle: 0, period: 26 },
+  { angle: 60, period: 34 },
+  { angle: -60, period: 30 },
+];
+---
+<Base title={copy.title}>
+  <p class="badge">{copy.badge}</p>
+
+  <!-- Hero -->
+  <section class="hero">
+    <SectionLabel text={copy.label} />
+    <h1 class="heading">{copy.heading}</h1>
+    <p class="intro t-body-xl">{copy.intro}</p>
+  </section>
+
+  <!-- About -->
+  <section class="block about">
+    <div class="about-text">
+      <SectionLabel text={copy.aboutLabel} />
+      {copy.about.map((p, i) => <p class:list={['reveal', i === 0 ? 'lead' : 'body']}>{p}</p>)}
+    </div>
+    <div class="about-img reveal">
+      <img src="/images/about-fortress-cropped.png" alt={t.home.imageAlt} width="368" height="391" loading="lazy" />
+    </div>
+  </section>
+
+  <!-- Mission & Vision -->
+  <section class="block">
+    <SectionLabel text={copy.purposeLabel} />
+    <div class="purpose">
+      <article class="purpose-card reveal">
+        <span class="purpose-num">01</span>
+        <h2>{copy.mission}</h2>
+        <p>{copy.missionText}</p>
+      </article>
+      <article class="purpose-card dark reveal">
+        <span class="purpose-num">02</span>
+        <h2>{copy.vision}</h2>
+        <p>{copy.visionText}</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- Values -->
+  <section class="block">
+    <div class="block-head">
+      <SectionLabel text={copy.valuesLabel} />
+      <h2 class="block-title reveal">{copy.valuesTitle}</h2>
+    </div>
+    <ul class="values">
+      {copy.values.map((v, i) => (
+        <li class="value reveal" style={`--delay:${i * 100}ms`}>
+          <span class="value-num">{String(i + 1).padStart(2, '0')}</span>
+          <h3>{v.title}</h3>
+          <p>{v.text}</p>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <!-- Team -->
+  <section class="block">
+    <div class="block-head">
+      <SectionLabel text={copy.teamLabel} />
+      <h2 class="block-title reveal">{copy.teamTitle}</h2>
+    </div>
+    <ul class="team">
+      {team.map((m, i) => (
+        <li class="member reveal" style={`--delay:${i * 120}ms`}>
+          <span class="avatar">
+            {m.photo ? <img src={`${m.photo}-480.jpg`} srcset={`${m.photo}-240.jpg 240w, ${m.photo}-480.jpg 480w, ${m.photo}-720.jpg 720w`} sizes="(min-width: 1200px) 240px, 200px" alt={m.name} width="240" height="240" loading="lazy" /> : <span class="initials">{m.name.split(' ').map((w) => w[0]).join('')}</span>}
+          </span>
+          <h3>{m.name}</h3>
+          <p>{m.role}</p>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <!-- Partners orbit -->
+  <section class="block partners">
+    <div class="partners-copy">
+      <SectionLabel text={copy.partnersLabel} />
+      <h2 class="block-title reveal">{copy.partnersTitle}</h2>
+      <p class="partners-text reveal">{copy.partnersText}</p>
+      <a href={path('/contact')} class="talk">{copy.cta} →</a>
+    </div>
+    <div class="orbit-wrap">
+      <div class="atom" data-atom data-orbits={JSON.stringify(orbits)} aria-label={copy.partnersLabel}>
+        <svg class="orbit-lines" viewBox="-100 -100 200 200" aria-hidden="true">
+          {orbits.map((o) => <ellipse class="atom-line" cx="0" cy="0" rx="80" ry="27" transform={`rotate(${o.angle})`} />)}
+          <circle class="ring-line" cx="0" cy="0" r="80" />
+          <circle class="ring-line inner" cx="0" cy="0" r="34" />
+        </svg>
+        <span class="glow" aria-hidden="true"></span>
+        <img src="/logo-mark-large.svg" alt="Tekras" class="core" />
+        <ul>
+          {partners.map((p) => (
+            <li class="electron" data-orbit={p.orbit} data-phase={p.phase}>
+              <span class="chip">
+                <img src={p.logo} alt={p.name} class:list={['chip-logo', { round: p.round }]} onerror="this.remove()" />
+                <span class="chip-name">{p.name}</span>
+              </span>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <!-- TEMPORARY: switch between the flat ring and the 3D atom to compare -->
+      <div class="mode-switch" role="group" aria-label={lang === 'es' ? 'Versión de prueba' : 'Test version'}>
+        <span class="mode-hint">{lang === 'es' ? 'Versión de prueba:' : 'Test version:'}</span>
+        <button type="button" data-mode="ring">{lang === 'es' ? 'Anillo' : 'Ring'}</button>
+        <button type="button" data-mode="atom">{lang === 'es' ? 'Átomo' : 'Atom'}</button>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<script>
+  // Tekras atom: each partner logo travels a tilted 3D orbit around the nucleus.
+  // Front of the orbit = bigger, sharper and above the nucleus; back = smaller, faded and behind it.
+  const TILT = (70 * Math.PI) / 180; // how "flat" the orbits look (0 = circle, 90 = line)
+  const DEPTH_SCALE = 0.22; // size difference between front and back
+  document.querySelectorAll<HTMLElement>('[data-atom]').forEach((atom) => {
+    const orbits: { angle: number; period: number }[] = JSON.parse(atom.dataset.orbits!);
+    const electrons = [...atom.querySelectorAll<HTMLElement>('.electron')];
+    const ellipses = [...atom.querySelectorAll<SVGEllipseElement>('.orbit-lines .atom-line')];
+    const ring = atom.querySelector<SVGCircleElement>('.orbit-lines .ring-line:not(.inner)')!;
+    let radius = 0;
+    const measure = () => {
+      const size = atom.clientWidth;
+      const chipHalf = (electrons[0]?.firstElementChild as HTMLElement)?.offsetWidth / 2 || 60;
+      radius = size / 2 - chipHalf - 6;
+      // orbit lines in the SVG's -100..100 coordinate space
+      const rx = (radius / (size / 2)) * 100;
+      ellipses.forEach((e) => { e.setAttribute('rx', String(rx)); e.setAttribute('ry', String(rx * Math.cos(TILT))); });
+      ring.setAttribute('r', String(rx));
+    };
+    measure();
+    new ResizeObserver(measure).observe(atom);
+
+    let paused = false;
+    atom.addEventListener('pointerenter', () => (paused = true));
+    atom.addEventListener('pointerleave', () => (paused = false));
+    const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // TEMPORARY mode switch: "ring" (flat circle, previous version) or "atom" (3D orbits).
+    // Priority: ?modo=anillo|atomo in the URL > last choice in this browser > atom.
+    const RING_PERIOD = 40; // seconds per turn in ring mode
+    const fromUrl = new URLSearchParams(location.search).get('modo');
+    let saved: string | null = null;
+    try { saved = localStorage.getItem('tekras-atom-mode'); } catch {}
+    let mode: 'ring' | 'atom' = fromUrl === 'anillo' || fromUrl === 'ring' ? 'ring' : fromUrl === 'atomo' || fromUrl === 'atom' ? 'atom' : saved === 'ring' ? 'ring' : 'atom';
+    const buttons = [...(atom.parentElement?.querySelectorAll<HTMLButtonElement>('.mode-switch button') ?? [])];
+    const setMode = (m: 'ring' | 'atom') => {
+      mode = m;
+      atom.dataset.mode = m;
+      buttons.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.mode === m)));
+      try { localStorage.setItem('tekras-atom-mode', m); } catch {}
+    };
+    buttons.forEach((b) => b.addEventListener('click', () => setMode(b.dataset.mode as 'ring' | 'atom')));
+    setMode(mode);
+
+    let clock = 0;
+    let last = performance.now();
+    const frame = (now: number) => {
+      if (!paused && !still) clock += (now - last) / 1000;
+      last = now;
+      if (mode === 'ring') {
+        // Previous version: evenly spaced on one flat circle, turning clockwise, no depth.
+        electrons.forEach((el, i) => {
+          const theta = -Math.PI / 2 + (i * Math.PI * 2) / electrons.length + (clock / RING_PERIOD) * Math.PI * 2;
+          el.style.transform = `translate(${radius * Math.cos(theta)}px, ${radius * Math.sin(theta)}px)`;
+          el.style.opacity = '1';
+          el.style.filter = 'none';
+          el.style.zIndex = '150';
+        });
+        core.style.zIndex = '100';
+        order = null; // recompute cleanly if switching back to the atom
+        requestAnimationFrame(frame);
+        return;
+      }
+      electrons.forEach((el, i) => {
+        const o = orbits[Number(el.dataset.orbit)];
+        const theta = ((Number(el.dataset.phase) * Math.PI) / 180) + (clock / o.period) * Math.PI * 2;
+        // point on a circle tilted away from the viewer, then rotated on screen by the orbit angle
+        const x0 = radius * Math.cos(theta);
+        const y0 = radius * Math.sin(theta) * Math.cos(TILT);
+        const depth = Math.sin(theta); // -1 = back, 1 = front
+        const a = (o.angle * Math.PI) / 180;
+        const x = x0 * Math.cos(a) - y0 * Math.sin(a);
+        const y = x0 * Math.sin(a) + y0 * Math.cos(a);
+        const scale = 1 + depth * DEPTH_SCALE;
+        el.style.transform = `translate(${x}px, ${y}px) scale(${scale})`;
+        el.style.opacity = String(0.45 + 0.55 * ((depth + 1) / 2));
+        el.style.filter = depth < 0 ? `blur(${(-depth * 1.2).toFixed(2)}px)` : 'none';
+        const chip = el.firstElementChild as HTMLElement;
+        layers[i] = { el, depth, x, y, w: chip.offsetWidth * scale, h: chip.offsetHeight * scale };
+      });
+      stack();
+      requestAnimationFrame(frame);
+    };
+
+    // ---- Stacking order (who is drawn on top) ----
+    // Sorting purely by depth makes two overlapping logos swap abruptly the instant their depths cross.
+    // Instead, two layers only trade places while they are NOT touching, so the switch is never visible.
+    // The nucleus (Tekras logo, depth 0) takes part too, so a logo never pops through it either.
+    type Layer = { el: HTMLElement; depth: number; x: number; y: number; w: number; h: number };
+    const core = atom.querySelector<HTMLElement>('.core')!;
+    const layers: Layer[] = [];
+    let order: Layer[] | null = null; // back → front
+    const touching = (p: Layer, q: Layer) =>
+      Math.abs(p.x - q.x) < (p.w + q.w) / 2 + 4 && Math.abs(p.y - q.y) < (p.h + q.h) / 2 + 4;
+    const stack = () => {
+      const size = core.offsetWidth * 0.85;
+      const nucleus: Layer = { el: core, depth: 0, x: 0, y: 0, w: size, h: size };
+      const all = [...layers, nucleus];
+      // first frame: plain depth order; afterwards keep the previous order and only fix what's allowed
+      order = order ? order.map((l) => all.find((n) => n.el === l.el)!) : [...all].sort((p, q) => p.depth - q.depth);
+      for (let pass = 0; pass < order.length; pass++) {
+        for (let k = 0; k < order.length - 1; k++) {
+          const back = order[k];
+          const front = order[k + 1];
+          if (back.depth > front.depth && !touching(back, front)) {
+            order[k] = front;
+            order[k + 1] = back;
+          }
+        }
+      }
+      order.forEach((l, rank) => (l.el.style.zIndex = String(10 + rank)));
+    };
+    requestAnimationFrame(frame);
+  });
+</script>
+
+<style>
+  .badge {
+    width: fit-content;
+    margin: 8px auto 0;
+    padding: 6px 14px;
+    border: 1px dashed var(--color-maroon);
+    border-radius: 999px;
+    font-family: var(--font-mono);
+    font-weight: 300;
+    font-size: 12px;
+    color: var(--color-maroon);
+  }
+
+  /* ---------- Shared ---------- */
+  .block { padding: 0 var(--gutter); margin-top: 120px; }
+  .block-head { display: flex; flex-direction: column; gap: 18px; margin-bottom: 44px; }
+  .block-title { max-width: 820px; font-family: 'Monaspace Xenon', var(--font-mono); font-weight: 600; font-size: 24px; line-height: 1.3; letter-spacing: -0.02em; }
+
+  /* ---------- Hero ---------- */
+  .hero { display: flex; flex-direction: column; align-items: flex-start; gap: 20px; padding: 60px var(--gutter) 0; }
+  .heading { font-weight: 700; font-size: 56px; line-height: 1; letter-spacing: -0.03em; }
+  .intro { max-width: 980px; color: var(--color-gray); }
+
+  /* ---------- About ---------- */
+  .about { display: grid; gap: 48px; align-items: center; }
+  .about-text { display: flex; flex-direction: column; gap: 22px; }
+  .lead { font-family: var(--font-mono); font-weight: 200; font-size: 20px; line-height: 31px; letter-spacing: -0.01em; }
+  .body { font-family: var(--font-mono); font-weight: 200; font-size: 16px; line-height: 26px; color: var(--color-gray); }
+  .about-img img { width: min(360px, 80%); height: auto; margin: 0 auto; }
+
+  /* ---------- Mission & Vision ---------- */
+  .purpose { display: grid; gap: 16px; margin-top: 26px; }
+  .purpose-card { display: flex; flex-direction: column; padding: 40px 32px; border-radius: 22px; background: #e9e1d8; min-height: 300px; transition: transform 0.5s var(--spring); }
+  .purpose-card:hover { transform: translateY(-6px); }
+  .purpose-card.dark { background: var(--color-maroon); color: var(--color-cream); }
+  .purpose-num { font-family: 'Monaspace Xenon', var(--font-mono); font-weight: 600; font-size: 14px; opacity: 0.6; }
+  .purpose-card h2 { margin-top: 12px; font-weight: 700; font-size: 44px; line-height: 1; letter-spacing: -0.03em; }
+  .purpose-card p { margin-top: auto; padding-top: 40px; font-family: var(--font-mono); font-weight: 200; font-size: 16px; line-height: 26px; opacity: 0.85; }
+
+  /* ---------- Values ---------- */
+  .values { display: grid; gap: 0; border-top: 1px solid rgba(27, 27, 27, 0.14); }
+  .value { display: flex; flex-direction: column; gap: 14px; padding: 32px 0; border-bottom: 1px solid rgba(27, 27, 27, 0.14); transition-delay: var(--delay); }
+  .value-num { font-family: 'Monaspace Xenon', var(--font-mono); font-weight: 600; font-size: 14px; color: var(--color-maroon); }
+  .value h3 { font-weight: 600; font-size: 26px; line-height: 1.1; letter-spacing: -0.02em; transition: color 0.3s; }
+  .value p { font-family: var(--font-mono); font-weight: 200; font-size: 15px; line-height: 24px; color: var(--color-gray); }
+  .value:hover h3 { color: var(--color-maroon); }
+
+  /* ---------- Team ---------- */
+  .team { display: grid; grid-template-columns: 1fr; gap: 48px; }
+  .member { display: flex; flex-direction: column; align-items: center; text-align: center; transition-delay: var(--delay); }
+  .avatar {
+    display: grid;
+    place-items: center;
+    width: 200px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    overflow: hidden;
+    background: radial-gradient(circle at 30% 25%, #f7f2ec, #e3d8cc);
+    box-shadow: inset 0 0 0 1px rgba(92, 45, 50, 0.15);
+    transition: transform 0.6s var(--spring), box-shadow 0.6s ease;
+  }
+  /* multiply blends the drawing's white background into the circle's cream tone */
+  .avatar img { width: 100%; height: 100%; object-fit: cover; mix-blend-mode: multiply; }
+  .initials { font-family: 'Monaspace Xenon', var(--font-mono); font-weight: 600; font-size: 44px; color: var(--color-maroon); }
+  .member:hover .avatar { transform: translateY(-8px) scale(1.04); box-shadow: inset 0 0 0 2px var(--color-maroon), 0 20px 40px -20px rgba(92, 45, 50, 0.5); }
+  .member h3 { margin-top: 22px; font-weight: 600; font-size: 20px; letter-spacing: -0.02em; }
+  .member p { margin-top: 4px; font-family: var(--font-mono); font-weight: 300; font-size: 14px; color: var(--color-gray); }
+
+  /* ---------- Partners orbit ---------- */
+  .partners { display: grid; gap: 56px; align-items: center; }
+  .partners-copy { display: flex; flex-direction: column; gap: 18px; }
+  .partners-text { max-width: 480px; font-family: var(--font-mono); font-weight: 200; font-size: 16px; line-height: 26px; color: var(--color-gray); }
+  .talk { width: fit-content; font-family: var(--font-mono); font-weight: 300; font-size: 14px; border-bottom: 1px solid currentColor; padding-bottom: 2px; transition: color 0.2s; }
+  .talk:hover { color: var(--color-maroon); }
+
+  .orbit-wrap { container-type: inline-size; } /* the atom sizes itself to its column */
+  .atom {
+    position: relative;
+    width: min(100cqi, 580px);
+    aspect-ratio: 1;
+    margin: 0 auto;
+  }
+  .orbit-lines { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+  .orbit-lines ellipse, .orbit-lines circle { fill: none; stroke: rgba(92, 45, 50, 0.28); stroke-width: 0.35; vector-effect: non-scaling-stroke; transition: opacity 0.6s ease; }
+  .orbit-lines .ring-line { stroke-dasharray: 4 5; opacity: 0; }
+  .orbit-lines .ring-line.inner { stroke-dasharray: none; stroke: rgba(92, 45, 50, 0.12); }
+  .atom[data-mode='ring'] .atom-line { opacity: 0; }
+  .atom[data-mode='ring'] .ring-line { opacity: 1; }
+
+  /* TEMPORARY comparison switch */
+  .mode-switch {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    width: fit-content;
+    margin: 20px auto 0;
+    padding: 5px;
+    border: 1px dashed var(--color-maroon);
+    border-radius: 999px;
+    font-family: var(--font-mono);
+    font-size: 13px;
+  }
+  .mode-hint { padding: 0 8px 0 10px; font-weight: 300; color: var(--color-maroon); }
+  .mode-switch button {
+    padding: 7px 16px;
+    border-radius: 999px;
+    font: inherit;
+    font-weight: 300;
+    color: var(--color-gray);
+    cursor: pointer;
+    transition: background-color 0.25s, color 0.25s;
+  }
+  .mode-switch button:hover { color: var(--color-maroon); }
+  .mode-switch button[aria-pressed='true'] { background: var(--color-maroon); color: var(--color-cream); }
+  .glow {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 46%;
+    aspect-ratio: 1;
+    translate: -50% -50%;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(92, 45, 50, 0.22), rgba(92, 45, 50, 0.06) 45%, transparent 70%);
+    animation: pulse 5s ease-in-out infinite;
+  }
+  .core {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    z-index: 100;
+    width: 22%;
+    translate: -50% -50%;
+    filter: drop-shadow(0 12px 24px rgba(92, 45, 50, 0.35));
+    animation: breathe 6s ease-in-out infinite;
+  }
+  .electron {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 0;
+    height: 0;
+    will-change: transform, opacity;
+  }
+  .chip {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 108px;
+    height: 50px;
+    padding: 0 14px;
+    border-radius: 999px;
+    background: #fff;
+    border: 1px solid rgba(92, 45, 50, 0.14);
+    box-shadow: 0 12px 28px -12px rgba(92, 45, 50, 0.4);
+    translate: -50% -50%;
+    transition: border-color 0.4s ease, box-shadow 0.4s ease;
+  }
+  .chip:hover { border-color: var(--color-maroon); box-shadow: 0 16px 34px -10px rgba(92, 45, 50, 0.55); }
+  .chip-logo { max-height: 21px; max-width: 80px; width: auto; height: auto; }
+  .chip-logo.round { max-height: 40px; } /* circular logos need more height to look the same size */
+  .chip-logo + .chip-name { display: none; } /* text shows only while there's no logo file */
+  .chip-name { font-weight: 600; font-size: 15px; letter-spacing: -0.02em; white-space: nowrap; }
+  .partners { overflow-x: clip; }
+
+  @keyframes pulse { 50% { scale: 1.12; opacity: 0.75; } }
+  @keyframes breathe { 50% { scale: 1.05; } }
+
+  @media (max-width: 809px) {
+    .chip { width: 84px; height: 40px; padding: 0 10px; }
+    .chip-logo { max-height: 16px; max-width: 62px; }
+    .chip-logo.round { max-height: 32px; }
+  }
+
+  /* ---------- Tablet / desktop ---------- */
+  @media (min-width: 810px) {
+    .block { margin-top: 160px; }
+    .block-title { font-size: 34px; }
+    .heading { font-size: 110px; }
+    .about { grid-template-columns: 1.3fr 1fr; gap: 60px; }
+    .lead { font-size: 25px; line-height: 40px; }
+    .purpose { grid-template-columns: 1fr 1fr; }
+    .purpose-card { padding: 48px 44px; min-height: 360px; }
+    .purpose-card h2 { font-size: 64px; }
+    .team { grid-template-columns: repeat(3, 1fr); gap: 32px; }
+    .values { grid-template-columns: 1fr 1fr; column-gap: 40px; }
+    .partners { grid-template-columns: 1fr 1.1fr; gap: 40px; }
+  }
+  @media (min-width: 1200px) {
+    .block-title { font-size: 42px; }
+    .heading { font-size: 150px; }
+    .avatar { width: 240px; }
+    .values { grid-template-columns: repeat(4, 1fr); column-gap: 32px; border-bottom: 1px solid rgba(27, 27, 27, 0.14); }
+    .value { padding: 36px 0 44px; border-bottom: 0; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .glow, .core { animation: none; }
+  }
+</style>

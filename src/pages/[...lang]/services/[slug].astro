@@ -1,0 +1,64 @@
+---
+import Base from '../../../layouts/Base.astro';
+import { services, formatDate } from '../../../data/site';
+import { serviceDetails } from '../../../data/service-details';
+import ServiceDetail from '../../../components/ServiceDetail.astro';
+import { langParams, useTranslations } from '../../../i18n';
+
+export function getStaticPaths() {
+  return langParams.flatMap(({ lang }) =>
+    services.map((service, i) => ({
+      params: { lang, slug: service.slug },
+      props: { service, prev: i > 0 ? services[i - 1] : undefined },
+    })),
+  );
+}
+
+const { service, prev } = Astro.props;
+const { lang, t, path } = useTranslations(Astro.url);
+const title = service.title[lang];
+// The giant title shrinks so its longest word always fits on one line.
+const longestWord = Math.max(...title.split(/\s+/).map((w) => w.length));
+// Services with extended content (src/data/service-details.ts) get the full layout.
+const details = serviceDetails[service.slug];
+---
+<Base title={title + t.service.titleSuffix}>
+  {details ? <ServiceDetail service={service} details={details} /> : (
+  <article class="article">
+    <h1 class="title" style={`--chars:${longestWord}`}>{title}</h1>
+    <p class="date t-body">{formatDate(service.date, lang)}</p>
+    <p class="summary t-body">{service.summary[lang]}</p>
+    <div class="body t-body">
+      {service.body[lang].map((p) => <p>{p}</p>)}
+    </div>
+    {prev && <a href={path(`/services/${prev.slug}`)} class="prev t-body">‹ {prev.title[lang]}</a>}
+  </article>
+  )}
+</Base>
+
+<style>
+  .article { display: flex; flex-direction: column; align-items: center; padding: 0 var(--gutter); }
+  .title {
+    max-width: 1080px;
+    text-align: center;
+    font-weight: 700;
+    font-size: min(40px, calc((100vw - 2 * var(--gutter)) / (var(--chars) * 0.6)));
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+    margin-top: 10px;
+  }
+  .date, .summary { max-width: 600px; text-align: center; color: var(--color-soft); }
+  .date { margin-top: 16px; }
+  .summary { margin-top: 15px; }
+  .body { width: 100%; max-width: 600px; margin-top: 76px; padding: 0 19px; color: var(--color-gray); }
+  .prev { align-self: flex-start; width: 100%; max-width: 600px; margin: 63px auto 0; padding: 0 19px; transition: color 0.2s; }
+  .prev:hover { color: var(--color-maroon); }
+
+  @media (min-width: 810px) {
+    .title { font-size: min(110px, calc((100vw - 2 * var(--gutter)) / (var(--chars) * 0.6))); line-height: 1.08; }
+    .body, .prev { padding: 0; }
+  }
+  @media (min-width: 1200px) {
+    .title { font-size: min(185px, calc((min(100vw, 1440px) - 60px) / (var(--chars) * 0.6))); line-height: 1.08; margin-top: 0; }
+  }
+</style>

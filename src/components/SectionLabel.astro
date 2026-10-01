@@ -1,0 +1,13 @@
+---
+// Small "• Label" eyebrow used above sections.
+interface Props { text: string; class?: string }
+const { text, class: className = '' } = Astro.props;
+---
+<p class:list={['section-label t-label', className]}>
+  <span class="dot" aria-hidden="true"></span>{text}
+</p>
+
+<style>
+  .section-label { display: flex; width: fit-content; align-items: center; gap: 8px; color: var(--color-ink); }
+  .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--color-maroon); flex-shrink: 0; }
+</style>

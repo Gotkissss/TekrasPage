@@ -1,0 +1,39 @@
+---
+// Sales rep card: photo + role + name, optionally with a "Let's Talk" link.
+import { site } from '../data/site';
+import { useTranslations } from '../i18n';
+interface Props { showLink?: boolean }
+const { showLink = false } = Astro.props;
+const { lang, t, path } = useTranslations(Astro.url);
+const { rep } = site;
+---
+<div class="profile">
+  <img src={rep.photo} srcset={rep.photoSet} alt={rep.name} width="100" height="116" loading="lazy" class="photo" />
+  <div class="info">
+    <p class="role">{rep.role[lang]}</p>
+    <p class="company">{rep.company[lang]}</p>
+    <p class="name">{rep.name}</p>
+    {showLink && (
+      <a href={path('/contact')} class="talk swap-host">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+        <span class="swap"><span>{t.profile.talk}</span><span>{t.profile.talk}</span></span>
+      </a>
+    )}
+  </div>
+</div>
+
+<style>
+  .profile { display: flex; align-items: center; gap: 22px; padding-left: 8px; }
+  /* multiply blends the drawing's white background into the page's cream tone */
+  .photo { width: 100px; height: 116px; object-fit: cover; border-radius: 21px; mix-blend-mode: multiply; }
+  .info { display: flex; flex-direction: column; }
+  .role { font-size: 12px; line-height: 18px; }
+  .company { font-size: 12px; line-height: 18px; font-weight: 500; }
+  .name { margin-top: 10px; font-size: 14px; line-height: 21px; font-weight: 600; }
+  .talk { margin-top: 8px; display: inline-flex; align-items: center; gap: 2px; font-size: 12px; line-height: 18px; font-weight: 500; }
+  .talk .swap > span + span { justify-content: flex-start; color: var(--color-maroon); }
+  @media (min-width: 810px) {
+    .role { font-size: 14px; line-height: 21px; }
+    .name { font-size: 18px; line-height: 27px; letter-spacing: -0.02em; }
+  }
+</style>

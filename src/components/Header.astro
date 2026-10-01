@@ -1,0 +1,65 @@
+---
+// Top bar: logo (full on tablet/desktop, icon-only on phones), language switch and "Get In Touch" button.
+import { useTranslations, localizePath, languages, type Lang } from '../i18n';
+import { ui } from '../i18n/ui';
+
+const { lang, t, path } = useTranslations(Astro.url);
+const langs = Object.keys(languages) as Lang[];
+---
+<header class="header">
+  <a href={path('/')} class="logo" aria-label="Tekras">
+    <img src="/logo.svg" alt="tekras" width="148" height="33" class="logo-full" />
+    <img src="/logo-mark.svg" alt="tekras" width="33" height="33" class="logo-mark" />
+  </a>
+  <div class="actions">
+    <nav class="lang" aria-label="Language / Idioma">
+      {langs.map((l, i) => (
+        <>
+          {i > 0 && <span class="sep" aria-hidden="true">|</span>}
+          {l === lang ? (
+            <span class="current" aria-current="true">{l.toUpperCase()}</span>
+          ) : (
+            <a href={localizePath(Astro.url.pathname, l)} hreflang={l} lang={l} title={ui[l].nav.switchTo}>{l.toUpperCase()}</a>
+          )}
+        </>
+      ))}
+    </nav>
+    <a href={path('/contact')} class="btn swap-host header-cta">
+      <span class="swap">
+        <span>{t.nav.cta}</span>
+        <span>{t.nav.cta}</span>
+      </span>
+    </a>
+  </div>
+</header>
+
+<style>
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px var(--gutter) 0;
+    min-height: 75px;
+  }
+  .logo { display: block; }
+  .logo-full { display: none; }
+  .logo-mark { display: block; width: 28px; height: auto; }
+  .actions { display: flex; align-items: center; gap: 24px; }
+
+  .lang { display: flex; align-items: center; gap: 8px; font-family: var(--font-mono); font-weight: 300; font-size: 14px; line-height: 21px; }
+  .lang .current { color: var(--color-ink); font-weight: 400; }
+  .lang a { color: var(--color-muted); transition: color 0.2s; }
+  .lang a:hover { color: var(--color-maroon); }
+  .sep { color: var(--color-muted); opacity: 0.6; }
+
+  @media (min-width: 810px) {
+    .logo-full { display: block; }
+    .logo-mark { display: none; }
+  }
+
+  /* The button itself uses the site-wide .btn style (global.css) */
+  .header-cta { display: none; }
+  @media (min-width: 810px) {
+    .header-cta { display: inline-flex; }
+  }
+</style>

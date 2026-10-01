@@ -1,0 +1,75 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { site } from '../data/site';
+import { getLang, localizePath, languages, type Lang } from '../i18n';
+
+interface Props {
+  title: string;
+  ogTitle?: string;
+  bare?: boolean; // 404 page: no header/footer, white background
+}
+const { title, ogTitle = title, bare = false } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const ogImage = new URL('/images/og-image.png', Astro.site);
+const lang = getLang(Astro.url);
+const description = site.description[lang];
+const alternates = (Object.keys(languages) as Lang[]).map((l) => ({ l, href: new URL(localizePath(Astro.url.pathname, l), Astro.site) }));
+---
+<!doctype html>
+<html lang={lang} class="no-js">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content="max-image-preview:large" />
+    <link rel="canonical" href={canonical} />
+    {!bare && alternates.map((a) => <link rel="alternate" hreflang={a.l} href={a.href} />)}
+    {!bare && <link rel="alternate" hreflang="x-default" href={alternates[0].href} />}
+    <link rel="icon" type="image/svg+xml" href="/logo-mark.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content={lang === 'es' ? 'es_GT' : 'en_US'} />
+    <meta property="og:title" content={ogTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:url" content={canonical} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preload" href="/fonts/monaspace-neon-extralight.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/inter-display-600.woff2" as="font" type="font/woff2" crossorigin />
+    <script is:inline>document.documentElement.classList.remove('no-js');</script>
+  </head>
+  <body class:list={{ bare }}>
+    <div class="page">
+      {!bare && <Header />}
+      <main>
+        <slot />
+      </main>
+      {!bare && <Footer />}
+    </div>
+
+    <script>
+      // Fade + slide-up elements marked .reveal when they scroll into view.
+      const io = new IntersectionObserver(
+        (entries) => {
+          for (const e of entries) {
+            if (e.isIntersecting) {
+              e.target.classList.add('is-visible');
+              io.unobserve(e.target);
+            }
+          }
+        },
+        { rootMargin: '0px 0px -10% 0px' },
+      );
+      document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+    </script>
+  </body>
+</html>
+
+<style>
+  body.bare { background: #fff; }
+  /* Like the Framer site: content never grows past 1440px; wider screens get centered side margins. */
+  .page { max-width: 1440px; margin: 0 auto; }
+</style>

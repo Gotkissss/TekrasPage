@@ -1,0 +1,105 @@
+---
+import type { Service } from '../data/site';
+import { useTranslations } from '../i18n';
+interface Props { service: Service }
+const { service } = Astro.props;
+const { lang, t, path } = useTranslations(Astro.url);
+---
+<a href={path(`/services/${service.slug}`)} class="card">
+  <div class="media">
+    <img src={service.image} alt={service.title[lang]} loading="lazy" />
+    <span class="follower" aria-hidden="true">
+      <span class="pill">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+        {t.home.viewDetails}
+      </span>
+    </span>
+  </div>
+  <h3 class="title t-body-xl">{service.title[lang]}</h3>
+</a>
+
+<script>
+  // The "View Details" pill follows the cursor while hovering a card's image.
+  document.querySelectorAll<HTMLElement>('.card .media').forEach((media) => {
+    const follower = media.querySelector<HTMLElement>('.follower')!;
+    const move = (e: PointerEvent) => {
+      const r = media.getBoundingClientRect();
+      follower.style.setProperty('--x', `${e.clientX - r.left}px`);
+      follower.style.setProperty('--y', `${e.clientY - r.top}px`);
+    };
+    media.addEventListener('pointermove', move);
+    // Start from the entry point so the pill doesn't glide in from the previous position.
+    media.addEventListener('pointerenter', (e) => {
+      follower.style.transition = 'none';
+      move(e);
+      follower.offsetWidth;
+      follower.style.transition = '';
+    });
+  });
+</script>
+
+<style>
+  .card {
+    /* Hover timings — adjust here */
+    --pill-in: 0.6s; /* "View Details" appearing / disappearing */
+    --pill-follow: 0.45s; /* how smoothly it trails the cursor */
+    --pop: 0.7s; /* image zoom */
+    --title-bg: 0.6s; /* maroon title bar */
+    --pop-scale: 1.06;
+    display: block;
+  }
+  .media { position: relative; aspect-ratio: 350 / 283; }
+  .media img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: transform var(--pop) cubic-bezier(0.22, 1, 0.36, 1), filter var(--pop) ease;
+  }
+  .follower {
+    --x: 50%;
+    --y: 50%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 1;
+    pointer-events: none;
+    transform: translate(var(--x), var(--y));
+    transition: transform var(--pill-follow) cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 14px 18px;
+    border-radius: 8px;
+    background: var(--color-maroon);
+    color: var(--color-cream);
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    white-space: nowrap;
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0);
+    transition: opacity var(--pill-in) var(--spring), transform var(--pill-in) var(--spring);
+  }
+  .title {
+    display: flex;
+    align-items: center;
+    min-height: 63px;
+    margin: 16px 0;
+    padding: 0 12px;
+    border-radius: 8px;
+    transition: background-color var(--title-bg) ease, color var(--title-bg) ease;
+  }
+  @media (hover: hover) {
+    .card:hover .media img { transform: translateY(-8px) scale(var(--pop-scale)); filter: drop-shadow(0 18px 24px rgba(0, 0, 0, 0.12)); }
+    .card:hover .pill { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    .card:hover .title { background: var(--color-maroon); color: var(--color-cream); }
+  }
+  .card:focus-visible .title { background: var(--color-maroon); color: var(--color-cream); }
+  @media (min-width: 810px) {
+    .media { aspect-ratio: 652 / 482; }
+    .title { min-height: 78px; margin: 0 0 14px; }
+  }
+</style>
