@@ -1,128 +1,298 @@
 ---
 import Base from '../../layouts/Base.astro';
-import HeroWords from '../../components/HeroWords.astro';
-import SectionLabel from '../../components/SectionLabel.astro';
+import Button from '../../components/Button.astro';
+import Icon from '../../components/Icon.astro';
 import ServiceCard from '../../components/ServiceCard.astro';
-import { services } from '../../data/site';
+import ProfileCard from '../../components/ProfileCard.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import { site, services, standards } from '../../data/site';
+import { showTestPages } from '../../data/flags';
 import { langParams, useTranslations } from '../../i18n';
 
 export const getStaticPaths = () => langParams.map((params) => ({ params }));
 
 const { lang, t, path } = useTranslations(Astro.url);
-// The "Nosotros" page is still a test page that only exists in development, so its link is dev-only too.
-const showAboutLink = import.meta.env.DEV || process.env.PREVIEW === 'true'; // test page link: dev + GitHub Pages preview only
+const h = t.home;
+// Labels of the small Appgate access diagram
+const flow = {
+  es: { user: 'Usuario', apps: 'Aplicaciones', checks: ['Identidad verificada', 'Dispositivo evaluado', 'Solo lo autorizado es visible'] },
+  en: { user: 'User', apps: 'Applications', checks: ['Verified identity', 'Device posture checked', 'Only what’s authorized is visible'] },
+}[lang];
+// Labels around the hero radar: the areas the services cover
+const radarTags = [
+  { text: 'OSINT', x: 16, y: 20 },
+  { text: 'WEB', x: 82, y: 16 },
+  { text: 'AD', x: 88, y: 66 },
+  { text: 'ZTNA', x: 10, y: 74 },
+];
 ---
-<Base title={t.home.title}>
-  <HeroWords />
-
-  <section class="about">
-    <SectionLabel text={t.home.aboutLabel} />
-    <h2 class="about-text t-body-xl reveal">
-      {t.home.aboutLead}{' '}<span class="muted">{t.home.aboutRest}</span>
-    </h2>
-
-    <div class="about-row">
-      <div class="about-img reveal">
-        <img src="/images/about-fortress-cropped.png" alt={t.home.imageAlt} width="368" height="391" loading="lazy" />
+<Base title={`Tekras · ${h.heroEyebrow}`} description={h.heroText}>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-bg" aria-hidden="true"></div>
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <span class="eyebrow on-dark">{h.heroEyebrow}</span>
+        <h1 class="h-display">{h.heroTitle}</h1>
+        <p class="hero-text">{h.heroText}</p>
+        <div class="hero-actions">
+          <Button href={path('/contact')} variant="light">{t.nav.cta}</Button>
+          <Button href="#servicios" variant="ghost-dark" arrow={false}>{h.heroCta2}</Button>
+        </div>
+        <p class="hero-note"><Icon name="shieldcheck" size={18} /> {h.heroNote}</p>
       </div>
-      <p class="about-side reveal">
-        <span class="lead">{t.home.sideLead}</span>{' '}{t.home.sideRest}
-        {showAboutLink && (
-          <a href={path('/nosotros')} class="about-more">
-            {lang === 'es' ? 'Conozca más sobre nosotros' : 'Learn more about us'} <span aria-hidden="true">→</span>
-          </a>
-        )}
-      </p>
+
+      <div class="radar" aria-hidden="true">
+        <svg viewBox="-100 -100 200 200" class="radar-svg">
+          <defs>
+            <radialGradient id="rg" r="0.5">
+              <stop offset="0" stop-color="#d4848c" stop-opacity="0.18" />
+              <stop offset="1" stop-color="#d4848c" stop-opacity="0" />
+            </radialGradient>
+          </defs>
+          <circle r="96" fill="url(#rg)" />
+          {[94, 70, 46, 22].map((r) => <circle r={r} class="ring" />)}
+          <path d="M-96 0H96M0-96V96" class="axis" />
+          <path d="M-68-68 68 68M-68 68 68-68" class="axis faint" />
+          <g class="sweep"><path d="M0 0 L0 -94 A94 94 0 0 1 66.5 -66.5 Z" fill="url(#sweep)" /></g>
+          <defs>
+            <linearGradient id="sweep" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0" stop-color="#d4848c" stop-opacity="0" />
+              <stop offset="1" stop-color="#d4848c" stop-opacity="0.35" />
+            </linearGradient>
+          </defs>
+          {[[-40, -52], [56, -30], [30, 50], [-60, 34], [-18, 18], [70, 40], [-30, -78]].map(([x, y], i) => (
+            <circle cx={x} cy={y} r={i < 2 ? 2.6 : 1.8} class:list={['node', { hot: i < 2 }]} style={`--d:${i * 0.4}s`} />
+          ))}
+          <image href="/logo-mark.svg" x="-11" y="-11" width="22" height="22" class="core" />
+        </svg>
+        {radarTags.map((tag) => <span class="radar-tag" style={`left:${tag.x}%;top:${tag.y}%`}>{tag.text}</span>)}
+      </div>
+    </div>
+
+    <!-- Trust strip -->
+    <div class="wrap">
+      <div class="trust">
+        <p class="trust-label">{h.trustLabel}</p>
+        <ul class="trust-list">
+          {standards.map((s) => <li>{s}</li>)}
+        </ul>
+      </div>
     </div>
   </section>
 
-  <section class="services">
-    <div class="services-head">
-      <SectionLabel text={t.home.servicesLabel} />
-      <h2 class="services-title reveal">
-        {t.home.servicesTitle}{' '}<span class="strong">{t.home.servicesTitleStrong}</span>
-      </h2>
-    </div>
-    <div class="grid">
-      {services.map((s) => <div class="reveal"><ServiceCard service={s} /></div>)}
+  <!-- Services -->
+  <section class="section" id="servicios">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">{h.servicesLabel}</span>
+        <h2 class="h-section reveal">{h.servicesTitle}</h2>
+        <p class="lead reveal">{h.servicesText}</p>
+      </div>
+      <div class="services">
+        {services.map((s, i) => <ServiceCard service={s} delay={i * 80} />)}
+      </div>
     </div>
   </section>
+
+  <!-- Appgate -->
+  <section class="section alt">
+    <div class="wrap appgate">
+      <div class="appgate-copy">
+        <span class="eyebrow">{h.appgateLabel}</span>
+        <h2 class="h-section reveal">{h.appgateTitle}</h2>
+        <p class="lead reveal">{h.appgateText}</p>
+        <ul class="checks reveal">
+          {h.appgatePoints.map((p) => <li><span class="check"><Icon name="check" size={14} stroke={2.4} /></span>{p}</li>)}
+        </ul>
+        <Button href={path('/services/sdp')} variant="primary" class="reveal">{h.appgateCta}</Button>
+      </div>
+      <div class="appgate-card reveal">
+        <img src="/partners/appgate.png" alt="Appgate" class="appgate-logo" width="600" height="150" loading="lazy" />
+        <p class="appgate-sub">Zero Trust Network Access</p>
+        <div class="flow">
+          <div class="flow-node"><span class="icon-tile"><Icon name="user" /></span><span>{flow.user}</span></div>
+          <span class="flow-line"><span></span></span>
+          <div class="flow-node brand"><span class="icon-tile"><Icon name="shieldcheck" /></span><span>Appgate SDP</span></div>
+          <span class="flow-line"><span></span></span>
+          <div class="flow-node"><span class="icon-tile"><Icon name="server" /></span><span>{flow.apps}</span></div>
+        </div>
+        <ul class="flow-checks">
+          <li><Icon name="fingerprint" size={16} /> {flow.checks[0]}</li>
+          <li><Icon name="laptop" size={16} /> {flow.checks[1]}</li>
+          <li><Icon name="eyeoff" size={16} /> {flow.checks[2]}</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Process -->
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">{h.processLabel}</span>
+        <h2 class="h-section reveal">{h.processTitle}</h2>
+      </div>
+      <ol class="process">
+        {h.process.map((step, i) => (
+          <li class="step reveal" style={`--delay:${i * 90}ms`}>
+            <span class="step-num">{String(i + 1).padStart(2, '0')}</span>
+            <h3>{step.title}</h3>
+            <p>{step.text}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- Commitments -->
+  <section class="section dark">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">{h.trustSectionLabel}</span>
+        <h2 class="h-section reveal">{h.trustTitle}</h2>
+      </div>
+      <ul class="commitments">
+        {h.commitments.map((c, i) => (
+          <li class="commitment reveal" style={`--delay:${i * 80}ms`}>
+            <span class="icon-tile"><Icon name={c.icon} /></span>
+            <h3>{c.title}</h3>
+            <p>{c.text}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section class="section alt">
+    <div class="wrap about">
+      <div class="about-copy">
+        <span class="eyebrow">{h.aboutLabel}</span>
+        <h2 class="h-section reveal">{h.aboutTitle}</h2>
+        <p class="lead reveal">{h.aboutLead} {h.aboutRest}</p>
+        <p class="about-direct reveal">{h.aboutDirect}</p>
+        {showTestPages && <a href={path('/nosotros')} class="link-arrow reveal">{h.aboutMore} <Icon name="arrow" size={16} stroke={2} /></a>}
+      </div>
+      <div class="talk reveal">
+        <p class="talk-title">{h.talkTitle}</p>
+        <ProfileCard />
+        <ul class="talk-list">
+          <li><Icon name="mail" size={17} /><a href={`mailto:${site.email}`}>{site.email}</a></li>
+          <li><Icon name="phone" size={17} /><a href={site.phoneHref}>{site.phone}</a></li>
+        </ul>
+        <Button href={path('/contact')} variant="primary" class="btn-block">{t.nav.cta}</Button>
+      </div>
+    </div>
+  </section>
+
+  <CtaBand title={h.ctaTitle} text={h.ctaText} />
 </Base>
 
 <style>
-  .about { padding: 20px var(--gutter) 0; }
-  .about-text { margin-top: 16px; text-align: justify; font-weight: 200; }
-  .muted { color: var(--color-muted); }
+  /* ---------- Hero ---------- */
+  .hero { position: relative; overflow: hidden; background: var(--color-ink); color: #fff; padding: 56px 0 0; }
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(60% 70% at 85% 30%, rgba(110, 47, 56, 0.45), transparent 70%),
+      radial-gradient(40% 50% at 10% 100%, rgba(110, 47, 56, 0.25), transparent 70%),
+      linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px) 0 0 / 48px 48px,
+      linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px) 0 0 / 48px 48px;
+    mask-image: linear-gradient(to bottom, #000 70%, transparent);
+  }
+  .hero-grid { position: relative; display: grid; gap: 56px; align-items: center; }
+  .hero-copy { display: flex; flex-direction: column; align-items: flex-start; gap: 24px; }
+  .hero-text { max-width: 600px; font-size: 18px; line-height: 1.65; color: #b9bdc7; }
+  .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 8px; }
+  .hero-note { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; color: #d5d8de; }
+  .hero-note :global(svg) { color: var(--color-brand-soft); }
 
-  .about-row { display: flex; flex-direction: column; margin-top: 60px; }
-  .about-img { height: 255px; }
-  .about-img img { width: 100%; height: 100%; object-fit: contain; }
-  .about-side {
-    margin-top: 54px;
-    text-align: justify;
-    font-family: var(--font-mono);
-    font-weight: 300;
-    font-size: 14px;
-    line-height: 21px;
-    letter-spacing: -0.02em;
-    color: var(--color-gray);
-  }
-  .about-side .lead { color: rgb(34, 52, 79); }
-  .about-more {
-    display: flex; /* on its own line, below the paragraph */
-    width: fit-content;
-    gap: 8px;
-    margin-top: 22px;
-    padding-bottom: 3px;
-    border-bottom: 1px solid currentColor;
-    color: var(--color-ink);
-    text-align: left;
-    transition: color 0.2s, gap 0.3s var(--spring);
-  }
-  .about-more:hover { color: var(--color-maroon); gap: 14px; }
+  .radar { position: relative; width: min(100%, 460px); aspect-ratio: 1; margin: 0 auto; }
+  .radar-svg { width: 100%; height: 100%; overflow: visible; }
+  .ring { fill: none; stroke: rgba(255, 255, 255, 0.12); stroke-width: 0.5; }
+  .axis { stroke: rgba(255, 255, 255, 0.08); stroke-width: 0.5; }
+  .axis.faint { stroke-dasharray: 2 3; }
+  .sweep { transform-origin: 0 0; animation: spin 7s linear infinite; }
+  .node { fill: #8b909b; }
+  .node.hot { fill: var(--color-brand-soft); animation: blip 2.8s ease-in-out infinite; animation-delay: var(--d); transform-box: fill-box; transform-origin: center; }
+  .core { filter: brightness(0) invert(1); opacity: 0.95; }
+  .radar-tag { position: absolute; translate: -50% -50%; padding: 4px 9px; border: 1px solid var(--color-line-dark); border-radius: 6px; background: rgba(17, 19, 24, 0.8); font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em; color: #c9ccd3; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  @keyframes blip { 50% { transform: scale(1.8); opacity: 0.55; } }
 
-  .services { margin-top: 135px; }
-  .services-head { display: flex; flex-direction: column; align-items: center; padding: 0 var(--gutter); }
-  .services-title {
-    margin-top: 26px;
-    max-width: 1270px;
-    text-align: center;
-    font-family: var(--font-mono);
-    font-weight: 600;
-    font-size: 20px;
-    line-height: 27px;
-    letter-spacing: -0.02em;
-    color: var(--color-gray);
-  }
-  .services-title .strong { color: var(--color-ink); }
-  .grid { display: grid; grid-template-columns: minmax(0, 1fr); margin-top: 32px; padding: 0 var(--gutter); }
+  .trust { position: relative; display: flex; flex-direction: column; gap: 16px; margin-top: 64px; padding: 28px 0 36px; border-top: 1px solid var(--color-line-dark); }
+  .trust-label { font-size: 13px; color: #8b909b; }
+  .trust-list { display: flex; flex-wrap: wrap; gap: 10px 28px; }
+  .trust-list li { font-family: var(--font-mono); font-size: 14px; letter-spacing: 0.02em; color: #e3e5e9; }
+
+  /* ---------- Services ---------- */
+  .services { display: grid; gap: 16px; }
+
+  /* ---------- Appgate ---------- */
+  .appgate { display: grid; gap: 48px; align-items: center; }
+  .appgate-copy { display: flex; flex-direction: column; align-items: flex-start; gap: 20px; }
+  .checks { display: flex; flex-direction: column; gap: 12px; margin: 4px 0 8px; }
+  .checks li { display: flex; align-items: flex-start; gap: 12px; font-size: 16px; line-height: 1.5; color: var(--color-ink); }
+  .check { display: grid; place-items: center; flex-shrink: 0; width: 22px; height: 22px; margin-top: 1px; border-radius: 6px; background: var(--color-brand); color: #fff; }
+  .appgate-card { padding: 32px 24px; border: 1px solid var(--color-line); border-radius: 20px; background: #fff; box-shadow: 0 30px 60px -40px rgba(17, 19, 24, 0.35); }
+  .appgate-logo { width: 150px; height: auto; }
+  .appgate-sub { margin-top: 8px; font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-muted); }
+  .flow { display: flex; align-items: center; gap: 8px; margin-top: 32px; }
+  .flow-node { display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center; font-size: 13px; font-weight: 600; color: var(--color-body); }
+  .flow-node.brand .icon-tile { background: var(--color-brand); color: #fff; }
+  .flow-line { position: relative; flex: 1; height: 2px; margin-bottom: 30px; background: var(--color-line); overflow: hidden; border-radius: 2px; }
+  .flow-line span { position: absolute; inset: 0; width: 40%; background: linear-gradient(90deg, transparent, var(--color-brand), transparent); animation: flow 2.4s linear infinite; }
+  @keyframes flow { from { transform: translateX(-100%); } to { transform: translateX(250%); } }
+  .flow-checks { display: flex; flex-direction: column; gap: 10px; margin-top: 28px; padding-top: 24px; border-top: 1px solid var(--color-line); }
+  .flow-checks li { display: flex; align-items: center; gap: 10px; font-size: 14px; color: var(--color-body); }
+  .flow-checks :global(svg) { color: var(--color-brand); }
+
+  /* ---------- Process ---------- */
+  .process { display: grid; gap: 0; }
+  .step { position: relative; padding: 0 0 36px 32px; border-left: 1px solid var(--color-line); }
+  .step:last-child { padding-bottom: 0; }
+  .step::before { content: ''; position: absolute; left: -5px; top: 4px; width: 9px; height: 9px; border-radius: 2px; background: var(--color-brand); }
+  .step-num { font-family: var(--font-mono); font-size: 13px; color: var(--color-brand); }
+  .step h3 { margin-top: 6px; font-weight: 600; font-size: 20px; letter-spacing: -0.02em; }
+  .step p { margin-top: 8px; max-width: 420px; font-size: 15px; line-height: 1.6; color: var(--color-body); }
+
+  /* ---------- Commitments ---------- */
+  .commitments { display: grid; gap: 16px; }
+  .commitment { padding: 28px; border: 1px solid var(--color-line-dark); border-radius: var(--radius); background: var(--color-ink-2); transition: border-color 0.3s, transform 0.4s var(--ease); }
+  .commitment:hover { border-color: rgba(212, 132, 140, 0.45); transform: translateY(-4px); }
+  .commitment h3 { margin-top: 20px; font-weight: 600; font-size: 18px; letter-spacing: -0.01em; }
+  .commitment p { margin-top: 8px; font-size: 15px; line-height: 1.6; color: #a3a8b3; }
+
+  /* ---------- About ---------- */
+  .about { display: grid; gap: 48px; align-items: center; }
+  .about-copy { display: flex; flex-direction: column; align-items: flex-start; gap: 20px; }
+  .about-direct { padding-left: 16px; border-left: 2px solid var(--color-brand); font-size: 16px; line-height: 1.6; color: var(--color-ink); }
+  .talk { display: flex; flex-direction: column; gap: 22px; padding: 28px; border: 1px solid var(--color-line); border-radius: 20px; background: #fff; }
+  .talk-title { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-muted); }
+  .talk-list { display: flex; flex-direction: column; gap: 12px; padding-top: 20px; border-top: 1px solid var(--color-line); }
+  .talk-list li { display: flex; align-items: center; gap: 12px; font-weight: 500; font-size: 15px; }
+  .talk-list :global(svg) { color: var(--color-brand); }
+  .talk-list a:hover { color: var(--color-brand); }
 
   @media (min-width: 810px) {
-    .about-text { text-indent: 402px; }
-    /* Image and text side by side, vertically centered, the pair centered on the page */
-    .about-row { flex-direction: row; justify-content: center; align-items: center; gap: clamp(40px, 6vw, 80px); margin-top: 100px; }
-    .about-img { width: clamp(280px, 30vw, 400px); height: auto; flex-shrink: 0; }
-    .about-side {
-      width: 498px;
-      max-width: 50%;
-      margin: 0;
-      font-family: 'Monaspace Neon Wide', var(--font-mono);
-      font-weight: 500;
-      line-height: 27px;
-    }
-    .about-side .lead { color: inherit; }
-
-    .services { margin-top: 124px; }
-    .services-title {
-      margin-top: 26px;
-      font-family: 'Monaspace Xenon', var(--font-mono);
-      font-size: 34px;
-      line-height: 46px;
-    }
-    .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 16px; margin-top: 60px; padding: 0 var(--gutter); }
+    .hero { padding-top: 88px; }
+    .hero-text { font-size: 19px; }
+    .trust { flex-direction: row; align-items: center; justify-content: space-between; gap: 32px; margin-top: 88px; }
+    .trust-label { flex-shrink: 0; }
+    .trust-list { justify-content: flex-end; }
+    .services { grid-template-columns: 1fr 1fr; gap: 20px; }
+    .commitments { grid-template-columns: 1fr 1fr; gap: 20px; }
+    .appgate-card { padding: 40px; }
   }
   @media (min-width: 1200px) {
-    .services-title { font-size: 45px; line-height: 60px; }
-    .grid { padding: 0 60px; }
+    .hero-grid { grid-template-columns: 1.15fr 1fr; gap: 64px; }
+    .appgate { grid-template-columns: 1fr 1fr; gap: 80px; }
+    .about { grid-template-columns: 1.3fr 1fr; gap: 80px; }
+    .process { grid-template-columns: repeat(4, 1fr); gap: 32px; }
+    .step { padding: 32px 0 0; border-left: 0; border-top: 1px solid var(--color-line); }
+    .step::before { left: 0; top: -5px; }
+    .commitments { grid-template-columns: repeat(4, 1fr); }
   }
 </style>

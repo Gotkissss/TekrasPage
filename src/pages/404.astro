@@ -10,9 +10,9 @@ const en = { ...ui.en.notFound, home: '/en/' };
   <section class="nf">
     <h1 class="digits" aria-label="404"><span>4</span><span>0</span><span>4</span></h1>
     <div class="copy">
-      <h2 class="t-body-xl" data-t="heading">{es.heading}</h2>
+      <h2 data-t="heading">{es.heading}</h2>
       <p class="lede" data-t="text">{es.text}</p>
-      <a href="/" class="btn swap-host home" data-t-href="home">
+      <a href="/" class="btn btn-light swap-host home" data-t-href="home">
         <span class="swap"><span data-t="back">{es.back}</span><span data-t="back">{es.back}</span></span>
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
       </a>
@@ -29,15 +29,29 @@ const en = { ...ui.en.notFound, home: '/en/' };
 </Base>
 
 <style>
-  .nf { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; gap: 30px; padding: 60px var(--gutter); }
-  .digits { display: flex; flex-direction: row; gap: 10px; font-weight: 700; font-size: 120px; line-height: 1; letter-spacing: -0.02em; }
-  .lede { margin-top: 10px; font-weight: 500; font-size: 18px; line-height: 1.2; letter-spacing: -0.02em; }
+  .nf {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 30px;
+    padding: 60px var(--gutter);
+    color: #fff;
+    background:
+      radial-gradient(50% 60% at 80% 30%, rgba(110, 47, 56, 0.45), transparent 70%),
+      linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px) 0 0 / 48px 48px,
+      linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px) 0 0 / 48px 48px;
+  }
+  .digits { display: flex; flex-direction: row; gap: 10px; font-family: var(--font-mono); font-weight: 600; font-size: 110px; line-height: 1; color: var(--color-brand-soft); }
+  .copy h2 { font-weight: 700; font-size: 32px; line-height: 1.15; letter-spacing: -0.03em; }
+  .lede { margin-top: 12px; font-size: 18px; line-height: 1.6; color: #b9bdc7; }
   .home { margin-top: 34px; }
 
   @media (min-width: 810px) {
     .nf { flex-direction: row; align-items: center; justify-content: flex-start; gap: 74px; padding-left: 266px; }
-    .digits { flex-direction: column; gap: 10px; font-size: 185px; line-height: 200px; }
-    .lede { font-size: 24px; line-height: 28.8px; }
+    .digits { flex-direction: column; gap: 0; font-size: 160px; line-height: 170px; }
+    .copy h2 { font-size: 48px; }
+    .lede { font-size: 20px; }
   }
   @media (max-width: 1199px) and (min-width: 810px) {
     .nf { padding-left: 80px; }

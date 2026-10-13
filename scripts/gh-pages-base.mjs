@@ -19,6 +19,8 @@ function rewrite(text, ext) {
   if (ext !== '.html') return text;
   // href, src, action
   text = text.replace(/\b(href|src|action)="(\/[^"]*)"/g, (_, a, p) => `${a}="${fix(p)}"`);
+  // redirect pages: <meta http-equiv="refresh" content="0;url=/...">
+  text = text.replace(/(content="\d+;\s*url=)(\/[^"]*)"/g, (_, pre, p) => `${pre}${fix(p)}"`);
   // srcset: comma-separated "url descriptor" entries
   text = text.replace(/\bsrcset="([^"]*)"/g, (_, v) => `srcset="${v.split(',').map((e) => e.trim().replace(/^\S+/, fix)).join(', ')}"`);
   // 404 page: language check on location.pathname and the English "home" link

@@ -1,0 +1,39 @@
+---
+// Closing call to action (brand gradient), shown right above the footer.
+import Button from './Button.astro';
+import Icon from './Icon.astro';
+import { site } from '../data/site';
+import { useTranslations } from '../i18n';
+interface Props { title: string; text: string; href?: string; button?: string }
+const { t, path } = useTranslations(Astro.url);
+const { title, text, href = path('/contact'), button = t.nav.cta } = Astro.props;
+---
+<section class="band">
+  <img src="/logo-mark-large.svg" alt="" class="mark" aria-hidden="true" loading="lazy" />
+  <div class="wrap inner">
+    <div class="copy">
+      <h2 class="h-section">{title}</h2>
+      <p>{text}</p>
+    </div>
+    <div class="actions">
+      <Button href={href} variant="light">{button}</Button>
+      <a href={site.phoneHref} class="phone"><Icon name="phone" size={17} /> {site.phone}</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .band { position: relative; overflow: hidden; padding: 80px 0; background: linear-gradient(120deg, #4a2328 0%, var(--color-brand) 55%, #7d3a44 100%); color: #fff; }
+  .mark { position: absolute; right: -80px; bottom: -120px; width: 380px; opacity: 0.07; filter: brightness(0) invert(1); pointer-events: none; }
+  .inner { position: relative; display: flex; flex-direction: column; gap: 32px; }
+  .copy { max-width: 680px; }
+  .copy p { margin-top: 16px; font-size: 18px; line-height: 1.6; color: rgba(255, 255, 255, 0.82); }
+  .actions { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 28px; }
+  .phone { display: inline-flex; align-items: center; gap: 10px; font-weight: 600; font-size: 16px; color: #fff; opacity: 0.9; transition: opacity 0.2s; }
+  .phone:hover { opacity: 1; }
+  @media (min-width: 1200px) {
+    .band { padding: 104px 0; }
+    .inner { flex-direction: row; align-items: center; justify-content: space-between; }
+    .actions { flex-shrink: 0; }
+  }
+</style>

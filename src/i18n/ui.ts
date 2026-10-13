@@ -1,9 +1,13 @@
-// Interface texts in both languages. Content (services, hero words, company info) is in src/data/site.ts.
+// Interface texts in both languages. Content (services, company info) is in src/data/site.ts.
 
 const es = {
   nav: {
-    cta: 'Contáctenos',
+    cta: 'Solicitar evaluación',
     switchTo: 'Ver en español',
+    services: 'Servicios',
+    about: 'Nosotros',
+    contact: 'Contacto',
+    menu: 'Menú',
   },
   home: {
     title: 'Tekras',
@@ -15,11 +19,51 @@ const es = {
     sideLead: 'Trabajamos de forma preventiva.',
     sideRest:
       'Detectamos los riesgos antes de que se conviertan en incidentes y le explicamos cada hallazgo con claridad, para que sepa exactamente dónde actuar.',
-    imageAlt: 'Fortaleza isométrica protegida por un candado',
+    imageAlt: 'Ilustración de una fortaleza',
+    heroEyebrow: 'Consultora de ciberseguridad · Guatemala',
+    heroTitle: 'Seguridad ofensiva y acceso Zero Trust para empresas en Latinoamérica.',
+    heroText:
+      'Encontramos las vulnerabilidades de su organización antes que los atacantes y protegemos el acceso a sus sistemas críticos con Appgate SDP, con informes claros para la dirección y para su equipo técnico.',
+    heroCta2: 'Ver servicios',
+    heroNote: 'Representantes de Appgate en Latinoamérica',
+    trustLabel: 'Trabajamos con marcos y estándares reconocidos',
     servicesLabel: 'Servicios',
-    servicesTitle: 'Más que servicios, entregamos claridad, crecimiento e',
-    servicesTitleStrong: 'impacto medible.',
-    viewDetails: 'Ver Detalles',
+    servicesTitle: 'Cuatro servicios, un mismo objetivo: reducir su riesgo real.',
+    servicesText: 'Desde pruebas de penetración hasta acceso Zero Trust, cada servicio termina en acciones concretas para su equipo.',
+    viewDetails: 'Ver servicio',
+    appgateLabel: 'Alianza',
+    appgateTitle: 'Representantes de Appgate en Latinoamérica.',
+    appgateText:
+      'Appgate SDP es una solución de Zero Trust Network Access (ZTNA) que da a cada usuario acceso solo a las aplicaciones que necesita. Nosotros la diseñamos, la implementamos y le damos soporte local, en su idioma y en su zona horaria.',
+    appgatePoints: [
+      'Migración gradual desde su VPN actual',
+      'Acceso según la identidad del usuario y el estado del dispositivo',
+      'Soporte y troubleshooting después de la implementación',
+    ],
+    appgateCta: 'Conocer Appgate SDP',
+    processLabel: 'Cómo trabajamos',
+    processTitle: 'Un proceso claro, de la primera llamada al informe final.',
+    process: [
+      { title: 'Alcance', text: 'Definimos con usted qué se evalúa, cuándo y qué queda fuera, todo por escrito.' },
+      { title: 'Ejecución', text: 'Realizamos las pruebas en las ventanas acordadas, sin interrumpir su operación.' },
+      { title: 'Informe', text: 'Entregamos un resumen ejecutivo y los hallazgos técnicos, priorizados por riesgo.' },
+      { title: 'Acompañamiento', text: 'Revisamos los resultados con su equipo y resolvemos dudas sobre la remediación.' },
+    ],
+    trustSectionLabel: 'Compromisos',
+    trustTitle: 'Lo que garantizamos en cada proyecto.',
+    commitments: [
+      { icon: 'doc', title: 'Acuerdo de confidencialidad', text: 'Firmamos un NDA antes de acceder a cualquier información de su organización.' },
+      { icon: 'file', title: 'Autorización por escrito', text: 'Ninguna prueba empieza sin un alcance y una carta de autorización firmados.' },
+      { icon: 'clock', title: 'Sin interrumpir su operación', text: 'Probamos en horarios acordados, con un canal de contacto directo durante la ejecución.' },
+      { icon: 'lock', title: 'Manejo seguro de datos', text: 'La información recopilada se protege durante el proyecto y se elimina al cerrarlo.' },
+    ],
+    aboutTitle: 'Una consultora boutique, cercana a cada cliente.',
+    aboutDirect:
+      'Quien le presenta la propuesta es quien hace las pruebas: atención directa de los especialistas, sin capas de intermediarios.',
+    aboutMore: 'Conozca al equipo',
+    talkTitle: 'Hable directamente con nosotros',
+    ctaTitle: 'Hablemos de lo que necesita proteger.',
+    ctaText: 'Cuéntenos sobre su entorno y le proponemos un alcance a la medida.',
   },
   contact: {
     title: 'Contacto - Tekras',
@@ -78,6 +122,7 @@ const es = {
   footer: {
     services: 'Servicios',
     company: 'Empresa',
+    home: 'Inicio',
     about: 'Sobre Nosotros',
     contact: 'Contáctenos',
     office: 'Oficina',
@@ -110,8 +155,12 @@ export type UI = typeof es;
 
 const en: UI = {
   nav: {
-    cta: 'Get In Touch',
+    cta: 'Request an assessment',
     switchTo: 'View in English',
+    services: 'Services',
+    about: 'About',
+    contact: 'Contact',
+    menu: 'Menu',
   },
   home: {
     title: 'Tekras',
@@ -123,11 +172,51 @@ const en: UI = {
     sideLead: 'We work preventively.',
     sideRest:
       'We spot risks before they turn into incidents and explain every finding clearly, so you know exactly where to act.',
-    imageAlt: 'Isometric fortress protected by a padlock',
+    imageAlt: 'Illustration of a fortress',
+    heroEyebrow: 'Cybersecurity consultancy · Guatemala',
+    heroTitle: 'Offensive security and Zero Trust access for companies in Latin America.',
+    heroText:
+      'We find your organization’s vulnerabilities before attackers do and secure access to your critical systems with Appgate SDP, with clear reports for leadership and for your technical team.',
+    heroCta2: 'View services',
+    heroNote: 'Appgate representatives in Latin America',
+    trustLabel: 'We work with recognized frameworks and standards',
     servicesLabel: 'Services',
-    servicesTitle: 'More than services we deliver clarity, growth, and',
-    servicesTitleStrong: 'measurable impact.',
-    viewDetails: 'View Details',
+    servicesTitle: 'Four services, one goal: reducing your real risk.',
+    servicesText: 'From penetration testing to Zero Trust access, every service ends in concrete actions for your team.',
+    viewDetails: 'View service',
+    appgateLabel: 'Partnership',
+    appgateTitle: 'Appgate representatives in Latin America.',
+    appgateText:
+      'Appgate SDP is a Zero Trust Network Access (ZTNA) solution that gives each user access only to the applications they need. We design it, implement it and support it locally, in your language and your time zone.',
+    appgatePoints: [
+      'Gradual migration from your current VPN',
+      'Access based on user identity and device posture',
+      'Support and troubleshooting after implementation',
+    ],
+    appgateCta: 'Explore Appgate SDP',
+    processLabel: 'How we work',
+    processTitle: 'A clear process, from the first call to the final report.',
+    process: [
+      { title: 'Scope', text: 'We define with you what gets tested, when, and what is out of scope, all in writing.' },
+      { title: 'Execution', text: 'We run the tests in the agreed windows, without disrupting your operations.' },
+      { title: 'Report', text: 'We deliver an executive summary and the technical findings, prioritized by risk.' },
+      { title: 'Follow-up', text: 'We walk your team through the results and answer questions about remediation.' },
+    ],
+    trustSectionLabel: 'Commitments',
+    trustTitle: 'What we guarantee on every project.',
+    commitments: [
+      { icon: 'doc', title: 'Non-disclosure agreement', text: 'We sign an NDA before accessing any information about your organization.' },
+      { icon: 'file', title: 'Written authorization', text: 'No test starts without a signed scope and authorization letter.' },
+      { icon: 'clock', title: 'No disruption to operations', text: 'We test in agreed time windows, with a direct line of contact during execution.' },
+      { icon: 'lock', title: 'Secure data handling', text: 'Collected information is protected during the project and deleted when it closes.' },
+    ],
+    aboutTitle: 'A boutique consultancy, close to every client.',
+    aboutDirect:
+      'The person who presents your proposal is the person who runs the tests: direct access to the specialists, with no layers of intermediaries.',
+    aboutMore: 'Meet the team',
+    talkTitle: 'Talk to us directly',
+    ctaTitle: 'Let’s talk about what you need to protect.',
+    ctaText: 'Tell us about your environment and we’ll propose a scope tailored to it.',
   },
   contact: {
     title: 'Contact - Tekras',
@@ -186,6 +275,7 @@ const en: UI = {
   footer: {
     services: 'Services',
     company: 'Company',
+    home: 'Home',
     about: 'About Us',
     contact: 'Contact Us',
     office: 'Office',

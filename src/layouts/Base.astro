@@ -8,13 +8,14 @@ import { getLang, localizePath, languages, type Lang } from '../i18n';
 interface Props {
   title: string;
   ogTitle?: string;
+  description?: string; // meta description; defaults to the site description
   bare?: boolean; // 404 page: no header/footer, white background
 }
-const { title, ogTitle = title, bare = false } = Astro.props;
+const { title, ogTitle = title, bare = false, description: pageDescription } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const ogImage = new URL('/images/og-image.png', Astro.site);
 const lang = getLang(Astro.url);
-const description = site.description[lang];
+const description = pageDescription ?? site.description[lang];
 const alternates = (Object.keys(languages) as Lang[]).map((l) => ({ l, href: new URL(localizePath(Astro.url.pathname, l), Astro.site) }));
 ---
 <!doctype html>
@@ -37,18 +38,16 @@ const alternates = (Object.keys(languages) as Lang[]).map((l) => ({ l, href: new
     <meta property="og:image" content={ogImage} />
     <meta property="og:url" content={canonical} />
     <meta name="twitter:card" content="summary_large_image" />
-    <link rel="preload" href="/fonts/monaspace-neon-extralight.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href="/fonts/inter-display-600.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/inter-display-400.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/inter-display-700.woff2" as="font" type="font/woff2" crossorigin />
     <script is:inline>document.documentElement.classList.remove('no-js');</script>
   </head>
   <body class:list={{ bare }}>
-    <div class="page">
-      {!bare && <Header />}
-      <main>
-        <slot />
-      </main>
-      {!bare && <Footer />}
-    </div>
+    {!bare && <Header />}
+    <main>
+      <slot />
+    </main>
+    {!bare && <Footer />}
 
     <script>
       // Fade + slide-up elements marked .reveal when they scroll into view.
@@ -69,7 +68,5 @@ const alternates = (Object.keys(languages) as Lang[]).map((l) => ({ l, href: new
 </html>
 
 <style>
-  body.bare { background: #fff; }
-  /* Like the Framer site: content never grows past 1440px; wider screens get centered side margins. */
-  .page { max-width: 1440px; margin: 0 auto; }
+  body.bare { background: var(--color-ink); }
 </style>

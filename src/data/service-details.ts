@@ -21,7 +21,7 @@ export type ServiceDetails = {
 };
 
 export const serviceDetails: Record<string, ServiceDetails> = {
-  'luna-craft': {
+  pentesting: {
     overview: {
       es: 'Evaluamos la seguridad interna y externa de su empresa mediante técnicas controladas de hacking ético, simulando ataques reales para detectar vulnerabilidades y posibles brechas de datos antes de que sean explotadas.',
       en: 'We assess your company’s internal and external security using controlled ethical hacking techniques, simulating real attacks to detect vulnerabilities and potential data breaches before they can be exploited.',
@@ -435,7 +435,7 @@ export const serviceDetails: Record<string, ServiceDetails> = {
     },
   },
 
-  'brand-forge': {
+  'vulnerability-audit': {
     overview: {
       es: 'Realizamos un examen exhaustivo de sus aplicaciones, sistemas operativos y redes para identificar debilidades de seguridad conocidas y desconocidas. Mediante escaneos automatizados y análisis manual profundo, detectamos configuraciones erróneas y software desactualizado.',
       en: 'We perform a thorough examination of your applications, operating systems and networks to identify known and unknown security weaknesses. Through automated scans and in-depth manual analysis, we detect misconfigurations and outdated software.',

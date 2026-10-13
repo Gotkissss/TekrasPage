@@ -30,19 +30,10 @@ export const site = {
   },
 };
 
-// Hero: "<prefix> <word>", cycling through the words. Colors are shared by both languages.
-export const hero = {
-  prefix: { es: 'tekras es', en: 'tekras is' } as Localized,
-  words: [
-    { color: 'rgb(176, 181, 87)', text: { es: 'tecnología', en: 'technology' } as Localized },
-    { color: 'rgb(191, 124, 49)', text: { es: 'disponibilidad', en: 'availability' } as Localized },
-    { color: 'rgb(159, 53, 27)', text: { es: 'confiabilidad', en: 'reliability' } as Localized },
-    { color: 'rgb(32, 77, 145)', text: { es: 'soporte', en: 'serviceability' } as Localized },
-  ],
-};
-
 export type Service = {
   slug: string;
+  icon: string; // name in src/data/icons.ts
+  tags: Localized<string[]>; // short technical tags on the home card
   image: string;
   date: string; // YYYY-MM-DD, shown in each language's format
   title: Localized;
@@ -53,13 +44,15 @@ export type Service = {
 // Order matters: it is the order of the home grid, the footer and the "‹ previous" links.
 export const services: Service[] = [
   {
-    slug: 'luna-craft',
+    slug: 'pentesting',
+    icon: 'target',
+    tags: { es: ['OWASP', 'Active Directory', 'OSINT'], en: ['OWASP', 'Active Directory', 'OSINT'] },
     image: '/images/pentesting.png',
     date: '2025-06-11',
     title: { es: 'Pentesting', en: 'Pentesting' },
     summary: {
-      es: 'Fortalecemos su empresa mediante hacking ético preventivo, transformando vulnerabilidades detectadas en estrategias de blindaje accionables.',
-      en: 'We strengthen your company through preventive ethical hacking, turning the vulnerabilities we find into actionable hardening strategies.',
+      es: 'Simulamos ataques reales sobre su red, sus aplicaciones y su Active Directory para encontrar las vulnerabilidades antes que un atacante, y le entregamos un plan priorizado para corregirlas.',
+      en: 'We simulate real attacks on your network, applications and Active Directory to find vulnerabilities before an attacker does, and hand you a prioritized plan to fix them.',
     },
     body: {
       es: [
@@ -74,30 +67,34 @@ export const services: Service[] = [
   },
   {
     slug: 'sdp',
+    icon: 'lock',
+    tags: { es: ['Zero Trust', 'ZTNA', 'Reemplazo de VPN'], en: ['Zero Trust', 'ZTNA', 'VPN replacement'] },
     image: '/images/sdp.png',
     date: '2025-07-30',
     title: { es: 'Perímetro Definido por Software', en: 'Software Defined Perimeter' },
     summary: {
-      es: 'Implementamos Appgate SDP para volver invisible su infraestructura crítica, con acceso seguro basado en identidad que reemplaza a la VPN tradicional.',
-      en: 'We implement Appgate SDP to make your critical infrastructure invisible, with secure, identity-based access that replaces the traditional VPN.',
+      es: 'Implementamos Appgate SDP: acceso Zero Trust basado en identidad que oculta sus aplicaciones críticas a usuarios no autorizados y reemplaza a la VPN tradicional.',
+      en: 'We implement Appgate SDP: identity-based Zero Trust access that hides your critical applications from unauthorized users and replaces the traditional VPN.',
     },
     body: {
       es: [
-        'Implementamos una arquitectura de Perímetro Definido por Software (SDP) basada en el modelo de Zero Trust, donde la infraestructura se vuelve invisible para los atacantes. A diferencia de las VPN tradicionales, SDP autentica la identidad del usuario y la seguridad del dispositivo antes de conceder acceso limitado a aplicaciones específicas, eliminando el movimiento lateral de amenazas y reduciendo drásticamente la superficie de ataque.',
+        'Implementamos una arquitectura de Perímetro Definido por Software (SDP) basada en el modelo de Zero Trust, donde la infraestructura deja de estar expuesta a usuarios no autorizados. A diferencia de las VPN tradicionales, SDP autentica la identidad del usuario y la seguridad del dispositivo antes de conceder acceso limitado a aplicaciones específicas, limitando el movimiento lateral y reduciendo la superficie de ataque.',
       ],
       en: [
-        'We implement a Software Defined Perimeter (SDP) architecture based on the Zero Trust model, in which your infrastructure becomes invisible to attackers. Unlike traditional VPNs, SDP verifies the user’s identity and the device’s security before granting limited access to specific applications, eliminating the lateral movement of threats and drastically reducing the attack surface.',
+        'We implement a Software Defined Perimeter (SDP) architecture based on the Zero Trust model, in which your infrastructure is no longer exposed to unauthorized users. Unlike traditional VPNs, SDP verifies the user’s identity and the device’s security before granting limited access to specific applications, limiting lateral movement and reducing the attack surface.',
       ],
     },
   },
   {
     slug: 'fraud-protection',
+    icon: 'activity',
+    tags: { es: ['Transacciones', 'Anomalías', 'Canales digitales'], en: ['Transactions', 'Anomalies', 'Digital channels'] },
     image: '/images/fraud-protection.png',
     date: '2025-05-14',
     title: { es: 'Protección contra Fraude', en: 'Fraud Protection' },
     summary: {
-      es: 'Neutralizamos intentos de fraude mediante monitoreo inteligente y respuesta inmediata ante cualquier anomalía.',
-      en: 'We neutralize fraud attempts through intelligent monitoring and an immediate response to any anomaly.',
+      es: 'Detectamos señales de fraude en sus transacciones y canales digitales para que pueda actuar antes de que se conviertan en pérdidas.',
+      en: 'We detect signs of fraud in your transactions and digital channels so you can act before they turn into losses.',
     },
     body: {
       es: [
@@ -109,13 +106,15 @@ export const services: Service[] = [
     },
   },
   {
-    slug: 'brand-forge',
+    slug: 'vulnerability-audit',
+    icon: 'search',
+    tags: { es: ['Escaneo', 'Análisis manual', 'Remediación'], en: ['Scanning', 'Manual analysis', 'Remediation'] },
     image: '/images/vulnerability-audit.png',
     date: '2025-06-12',
     title: { es: 'Auditoría de Vulnerabilidades de Software', en: 'Software Vulnerability Audit' },
     summary: {
-      es: 'Identificamos y cerramos las brechas de seguridad en su software antes de que los atacantes las conviertan en su punto de entrada.',
-      en: 'We identify and close the security gaps in your software before attackers turn them into their way in.',
+      es: 'Revisamos sus aplicaciones, sistemas y redes para identificar y priorizar las vulnerabilidades conocidas, con un plan de remediación claro para su equipo.',
+      en: 'We review your applications, systems and networks to identify and prioritize known vulnerabilities, with a clear remediation plan for your team.',
     },
     body: {
       es: [
@@ -130,3 +129,6 @@ export const services: Service[] = [
 
 export const formatDate = (iso: string, lang: Lang) =>
   new Intl.DateTimeFormat(lang === 'es' ? 'es-GT' : 'en-US', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' }).format(new Date(iso));
+
+// Frameworks shown in the home trust strip.
+export const standards = ['OWASP WSTG', 'PTES', 'NIST SP 800-115', 'MITRE ATT&CK', 'NIST SP 800-207'];

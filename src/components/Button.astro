@@ -1,0 +1,11 @@
+---
+// Standard button (styles in global.css). variant: primary | light | ghost | ghost-dark.
+import Icon from './Icon.astro';
+interface Props { href?: string; variant?: 'primary' | 'light' | 'ghost' | 'ghost-dark'; arrow?: boolean; small?: boolean; class?: string }
+const { href, variant = 'primary', arrow = true, small = false, class: className } = Astro.props;
+const label = await Astro.slots.render('default');
+---
+<a href={href} class:list={['btn swap-host', `btn-${variant}`, { 'btn-sm': small }, className]}>
+  <span class="swap"><span set:html={label} /><span set:html={label} aria-hidden="true" /></span>
+  {arrow && <Icon name="arrow" size={16} stroke={1.9} />}
+</a>

@@ -1,15 +1,10 @@
 @import 'tailwindcss';
 
-/* ---------- Fonts (self-hosted, Latin subset) ---------- */
-@font-face { font-family: 'Monaspace Neon'; src: url('/fonts/monaspace-neon-extralight.woff2') format('woff2'); font-weight: 200; font-display: swap; }
+/* ---------- Fonts (self-hosted, Latin subset) ----------
+   Inter Display = everything you read. Monaspace Neon = small technical accents only (labels, numbers, tags). */
 @font-face { font-family: 'Monaspace Neon'; src: url('/fonts/monaspace-neon-light.woff2') format('woff2'); font-weight: 300; font-display: swap; }
 @font-face { font-family: 'Monaspace Neon'; src: url('/fonts/monaspace-neon-regular.woff2') format('woff2'); font-weight: 400; font-display: swap; }
 @font-face { font-family: 'Monaspace Neon'; src: url('/fonts/monaspace-neon-semibold.woff2') format('woff2'); font-weight: 600; font-display: swap; }
-@font-face { font-family: 'Monaspace Neon Wide'; src: url('/fonts/monaspace-neon-wide-medium.woff2') format('woff2'); font-weight: 500; font-display: swap; }
-@font-face { font-family: 'Monaspace Xenon'; src: url('/fonts/monaspace-xenon-semibold.woff2') format('woff2'); font-weight: 600; font-display: swap; }
-@font-face { font-family: 'Monaspace Radon'; src: url('/fonts/monaspace-radon-extrabold-italic.woff2') format('woff2'); font-weight: 800; font-style: italic; font-display: swap; }
-@font-face { font-family: 'Monaspice Kr'; src: url('/fonts/monaspice-krypton-regular.woff2') format('woff2'); font-weight: 200; font-display: swap; }
-@font-face { font-family: 'Chillax'; src: url('/fonts/chillax-500.woff2') format('woff2'); font-weight: 500; font-display: swap; }
 @font-face { font-family: 'Inter Display'; src: url('/fonts/inter-display-400.woff2') format('woff2'); font-weight: 400; font-display: swap; unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
 @font-face { font-family: 'Inter Display'; src: url('/fonts/inter-display-400-ext.woff2') format('woff2'); font-weight: 400; font-display: swap; unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
 @font-face { font-family: 'Inter Display'; src: url('/fonts/inter-display-500.woff2') format('woff2'); font-weight: 500; font-display: swap; unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
@@ -24,12 +19,21 @@
   --breakpoint-md: 810px;
   --breakpoint-lg: 1200px;
 
-  --color-cream: #f3ede7;
-  --color-ink: #1b1b1b;
-  --color-gray: #626262;
-  --color-muted: #96989c;
-  --color-soft: #999999;
-  --color-maroon: #5c2d32;
+  /* Brand */
+  --color-maroon: #5c2d32; /* logo + brand */
+  --color-brand: #6e2f38; /* buttons, links, icons on light */
+  --color-brand-soft: #d4848c; /* accents on dark backgrounds */
+  --color-brand-tint: #f6ecec; /* icon tiles, selected states */
+
+  /* Neutrals */
+  --color-ink: #111318; /* headings, dark sections */
+  --color-ink-2: #1a1d24; /* cards on dark */
+  --color-body: #464b57; /* paragraphs */
+  --color-muted: #6c7280; /* secondary text */
+  --color-line: #e6e3df; /* borders on light */
+  --color-line-dark: #2a2e37; /* borders on dark */
+  --color-surface: #ffffff;
+  --color-surface-alt: #f7f5f2; /* warm off-white: a nod to the original cream */
 
   --font-mono: 'Monaspace Neon', ui-monospace, monospace;
   --font-display: 'Inter Display', 'Inter', system-ui, sans-serif;
@@ -37,44 +41,74 @@
 
 :root {
   --gutter: 20px;
+  --radius: 14px;
   --spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
 @media (min-width: 810px) {
-  :root { --gutter: 30px; }
+  :root { --gutter: 40px; }
+}
+@media (min-width: 1200px) {
+  :root { --gutter: 64px; }
 }
 
 html { -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
 body {
-  background: var(--color-cream);
+  background: var(--color-surface);
   color: var(--color-ink);
   font-family: var(--font-display);
+  font-size: 16px;
+  line-height: 1.6;
   min-height: 100vh;
   overflow-x: hidden;
 }
-::selection { background: var(--color-maroon); color: var(--color-cream); }
-:focus-visible { outline: 2px solid var(--color-maroon); outline-offset: 3px; }
+::selection { background: var(--color-brand); color: #fff; }
+:focus-visible { outline: 2px solid var(--color-brand); outline-offset: 3px; }
+
+/* ---------- Layout ---------- */
+.wrap { width: 100%; max-width: 1312px; margin: 0 auto; padding: 0 var(--gutter); }
+.section { padding: 88px 0; }
+.section.alt { background: var(--color-surface-alt); }
+.section.dark { background: var(--color-ink); color: #fff; }
+@media (min-width: 810px) {
+  .section { padding: 120px 0; }
+}
 
 /* ---------- Typography ---------- */
-.t-label { font-family: 'Monaspice Kr', var(--font-mono); font-weight: 200; font-size: 14px; line-height: 21px; letter-spacing: -0.04em; }
-.t-body-xl { font-family: var(--font-mono); font-weight: 200; font-size: 22px; line-height: 31px; letter-spacing: 0.01em; }
-.t-body { font-family: var(--font-mono); font-weight: 200; font-size: 18px; line-height: 27px; letter-spacing: -0.02em; }
-.t-small { font-family: var(--font-mono); font-weight: 300; font-size: 14px; line-height: 21px; letter-spacing: -0.02em; }
+/* Eyebrow above titles: small monospace caps with a brand dot — the "code" accent of the brand */
+.eyebrow { display: inline-flex; align-items: center; gap: 10px; font-family: var(--font-mono); font-weight: 400; font-size: 12px; line-height: 16px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-brand); }
+.eyebrow::before { content: ''; width: 6px; height: 6px; border-radius: 2px; background: currentColor; }
+.dark .eyebrow, .eyebrow.on-dark { color: var(--color-brand-soft); }
+
+.h-display { font-weight: 700; font-size: 40px; line-height: 1.08; letter-spacing: -0.035em; }
+.h-section { font-weight: 700; font-size: 32px; line-height: 1.15; letter-spacing: -0.03em; }
+.lead { font-size: 18px; line-height: 1.6; color: var(--color-body); }
+.dark .lead { color: #b9bdc7; }
 @media (min-width: 810px) {
-  .t-label { font-size: 16px; line-height: 24px; }
-  .t-body-xl { font-size: 25px; line-height: 46px; }
-  .t-small { line-height: 27px; }
+  .h-display { font-size: 60px; }
+  .h-section { font-size: 44px; }
+  .lead { font-size: 20px; }
+}
+@media (min-width: 1200px) {
+  .h-display { font-size: 68px; }
+}
+.section-head { display: flex; flex-direction: column; gap: 16px; max-width: 760px; margin-bottom: 48px; }
+.section-head.center { align-items: center; text-align: center; margin-left: auto; margin-right: auto; }
+@media (min-width: 810px) {
+  .section-head { margin-bottom: 64px; }
 }
 
 /* ---------- Scroll reveal (see Base.astro script) ---------- */
 .reveal {
   opacity: 0;
-  transform: translateY(150px);
-  transition: opacity 0.9s ease, transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  transform: translateY(24px);
+  transition: opacity 0.7s ease, transform 0.7s var(--ease);
+  transition-delay: var(--delay, 0ms);
 }
 .reveal.is-visible { opacity: 1; transform: none; }
 .no-js .reveal { opacity: 1; transform: none; }
 
-/* ---------- Text-swap button: two stacked labels, hover slides the second into view ---------- */
+/* ---------- Text-swap: two stacked labels, hover slides the second into view ---------- */
 .swap { display: inline-grid; overflow: hidden; }
 .swap > span {
   grid-area: 1 / 1;
@@ -82,7 +116,7 @@ body {
   align-items: center;
   justify-content: center;
   white-space: nowrap;
-  transition: transform 0.38s var(--spring), opacity 0.38s var(--spring);
+  transition: transform 0.38s var(--spring);
 }
 .swap > span + span { transform: translateY(110%); }
 .swap-host:hover .swap > span:first-child,
@@ -90,48 +124,57 @@ body {
 .swap-host:hover .swap > span + span,
 .swap-host:focus-visible .swap > span + span { transform: none; }
 
-/* ---------- Standard button — every button on the site uses this ----------
-   Dark pill at rest; on hover it turns maroon, the label slides and the arrow nudges right.
-   Markup: <a class="btn swap-host"><span class="swap"><span>Text</span><span>Text</span></span> [svg arrow]</a> */
+/* ---------- Buttons — every button on the site uses .btn + one variant ----------
+   Markup: <a class="btn btn-primary swap-host"><span class="swap"><span>Text</span><span>Text</span></span> [svg arrow]</a>
+   .btn-primary  brand fill (main action)       .btn-light  white fill (main action on dark)
+   .btn-ghost    outline on light                .btn-ghost-dark  outline on dark */
 .btn {
-  position: relative;
-  isolation: isolate;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
-  height: 52px;
-  padding: 0 28px;
-  border-radius: 999px;
-  background: linear-gradient(rgb(50, 50, 50), rgb(20, 20, 20));
-  color: var(--color-cream);
-  /* thin inner edge so the button stays visible on dark backgrounds too */
-  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.16), inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+  height: 50px;
+  padding: 0 24px;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: -0.01em;
   cursor: pointer;
   white-space: nowrap;
-  transition: box-shadow 0.38s var(--spring);
+  transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease, box-shadow 0.3s ease, transform 0.3s var(--ease);
 }
-.btn::before {
-  content: '';
-  position: absolute;
-  inset: -1px; /* 1px larger so the dark edge never shows through the rounded corners */
-  border-radius: inherit;
-  background: var(--color-maroon);
-  opacity: 0;
-  transition: opacity 0.38s var(--spring);
-  z-index: -1;
-}
-.btn:hover::before, .btn:focus-visible::before { opacity: 1; }
-.btn:hover, .btn:focus-visible { box-shadow: 0 12px 24px -8px rgba(92, 45, 50, 0.55), inset 0 0 0 1px rgba(255, 255, 255, 0.1); }
-.btn .swap { height: 24px; font-size: 14px; line-height: 24px; letter-spacing: -0.02em; }
-.btn .swap > span:first-child { font-family: var(--font-mono); font-weight: 300; }
-.btn .swap > span + span { font-family: 'Monaspace Neon Wide', var(--font-mono); font-weight: 500; }
+.btn .swap { height: 24px; line-height: 24px; }
 .btn svg { flex-shrink: 0; transition: transform 0.38s var(--spring); }
-.btn:hover svg { transform: translateX(4px); }
-.btn:disabled { cursor: progress; }
+.btn:hover svg, .btn:focus-visible svg { transform: translateX(4px); }
+.btn:disabled { cursor: progress; opacity: 0.8; }
 .btn-block { width: 100%; }
 
+.btn-primary { background: var(--color-brand); color: #fff; box-shadow: 0 1px 2px rgba(17, 19, 24, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.12); }
+.btn-primary:hover, .btn-primary:focus-visible { background: var(--color-maroon); box-shadow: 0 10px 24px -10px rgba(110, 47, 56, 0.7); }
+.btn-light { background: #fff; color: var(--color-ink); }
+.btn-light:hover, .btn-light:focus-visible { background: var(--color-brand-tint); color: var(--color-maroon); }
+.btn-ghost { border-color: #cfcbc5; color: var(--color-ink); background: transparent; }
+.btn-ghost:hover, .btn-ghost:focus-visible { border-color: var(--color-brand); color: var(--color-brand); }
+.btn-ghost-dark { border-color: rgba(255, 255, 255, 0.24); color: #fff; background: transparent; }
+.btn-ghost-dark:hover, .btn-ghost-dark:focus-visible { border-color: #fff; background: rgba(255, 255, 255, 0.06); }
+.btn-sm { height: 42px; padding: 0 18px; font-size: 14px; }
+
+/* Text link with arrow */
+.link-arrow { display: inline-flex; align-items: center; gap: 8px; font-weight: 600; font-size: 15px; color: var(--color-brand); transition: gap 0.3s var(--spring), color 0.2s; }
+.link-arrow:hover { gap: 12px; color: var(--color-maroon); }
+.dark .link-arrow { color: var(--color-brand-soft); }
+.dark .link-arrow:hover { color: #fff; }
+
+/* Icon tile used in cards */
+.icon-tile { display: grid; place-items: center; width: 48px; height: 48px; border-radius: 12px; background: var(--color-brand-tint); color: var(--color-brand); flex-shrink: 0; }
+.dark .icon-tile { background: rgba(212, 132, 140, 0.12); color: var(--color-brand-soft); }
+
+/* Small monospace tag */
+.tag { display: inline-flex; align-items: center; height: 28px; padding: 0 10px; border-radius: 6px; border: 1px solid var(--color-line); font-family: var(--font-mono); font-size: 12px; color: var(--color-muted); white-space: nowrap; }
+
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+  *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
   .reveal { opacity: 1; transform: none; }
+  html { scroll-behavior: auto; }
 }
