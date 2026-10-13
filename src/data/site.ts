@@ -44,13 +44,13 @@ export const allServices: Service[] = [
     slug: 'pentesting',
     active: true,
     icon: 'target',
-    tags: { es: ['OWASP', 'Active Directory', 'OSINT'], en: ['OWASP', 'Active Directory', 'OSINT'] },
+    tags: { es: ['OWASP', 'Red interna', 'OSINT'], en: ['OWASP', 'Internal network', 'OSINT'] },
     image: '/images/pentesting.png',
     date: '2025-06-11',
     title: { es: 'Pentesting', en: 'Pentesting' },
     summary: {
-      es: 'Simulamos ataques reales sobre su red, sus aplicaciones y su Active Directory para encontrar las vulnerabilidades antes que un atacante, y le entregamos un plan priorizado para corregirlas.',
-      en: 'We simulate real attacks on your network, applications and Active Directory to find vulnerabilities before an attacker does, and hand you a prioritized plan to fix them.',
+      es: 'Simulamos ataques reales sobre su red, sus aplicaciones y sus sistemas de identidad para encontrar las vulnerabilidades antes que un atacante, y le entregamos un plan priorizado para corregirlas.',
+      en: 'We simulate real attacks on your network, applications and identity systems to find vulnerabilities before an attacker does, and hand you a prioritized plan to fix them.',
     },
     body: {
       es: [

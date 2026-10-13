@@ -28,7 +28,7 @@ export const serviceDetails: Record<string, ServiceDetails> = {
     },
     highlights: [
       { label: { es: 'Enfoque', en: 'Approach' }, value: { es: 'Hacking ético controlado', en: 'Controlled ethical hacking' } },
-      { label: { es: 'Alcance', en: 'Scope' }, value: { es: 'Externo, interno y Active Directory', en: 'External, internal & Active Directory' } },
+      { label: { es: 'Alcance', en: 'Scope' }, value: { es: 'Externo, interno y aplicaciones web', en: 'External, internal & web applications' } },
       { label: { es: 'Metodología', en: 'Methodology' }, value: { es: 'OWASP', en: 'OWASP' } },
       { label: { es: 'Entregable', en: 'Deliverable' }, value: { es: 'Informe final ejecutivo y técnico', en: 'Final executive & technical report' } },
     ],
@@ -56,10 +56,10 @@ export const serviceDetails: Record<string, ServiceDetails> = {
       },
       {
         icon: 'network',
-        title: { es: 'Red interna y Active Directory', en: 'Internal network & Active Directory' },
+        title: { es: 'Red interna e identidades', en: 'Internal network & identities' },
         text: {
-          es: 'Qué podría lograr un atacante que ya está dentro: ataques a Active Directory, movimiento lateral y compromiso del dominio.',
-          en: 'What an attacker who is already inside could achieve: Active Directory attacks, lateral movement and domain compromise.',
+          es: 'Qué podría lograr un atacante que ya está dentro: ataques a sus servicios de directorio e identidad, movimiento lateral y compromiso de cuentas privilegiadas.',
+          en: 'What an attacker who is already inside could achieve: attacks on your directory and identity services, lateral movement and compromise of privileged accounts.',
         },
       },
       {
@@ -112,8 +112,8 @@ export const serviceDetails: Record<string, ServiceDetails> = {
       {
         title: { es: 'Escalamiento y movimiento lateral', en: 'Escalation & lateral movement' },
         text: {
-          es: 'Desde ese acceso, evaluamos hasta dónde podría llegar un atacante: privilegios, otros equipos y Active Directory.',
-          en: 'From that foothold, we assess how far an attacker could go: privileges, other machines and Active Directory.',
+          es: 'Desde ese acceso, evaluamos hasta dónde podría llegar un atacante: privilegios, otros equipos y sus servicios de identidad.',
+          en: 'From that foothold, we assess how far an attacker could go: privileges, other machines and your identity services.',
         },
       },
       {
