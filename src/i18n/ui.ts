@@ -21,7 +21,7 @@ const es = {
       'Detectamos los riesgos antes de que se conviertan en incidentes y le explicamos cada hallazgo con claridad, para que sepa exactamente dónde actuar.',
     imageAlt: 'Ilustración de una fortaleza',
     heroEyebrow: 'Consultora de ciberseguridad',
-    heroTitle: 'Seguridad ofensiva y acceso seguro para empresas en Latinoamérica.',
+    heroTitle: 'Seguridad ofensiva y acceso seguro, donde su empresa opere.',
     heroText:
       'Encontramos las vulnerabilidades de su organización antes que los atacantes y protegemos el acceso a sus sistemas críticos, con informes claros para la dirección y para su equipo técnico.',
     heroCta2: 'Ver servicios',
@@ -171,7 +171,7 @@ const en: UI = {
       'We spot risks before they turn into incidents and explain every finding clearly, so you know exactly where to act.',
     imageAlt: 'Illustration of a fortress',
     heroEyebrow: 'Cybersecurity consultancy',
-    heroTitle: 'Offensive security and secure access for companies in Latin America.',
+    heroTitle: 'Offensive security and secure access, wherever your business operates.',
     heroText:
       'We find your organization’s vulnerabilities before attackers do and secure access to your critical systems, with clear reports for leadership and for your technical team.',
     heroCta2: 'View services',

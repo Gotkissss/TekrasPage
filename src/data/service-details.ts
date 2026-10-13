@@ -168,7 +168,7 @@ export const serviceDetails: Record<string, ServiceDetails> = {
       { label: { es: 'Tecnología', en: 'Technology' }, value: { es: 'Appgate ZTNA', en: 'Appgate ZTNA' } },
       { label: { es: 'Modelo', en: 'Model' }, value: { es: 'Acceso por identidad', en: 'Identity-based access' } },
       { label: { es: 'Despliegue', en: 'Deployment' }, value: { es: 'En la nube, local o híbrido', en: 'Cloud, on-premises or hybrid' } },
-      { label: { es: 'Tekras', en: 'Tekras' }, value: { es: 'Representante en Latinoamérica', en: 'Representative in Latin America' } },
+      { label: { es: 'Tekras', en: 'Tekras' }, value: { es: 'Partner de Appgate', en: 'Appgate partner' } },
     ],
     labels: {
       scope: { es: 'Capacidades', en: 'Capabilities' },
