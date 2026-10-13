@@ -15,15 +15,15 @@ const { lang, t, path } = useTranslations(Astro.url);
 const h = t.home;
 // Labels of the small Appgate access diagram
 const flow = {
-  es: { user: 'Usuario', apps: 'Aplicaciones', checks: ['Identidad verificada', 'Dispositivo evaluado', 'Solo lo autorizado es visible'] },
-  en: { user: 'User', apps: 'Applications', checks: ['Verified identity', 'Device posture checked', 'Only what’s authorized is visible'] },
+  es: { sub: 'Acceso seguro a la red', user: 'Usuario', apps: 'Aplicaciones', checks: ['Identidad verificada', 'Dispositivo evaluado', 'Solo lo autorizado es visible'] },
+  en: { sub: 'Secure network access', user: 'User', apps: 'Applications', checks: ['Verified identity', 'Device posture checked', 'Only what’s authorized is visible'] },
 }[lang];
 // Labels around the hero radar: the areas the services cover
 const radarTags = [
   { text: 'OSINT', x: 16, y: 20 },
   { text: 'WEB', x: 82, y: 16 },
   { text: 'AD', x: 88, y: 66 },
-  { text: 'ZTNA', x: 10, y: 74 },
+  { text: 'SDP', x: 10, y: 74 },
 ];
 ---
 <Base title={`Tekras · ${h.heroEyebrow}`} description={h.heroText}>
@@ -109,7 +109,7 @@ const radarTags = [
       </div>
       <div class="appgate-card reveal">
         <img src="/partners/appgate.png" alt="Appgate" class="appgate-logo" width="600" height="150" loading="lazy" />
-        <p class="appgate-sub">Zero Trust Network Access</p>
+        <p class="appgate-sub">{flow.sub}</p>
         <div class="flow">
           <div class="flow-node"><span class="icon-tile"><Icon name="user" /></span><span>{flow.user}</span></div>
           <span class="flow-line"><span></span></span>

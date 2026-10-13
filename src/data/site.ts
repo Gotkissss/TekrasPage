@@ -9,8 +9,8 @@ type Localized<T = string> = Record<Lang, T>;
 export const site = {
   name: 'Tekras',
   description: {
-    es: 'Consultora de ciberseguridad en Guatemala: pentesting, Appgate SDP, protección contra fraude y auditoría de vulnerabilidades.',
-    en: 'Cybersecurity consultancy in Guatemala: pentesting, Appgate SDP, fraud protection and vulnerability audits.',
+    es: 'Consultora de ciberseguridad en Guatemala: pruebas de penetración y acceso seguro con Appgate SDP.',
+    en: 'Cybersecurity consultancy in Guatemala: penetration testing and secure access with Appgate SDP.',
   } as Localized,
   phone: '+502 3647-9866',
   phoneHref: 'tel:+50236479866',
@@ -32,6 +32,7 @@ export const site = {
 
 export type Service = {
   slug: string;
+  active: boolean; // false = service not offered right now: hidden from the whole site (pages, cards, footer, form)
   icon: string; // name in src/data/icons.ts
   tags: Localized<string[]>; // short technical tags on the home card
   image: string;
@@ -41,10 +42,12 @@ export type Service = {
   body: Localized<string[]>;
 };
 
-// Order matters: it is the order of the home grid, the footer and the "‹ previous" links.
-export const services: Service[] = [
+// Order matters: it is the order of the home grid, the footer and the contact form.
+// Every service, active or not (inactive ones keep their content for when they come back).
+export const allServices: Service[] = [
   {
     slug: 'pentesting',
+    active: true,
     icon: 'target',
     tags: { es: ['OWASP', 'Active Directory', 'OSINT'], en: ['OWASP', 'Active Directory', 'OSINT'] },
     image: '/images/pentesting.png',
@@ -67,14 +70,15 @@ export const services: Service[] = [
   },
   {
     slug: 'sdp',
+    active: true,
     icon: 'lock',
-    tags: { es: ['Zero Trust', 'ZTNA', 'Reemplazo de VPN'], en: ['Zero Trust', 'ZTNA', 'VPN replacement'] },
+    tags: { es: ['Acceso seguro', 'ZTNA', 'Reemplazo de VPN'], en: ['Secure access', 'ZTNA', 'VPN replacement'] },
     image: '/images/sdp.png',
     date: '2025-07-30',
     title: { es: 'Perímetro Definido por Software', en: 'Software Defined Perimeter' },
     summary: {
-      es: 'Implementamos Appgate SDP: acceso Zero Trust basado en identidad que oculta sus aplicaciones críticas a usuarios no autorizados y reemplaza a la VPN tradicional.',
-      en: 'We implement Appgate SDP: identity-based Zero Trust access that hides your critical applications from unauthorized users and replaces the traditional VPN.',
+      es: 'Implementamos Appgate SDP: acceso seguro basado en identidad que oculta sus aplicaciones críticas a usuarios no autorizados y reemplaza a la VPN tradicional.',
+      en: 'We implement Appgate SDP: identity-based secure access that hides your critical applications from unauthorized users and replaces the traditional VPN.',
     },
     body: {
       es: [
@@ -87,6 +91,7 @@ export const services: Service[] = [
   },
   {
     slug: 'fraud-protection',
+    active: false,
     icon: 'activity',
     tags: { es: ['Transacciones', 'Anomalías', 'Canales digitales'], en: ['Transactions', 'Anomalies', 'Digital channels'] },
     image: '/images/fraud-protection.png',
@@ -107,6 +112,7 @@ export const services: Service[] = [
   },
   {
     slug: 'vulnerability-audit',
+    active: false,
     icon: 'search',
     tags: { es: ['Escaneo', 'Análisis manual', 'Remediación'], en: ['Scanning', 'Manual analysis', 'Remediation'] },
     image: '/images/vulnerability-audit.png',
@@ -127,8 +133,11 @@ export const services: Service[] = [
   },
 ];
 
+// The services the site shows. To bring one back, set `active: true` above.
+export const services = allServices.filter((s) => s.active);
+
 export const formatDate = (iso: string, lang: Lang) =>
   new Intl.DateTimeFormat(lang === 'es' ? 'es-GT' : 'en-US', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' }).format(new Date(iso));
 
 // Frameworks shown in the home trust strip.
-export const standards = ['OWASP WSTG', 'PTES', 'NIST SP 800-115', 'MITRE ATT&CK', 'NIST SP 800-207'];
+export const standards = ['OWASP WSTG', 'PTES', 'NIST SP 800-115', 'MITRE ATT&CK'];

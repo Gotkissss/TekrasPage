@@ -166,7 +166,7 @@ export const serviceDetails: Record<string, ServiceDetails> = {
     },
     highlights: [
       { label: { es: 'Tecnología', en: 'Technology' }, value: { es: 'Appgate SDP (ZTNA universal)', en: 'Appgate SDP (Universal ZTNA)' } },
-      { label: { es: 'Modelo', en: 'Model' }, value: { es: 'Zero Trust', en: 'Zero Trust' } },
+      { label: { es: 'Modelo', en: 'Model' }, value: { es: 'Acceso por identidad', en: 'Identity-based access' } },
       { label: { es: 'Despliegue', en: 'Deployment' }, value: { es: 'En la nube, local o híbrido', en: 'Cloud, on-premises or hybrid' } },
       { label: { es: 'Tekras', en: 'Tekras' }, value: { es: 'Representante en Latinoamérica', en: 'Representative in Latin America' } },
     ],

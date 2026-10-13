@@ -13,28 +13,28 @@ const es = {
     title: 'Tekras',
     aboutLabel: 'Sobre Nosotros',
     aboutLead:
-      'Somos una consultora especializada en ciberseguridad. Protegemos lo que su organización ya construyó y lo hacemos más resiliente frente a ataques y fraude,',
+      'Somos una consultora especializada en ciberseguridad. Protegemos lo que su organización ya construyó y lo hacemos más resiliente frente a los ataques,',
     aboutRest:
-      'combinando tecnología de primer nivel con un equipo que entiende su negocio, desde arquitecturas Zero Trust hasta pruebas de penetración.',
+      'combinando tecnología de primer nivel con un equipo que entiende su negocio, desde pruebas de penetración hasta el acceso seguro a sus sistemas críticos.',
     sideLead: 'Trabajamos de forma preventiva.',
     sideRest:
       'Detectamos los riesgos antes de que se conviertan en incidentes y le explicamos cada hallazgo con claridad, para que sepa exactamente dónde actuar.',
     imageAlt: 'Ilustración de una fortaleza',
     heroEyebrow: 'Consultora de ciberseguridad · Guatemala',
-    heroTitle: 'Seguridad ofensiva y acceso Zero Trust para empresas en Latinoamérica.',
+    heroTitle: 'Seguridad ofensiva y acceso seguro para empresas en Latinoamérica.',
     heroText:
       'Encontramos las vulnerabilidades de su organización antes que los atacantes y protegemos el acceso a sus sistemas críticos con Appgate SDP, con informes claros para la dirección y para su equipo técnico.',
     heroCta2: 'Ver servicios',
     heroNote: 'Representantes de Appgate en Latinoamérica',
     trustLabel: 'Trabajamos con marcos y estándares reconocidos',
     servicesLabel: 'Servicios',
-    servicesTitle: 'Cuatro servicios, un mismo objetivo: reducir su riesgo real.',
-    servicesText: 'Desde pruebas de penetración hasta acceso Zero Trust, cada servicio termina en acciones concretas para su equipo.',
+    servicesTitle: 'Servicios enfocados en reducir su riesgo real.',
+    servicesText: 'Encontramos sus vulnerabilidades y protegemos el acceso a sus sistemas críticos. Cada servicio termina en acciones concretas para su equipo.',
     viewDetails: 'Ver servicio',
     appgateLabel: 'Alianza',
     appgateTitle: 'Representantes de Appgate en Latinoamérica.',
     appgateText:
-      'Appgate SDP es una solución de Zero Trust Network Access (ZTNA) que da a cada usuario acceso solo a las aplicaciones que necesita. Nosotros la diseñamos, la implementamos y le damos soporte local, en su idioma y en su zona horaria.',
+      'Appgate SDP es una solución de acceso seguro a la red (ZTNA) que da a cada usuario acceso solo a las aplicaciones que necesita. Nosotros la diseñamos, la implementamos y le damos soporte local, en su idioma y en su zona horaria.',
     appgatePoints: [
       'Migración gradual desde su VPN actual',
       'Acceso según la identidad del usuario y el estado del dispositivo',
@@ -166,28 +166,28 @@ const en: UI = {
     title: 'Tekras',
     aboutLabel: 'About Our Company',
     aboutLead:
-      'We’re a specialized cybersecurity consultancy. We protect what your organization has already built and make it more resilient against attacks and fraud,',
+      'We’re a specialized cybersecurity consultancy. We protect what your organization has already built and make it more resilient against attacks,',
     aboutRest:
-      'combining world-class technology with a team that understands your business, from Zero Trust architecture to penetration testing.',
+      'combining world-class technology with a team that understands your business, from penetration testing to secure access to your critical systems.',
     sideLead: 'We work preventively.',
     sideRest:
       'We spot risks before they turn into incidents and explain every finding clearly, so you know exactly where to act.',
     imageAlt: 'Illustration of a fortress',
     heroEyebrow: 'Cybersecurity consultancy · Guatemala',
-    heroTitle: 'Offensive security and Zero Trust access for companies in Latin America.',
+    heroTitle: 'Offensive security and secure access for companies in Latin America.',
     heroText:
       'We find your organization’s vulnerabilities before attackers do and secure access to your critical systems with Appgate SDP, with clear reports for leadership and for your technical team.',
     heroCta2: 'View services',
     heroNote: 'Appgate representatives in Latin America',
     trustLabel: 'We work with recognized frameworks and standards',
     servicesLabel: 'Services',
-    servicesTitle: 'Four services, one goal: reducing your real risk.',
-    servicesText: 'From penetration testing to Zero Trust access, every service ends in concrete actions for your team.',
+    servicesTitle: 'Services focused on reducing your real risk.',
+    servicesText: 'We find your vulnerabilities and secure access to your critical systems. Every service ends in concrete actions for your team.',
     viewDetails: 'View service',
     appgateLabel: 'Partnership',
     appgateTitle: 'Appgate representatives in Latin America.',
     appgateText:
-      'Appgate SDP is a Zero Trust Network Access (ZTNA) solution that gives each user access only to the applications they need. We design it, implement it and support it locally, in your language and your time zone.',
+      'Appgate SDP is a secure network access (ZTNA) solution that gives each user access only to the applications they need. We design it, implement it and support it locally, in your language and your time zone.',
     appgatePoints: [
       'Gradual migration from your current VPN',
       'Access based on user identity and device posture',

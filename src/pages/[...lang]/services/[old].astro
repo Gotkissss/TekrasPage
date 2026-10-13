@@ -1,10 +1,10 @@
 ---
-// Old service URLs left over from the Framer template (/services/luna-craft, /services/brand-forge).
+// Old service URLs left over from the Framer template (/services/luna-craft).
 // Each one is a tiny page that sends the visitor to the new URL, so old links keep working.
 import { langParams, localizePath } from '../../../i18n';
 
 export function getStaticPaths() {
-  const moved = { 'luna-craft': 'pentesting', 'brand-forge': 'vulnerability-audit' };
+  const moved = { 'luna-craft': 'pentesting' };
   return langParams.flatMap(({ lang }) =>
     Object.entries(moved).map(([old, slug]) => ({ params: { lang, old }, props: { slug } })),
   );
