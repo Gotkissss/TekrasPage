@@ -9,17 +9,12 @@ type Localized<T = string> = Record<Lang, T>;
 export const site = {
   name: 'Tekras',
   description: {
-    es: 'Consultora de ciberseguridad en Guatemala: pruebas de penetración y acceso seguro con Appgate SDP.',
-    en: 'Cybersecurity consultancy in Guatemala: penetration testing and secure access with Appgate SDP.',
+    es: 'Tekras, consultora de ciberseguridad: pruebas de penetración y acceso seguro a sus sistemas críticos.',
+    en: 'Tekras, a cybersecurity consultancy: penetration testing and secure access to your critical systems.',
   } as Localized,
   phone: '+502 3647-9866',
   phoneHref: 'tel:+50236479866',
   email: 'ventas@tekras.com',
-  office: {
-    line1: '30 Calle 23-10 Hacienda Real',
-    line2: 'Guatemala, Guatemala',
-    mapUrl: 'https://www.google.com/maps/search/?api=1&query=30+Calle+23-10+Hacienda+Real+Guatemala',
-  },
   rep: {
     role: { es: 'Gerente de Ventas', en: 'Sales Manager' } as Localized,
     company: { es: 'En Tekras®', en: 'At Tekras®' } as Localized,
@@ -137,7 +132,7 @@ export const allServices: Service[] = [
 export const services = allServices.filter((s) => s.active);
 
 export const formatDate = (iso: string, lang: Lang) =>
-  new Intl.DateTimeFormat(lang === 'es' ? 'es-GT' : 'en-US', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' }).format(new Date(iso));
+  new Intl.DateTimeFormat(lang === 'es' ? 'es' : 'en-US', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' }).format(new Date(iso));
 
 // Frameworks shown in the home trust strip.
 export const standards = ['OWASP WSTG', 'PTES', 'NIST SP 800-115', 'MITRE ATT&CK'];

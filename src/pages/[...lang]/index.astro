@@ -39,7 +39,6 @@ const radarTags = [
           <Button href={path('/contact')} variant="light">{t.nav.cta}</Button>
           <Button href="#servicios" variant="ghost-dark" arrow={false}>{h.heroCta2}</Button>
         </div>
-        <p class="hero-note"><Icon name="shieldcheck" size={18} /> {h.heroNote}</p>
       </div>
 
       <div class="radar" aria-hidden="true">
@@ -95,7 +94,7 @@ const radarTags = [
     </div>
   </section>
 
-  <!-- Appgate -->
+  <!-- Secure access (Appgate SDP) -->
   <section class="section alt">
     <div class="wrap appgate">
       <div class="appgate-copy">
@@ -206,8 +205,6 @@ const radarTags = [
   .hero-copy { display: flex; flex-direction: column; align-items: flex-start; gap: 24px; }
   .hero-text { max-width: 600px; font-size: 18px; line-height: 1.65; color: #b9bdc7; }
   .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 8px; }
-  .hero-note { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; color: #d5d8de; }
-  .hero-note :global(svg) { color: var(--color-brand-soft); }
 
   .radar { position: relative; width: min(100%, 460px); aspect-ratio: 1; margin: 0 auto; }
   .radar-svg { width: 100%; height: 100%; overflow: visible; }

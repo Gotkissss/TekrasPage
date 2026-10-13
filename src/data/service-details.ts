@@ -161,8 +161,8 @@ export const serviceDetails: Record<string, ServiceDetails> = {
 
   sdp: {
     overview: {
-      es: 'Como representantes de Appgate en Latinoamérica, implementamos Appgate SDP, una solución de Zero Trust Network Access (ZTNA) que da a cada usuario acceso solo a las aplicaciones que necesita, sin exponer su red. Sus recursos se vuelven invisibles para los atacantes y cada conexión se verifica antes de concederse.',
-      en: 'As Appgate’s representatives in Latin America, we implement Appgate SDP, a Zero Trust Network Access (ZTNA) solution that gives each user access only to the applications they need, without exposing your network. Your resources become invisible to attackers, and every connection is verified before it is granted.',
+      es: 'Implementamos Appgate SDP, una solución de Zero Trust Network Access (ZTNA) que da a cada usuario acceso solo a las aplicaciones que necesita, sin exponer su red. Sus recursos se vuelven invisibles para los atacantes y cada conexión se verifica antes de concederse.',
+      en: 'We implement Appgate SDP, a Zero Trust Network Access (ZTNA) solution that gives each user access only to the applications they need, without exposing your network. Your resources become invisible to attackers, and every connection is verified before it is granted.',
     },
     highlights: [
       { label: { es: 'Tecnología', en: 'Technology' }, value: { es: 'Appgate SDP (ZTNA universal)', en: 'Appgate SDP (Universal ZTNA)' } },
@@ -293,8 +293,8 @@ export const serviceDetails: Record<string, ServiceDetails> = {
       },
     ],
     note: {
-      es: 'Appgate y Appgate SDP son marcas de Appgate. Tekras es su representante en Latinoamérica.',
-      en: 'Appgate and Appgate SDP are trademarks of Appgate. Tekras is its representative in Latin America.',
+      es: 'Appgate y Appgate SDP son marcas registradas de Appgate.',
+      en: 'Appgate and Appgate SDP are trademarks of Appgate.',
     },
     cta: {
       title: { es: '¿Listo para dejar atrás la VPN?', en: 'Ready to move beyond the VPN?' },
