@@ -23,7 +23,7 @@ const radarTags = [
   { text: 'OSINT', x: 16, y: 20 },
   { text: 'WEB', x: 82, y: 16 },
   { text: 'AD', x: 88, y: 66 },
-  { text: 'SDP', x: 10, y: 74 },
+  { text: 'ZTNA', x: 10, y: 74 },
 ];
 ---
 <Base title={`Tekras · ${h.heroEyebrow}`} description={h.heroText}>
@@ -94,7 +94,7 @@ const radarTags = [
     </div>
   </section>
 
-  <!-- Secure access (Appgate SDP) -->
+  <!-- Secure access (Appgate ZTNA) -->
   <section class="section alt">
     <div class="wrap appgate">
       <div class="appgate-copy">
@@ -104,7 +104,7 @@ const radarTags = [
         <ul class="checks reveal">
           {h.appgatePoints.map((p) => <li><span class="check"><Icon name="check" size={14} stroke={2.4} /></span>{p}</li>)}
         </ul>
-        <Button href={path('/services/sdp')} variant="primary" class="reveal">{h.appgateCta}</Button>
+        <Button href={path('/services/ztna')} variant="primary" class="reveal">{h.appgateCta}</Button>
       </div>
       <div class="appgate-card reveal">
         <img src="/partners/appgate.png" alt="Appgate" class="appgate-logo" width="600" height="150" loading="lazy" />
@@ -112,7 +112,7 @@ const radarTags = [
         <div class="flow">
           <div class="flow-node"><span class="icon-tile"><Icon name="user" /></span><span>{flow.user}</span></div>
           <span class="flow-line"><span></span></span>
-          <div class="flow-node brand"><span class="icon-tile"><Icon name="shieldcheck" /></span><span>Appgate SDP</span></div>
+          <div class="flow-node brand"><span class="icon-tile"><Icon name="shieldcheck" /></span><span>Appgate ZTNA</span></div>
           <span class="flow-line"><span></span></span>
           <div class="flow-node"><span class="icon-tile"><Icon name="server" /></span><span>{flow.apps}</span></div>
         </div>

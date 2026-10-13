@@ -159,13 +159,13 @@ export const serviceDetails: Record<string, ServiceDetails> = {
     },
   },
 
-  sdp: {
+  ztna: {
     overview: {
-      es: 'Implementamos Appgate SDP, una solución de Zero Trust Network Access (ZTNA) que da a cada usuario acceso solo a las aplicaciones que necesita, sin exponer su red. Sus recursos se vuelven invisibles para los atacantes y cada conexión se verifica antes de concederse.',
-      en: 'We implement Appgate SDP, a Zero Trust Network Access (ZTNA) solution that gives each user access only to the applications they need, without exposing your network. Your resources become invisible to attackers, and every connection is verified before it is granted.',
+      es: 'Implementamos Appgate ZTNA, una solución de acceso seguro a la red que da a cada usuario acceso solo a las aplicaciones que necesita, sin exponer su red. Sus recursos se vuelven invisibles para los atacantes y cada conexión se verifica antes de concederse.',
+      en: 'We implement Appgate ZTNA, a secure network access solution that gives each user access only to the applications they need, without exposing your network. Your resources become invisible to attackers, and every connection is verified before it is granted.',
     },
     highlights: [
-      { label: { es: 'Tecnología', en: 'Technology' }, value: { es: 'Appgate SDP (ZTNA universal)', en: 'Appgate SDP (Universal ZTNA)' } },
+      { label: { es: 'Tecnología', en: 'Technology' }, value: { es: 'Appgate ZTNA', en: 'Appgate ZTNA' } },
       { label: { es: 'Modelo', en: 'Model' }, value: { es: 'Acceso por identidad', en: 'Identity-based access' } },
       { label: { es: 'Despliegue', en: 'Deployment' }, value: { es: 'En la nube, local o híbrido', en: 'Cloud, on-premises or hybrid' } },
       { label: { es: 'Tekras', en: 'Tekras' }, value: { es: 'Representante en Latinoamérica', en: 'Representative in Latin America' } },
@@ -176,7 +176,7 @@ export const serviceDetails: Record<string, ServiceDetails> = {
       deliverables: { es: 'Qué Obtiene', en: 'What You Get' },
     },
     titles: {
-      scope: { es: 'Lo que Appgate SDP hace por su empresa.', en: 'What Appgate SDP does for your company.' },
+      scope: { es: 'Lo que Appgate ZTNA hace por su empresa.', en: 'What Appgate ZTNA does for your company.' },
       process: { es: 'Una transición ordenada, sin interrumpir su operación.', en: 'An orderly transition, without disrupting your operations.' },
       deliverables: { es: 'Menos superficie de ataque, más control.', en: 'Less attack surface, more control.' },
     },
@@ -241,8 +241,8 @@ export const serviceDetails: Record<string, ServiceDetails> = {
       {
         title: { es: 'Diseño de políticas', en: 'Policy design' },
         text: {
-          es: 'Definimos en Appgate SDP quién puede acceder a qué y bajo qué condiciones.',
-          en: 'We define in Appgate SDP who can access what, and under which conditions.',
+          es: 'Definimos en Appgate ZTNA quién puede acceder a qué y bajo qué condiciones.',
+          en: 'We define in Appgate ZTNA who can access what, and under which conditions.',
         },
       },
       {
@@ -255,8 +255,8 @@ export const serviceDetails: Record<string, ServiceDetails> = {
       {
         title: { es: 'Migración desde la VPN', en: 'Migration from the VPN' },
         text: {
-          es: 'Appgate SDP convive con su VPN actual mientras trasladamos usuarios y aplicaciones de forma progresiva.',
-          en: 'Appgate SDP runs alongside your current VPN while we move users and applications over progressively.',
+          es: 'Appgate ZTNA convive con su VPN actual mientras trasladamos usuarios y aplicaciones de forma progresiva.',
+          en: 'Appgate ZTNA runs alongside your current VPN while we move users and applications over progressively.',
         },
       },
       {
@@ -285,7 +285,7 @@ export const serviceDetails: Record<string, ServiceDetails> = {
       },
       {
         eyebrow: { es: 'Para su equipo técnico', en: 'For your technical team' },
-        title: { es: 'Appgate SDP en operación', en: 'Appgate SDP up and running' },
+        title: { es: 'Appgate ZTNA en operación', en: 'Appgate ZTNA up and running' },
         text: {
           es: 'La solución instalada, con sus políticas de acceso configuradas y documentadas, y el respaldo directo de nuestro equipo para el troubleshooting cuando lo necesite.',
           en: 'The solution deployed, with its access policies configured and documented, and direct backing from our team for troubleshooting whenever you need it.',
@@ -293,14 +293,14 @@ export const serviceDetails: Record<string, ServiceDetails> = {
       },
     ],
     note: {
-      es: 'Appgate y Appgate SDP son marcas registradas de Appgate.',
-      en: 'Appgate and Appgate SDP are trademarks of Appgate.',
+      es: 'Appgate y Appgate ZTNA son marcas registradas de Appgate.',
+      en: 'Appgate and Appgate ZTNA are trademarks of Appgate.',
     },
     cta: {
       title: { es: '¿Listo para dejar atrás la VPN?', en: 'Ready to move beyond the VPN?' },
       text: {
-        es: 'Cuéntenos cómo acceden hoy sus usuarios y le mostraremos cómo Appgate SDP puede proteger su empresa.',
-        en: 'Tell us how your users access your systems today and we’ll show you how Appgate SDP can protect your company.',
+        es: 'Cuéntenos cómo acceden hoy sus usuarios y le mostraremos cómo Appgate ZTNA puede proteger su empresa.',
+        en: 'Tell us how your users access your systems today and we’ll show you how Appgate ZTNA can protect your company.',
       },
       button: { es: 'Solicitar una asesoría', en: 'Request a consultation' },
     },

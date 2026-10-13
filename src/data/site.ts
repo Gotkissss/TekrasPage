@@ -64,16 +64,16 @@ export const allServices: Service[] = [
     },
   },
   {
-    slug: 'sdp',
+    slug: 'ztna',
     active: true,
     icon: 'lock',
-    tags: { es: ['Acceso seguro', 'ZTNA', 'Reemplazo de VPN'], en: ['Secure access', 'ZTNA', 'VPN replacement'] },
+    tags: { es: ['Appgate ZTNA', 'Acceso por identidad', 'Reemplazo de VPN'], en: ['Appgate ZTNA', 'Identity-based access', 'VPN replacement'] },
     image: '/images/sdp.png',
     date: '2025-07-30',
-    title: { es: 'Perímetro Definido por Software', en: 'Software Defined Perimeter' },
+    title: { es: 'Acceso Seguro (ZTNA)', en: 'Secure Access (ZTNA)' },
     summary: {
-      es: 'Implementamos Appgate SDP: acceso seguro basado en identidad que oculta sus aplicaciones críticas a usuarios no autorizados y reemplaza a la VPN tradicional.',
-      en: 'We implement Appgate SDP: identity-based secure access that hides your critical applications from unauthorized users and replaces the traditional VPN.',
+      es: 'Implementamos Appgate ZTNA: acceso seguro basado en identidad que oculta sus aplicaciones críticas a usuarios no autorizados y reemplaza a la VPN tradicional.',
+      en: 'We implement Appgate ZTNA: identity-based secure access that hides your critical applications from unauthorized users and replaces the traditional VPN.',
     },
     body: {
       es: [

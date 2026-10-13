@@ -30,10 +30,10 @@ const es = {
     servicesTitle: 'Servicios enfocados en reducir su riesgo real.',
     servicesText: 'Encontramos sus vulnerabilidades y protegemos el acceso a sus sistemas críticos. Cada servicio termina en acciones concretas para su equipo.',
     viewDetails: 'Ver servicio',
-    appgateLabel: 'Perímetro Definido por Software',
+    appgateLabel: 'Appgate ZTNA',
     appgateTitle: 'Acceso seguro a sus aplicaciones, sin depender de la VPN.',
     appgateText:
-      'Trabajamos con Appgate SDP, una solución de acceso seguro a la red (ZTNA) que da a cada usuario acceso solo a las aplicaciones que necesita. La diseñamos, la implementamos y le damos soporte de principio a fin.',
+      'Trabajamos con Appgate ZTNA, una solución de acceso seguro a la red que da a cada usuario acceso solo a las aplicaciones que necesita. La diseñamos, la implementamos y le damos soporte de principio a fin.',
     appgatePoints: [
       'Migración gradual desde su VPN actual',
       'Acceso según la identidad del usuario y el estado del dispositivo',
@@ -56,9 +56,9 @@ const es = {
       { icon: 'clock', title: 'Sin interrumpir su operación', text: 'Probamos en horarios acordados, con un canal de contacto directo durante la ejecución.' },
       { icon: 'lock', title: 'Manejo seguro de datos', text: 'La información recopilada se protege durante el proyecto y se elimina al cerrarlo.' },
     ],
-    aboutTitle: 'Una consultora boutique, cercana a cada cliente.',
+    aboutTitle: 'Especialistas en ciberseguridad, cercanos a cada cliente.',
     aboutDirect:
-      'Quien le presenta la propuesta es quien hace las pruebas: atención directa de los especialistas, sin capas de intermediarios.',
+      'Trabaja directamente con los especialistas que ejecutan su proyecto, de la propuesta al informe final.',
     aboutMore: 'Conozca al equipo',
     talkTitle: 'Hable directamente con nosotros',
     ctaTitle: 'Hablemos de lo que necesita proteger.',
@@ -180,10 +180,10 @@ const en: UI = {
     servicesTitle: 'Services focused on reducing your real risk.',
     servicesText: 'We find your vulnerabilities and secure access to your critical systems. Every service ends in concrete actions for your team.',
     viewDetails: 'View service',
-    appgateLabel: 'Software Defined Perimeter',
+    appgateLabel: 'Appgate ZTNA',
     appgateTitle: 'Secure access to your applications, without relying on a VPN.',
     appgateText:
-      'We work with Appgate SDP, a secure network access (ZTNA) solution that gives each user access only to the applications they need. We design it, implement it and support it from start to finish.',
+      'We work with Appgate ZTNA, a secure network access solution that gives each user access only to the applications they need. We design it, implement it and support it from start to finish.',
     appgatePoints: [
       'Gradual migration from your current VPN',
       'Access based on user identity and device posture',
@@ -206,9 +206,9 @@ const en: UI = {
       { icon: 'clock', title: 'No disruption to operations', text: 'We test in agreed time windows, with a direct line of contact during execution.' },
       { icon: 'lock', title: 'Secure data handling', text: 'Collected information is protected during the project and deleted when it closes.' },
     ],
-    aboutTitle: 'A boutique consultancy, close to every client.',
+    aboutTitle: 'Cybersecurity specialists, close to every client.',
     aboutDirect:
-      'The person who presents your proposal is the person who runs the tests: direct access to the specialists, with no layers of intermediaries.',
+      'You work directly with the specialists who run your project, from the proposal to the final report.',
     aboutMore: 'Meet the team',
     talkTitle: 'Talk to us directly',
     ctaTitle: 'Let’s talk about what you need to protect.',
