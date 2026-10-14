@@ -161,8 +161,8 @@ export const serviceDetails: Record<string, ServiceDetails> = {
 
   ztna: {
     overview: {
-      es: 'Implementamos Appgate ZTNA, una solución de acceso seguro a la red que da a cada usuario acceso solo a las aplicaciones que necesita, sin exponer su red. Sus recursos se vuelven invisibles para los atacantes y cada conexión se verifica antes de concederse.',
-      en: 'We implement Appgate ZTNA, a secure network access solution that gives each user access only to the applications they need, without exposing your network. Your resources become invisible to attackers, and every connection is verified before it is granted.',
+      es: 'Implementamos Appgate ZTNA, una plataforma que controla el acceso a toda su infraestructura (nube, centro de datos y aplicaciones propias) y da a cada usuario, empleado o proveedor, acceso solo a lo que necesita, sin exponer su red. Sus recursos se vuelven invisibles para los atacantes y cada conexión se verifica antes de concederse.',
+      en: 'We implement Appgate ZTNA, a platform that controls access across your entire infrastructure (cloud, data center and in-house applications) and gives each user, employee or vendor, access only to what they need, without exposing your network. Your resources become invisible to attackers, and every connection is verified before it is granted.',
     },
     highlights: [
       { label: { es: 'Tecnología', en: 'Technology' }, value: { es: 'Appgate ZTNA', en: 'Appgate ZTNA' } },
@@ -253,10 +253,10 @@ export const serviceDetails: Record<string, ServiceDetails> = {
         },
       },
       {
-        title: { es: 'Migración desde la VPN', en: 'Migration from the VPN' },
+        title: { es: 'Transición progresiva', en: 'Progressive transition' },
         text: {
-          es: 'Appgate ZTNA convive con su VPN actual mientras trasladamos usuarios y aplicaciones de forma progresiva.',
-          en: 'Appgate ZTNA runs alongside your current VPN while we move users and applications over progressively.',
+          es: 'Appgate ZTNA convive con sus soluciones actuales, incluida la VPN, mientras trasladamos usuarios y aplicaciones por etapas.',
+          en: 'Appgate ZTNA runs alongside your current solutions, VPN included, while we move users and applications over in stages.',
         },
       },
       {
@@ -267,7 +267,7 @@ export const serviceDetails: Record<string, ServiceDetails> = {
         },
       },
       {
-        title: { es: 'Soporte y troubleshooting', en: 'Support & troubleshooting' },
+        title: { es: 'Soporte técnico', en: 'Technical support' },
         text: {
           es: 'Después de la implementación, nuestro propio equipo diagnostica y resuelve cualquier incidencia, sin depender de terceros.',
           en: 'After implementation, our own team diagnoses and resolves any issue, with no third parties involved.',
@@ -287,8 +287,8 @@ export const serviceDetails: Record<string, ServiceDetails> = {
         eyebrow: { es: 'Para su equipo técnico', en: 'For your technical team' },
         title: { es: 'Appgate ZTNA en operación', en: 'Appgate ZTNA up and running' },
         text: {
-          es: 'La solución instalada, con sus políticas de acceso configuradas y documentadas, y el respaldo directo de nuestro equipo para el troubleshooting cuando lo necesite.',
-          en: 'The solution deployed, with its access policies configured and documented, and direct backing from our team for troubleshooting whenever you need it.',
+          es: 'La solución instalada, con sus políticas de acceso configuradas y documentadas, y soporte técnico directo de nuestro equipo cuando lo necesite.',
+          en: 'The solution deployed, with its access policies configured and documented, and direct technical support from our team whenever you need it.',
         },
       },
     ],
@@ -297,7 +297,7 @@ export const serviceDetails: Record<string, ServiceDetails> = {
       en: 'Appgate and Appgate ZTNA are trademarks of Appgate.',
     },
     cta: {
-      title: { es: '¿Listo para dejar atrás la VPN?', en: 'Ready to move beyond the VPN?' },
+      title: { es: '¿Listo para tomar el control del acceso a su empresa?', en: 'Ready to take control of access to your company?' },
       text: {
         es: 'Cuéntenos cómo acceden hoy sus usuarios y le mostraremos cómo Appgate ZTNA puede proteger su empresa.',
         en: 'Tell us how your users access your systems today and we’ll show you how Appgate ZTNA can protect your company.',

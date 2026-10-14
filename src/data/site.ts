@@ -67,13 +67,13 @@ export const allServices: Service[] = [
     slug: 'ztna',
     active: true,
     icon: 'lock',
-    tags: { es: ['Appgate ZTNA', 'Acceso por identidad', 'Reemplazo de VPN'], en: ['Appgate ZTNA', 'Identity-based access', 'VPN replacement'] },
+    tags: { es: ['Appgate ZTNA', 'Acceso por identidad', 'Microsegmentación'], en: ['Appgate ZTNA', 'Identity-based access', 'Microsegmentation'] },
     image: '/images/sdp.png',
     date: '2025-07-30',
     title: { es: 'Acceso Seguro (ZTNA)', en: 'Secure Access (ZTNA)' },
     summary: {
-      es: 'Implementamos Appgate ZTNA: acceso seguro basado en identidad que oculta sus aplicaciones críticas a usuarios no autorizados y reemplaza a la VPN tradicional.',
-      en: 'We implement Appgate ZTNA: identity-based secure access that hides your critical applications from unauthorized users and replaces the traditional VPN.',
+      es: 'Implementamos Appgate ZTNA para controlar quién accede a qué, desde qué dispositivo y bajo qué condiciones, en toda su infraestructura: nube, centro de datos y aplicaciones propias.',
+      en: 'We implement Appgate ZTNA to control who accesses what, from which device and under which conditions, across your entire infrastructure: cloud, data center and in-house applications.',
     },
     body: {
       es: [
