@@ -30,7 +30,7 @@ const es = {
     servicesTitle: 'Servicios enfocados en reducir su riesgo real.',
     servicesText: 'Encontramos sus vulnerabilidades y protegemos el acceso a sus sistemas críticos. Cada servicio termina en acciones concretas para su equipo.',
     viewDetails: 'Ver servicio',
-    pentestLabel: 'Servicio principal',
+    pentestLabel: 'Seguridad ofensiva',
     pentestTitle: 'Pentesting: encontramos sus vulnerabilidades antes que un atacante.',
     pentestText:
       'Simulamos ataques reales, de forma controlada, sobre lo que su empresa expone a internet, su red interna, sus aplicaciones web y su personal. Al final recibe un informe claro y priorizado por riesgo, para la dirección y para su equipo técnico.',
@@ -46,7 +46,7 @@ const es = {
       ],
       severities: ['Crítico', 'Alto', 'Medio', 'Bajo'],
     },
-    appgateLabel: 'Partner tecnológico',
+    appgateLabel: 'Acceso seguro',
     appgateTitle: 'Appgate ZTNA: control del acceso a toda su infraestructura.',
     appgateText:
       'Trabajamos con Appgate ZTNA, una plataforma que controla quién accede a qué, desde qué dispositivo y bajo qué condiciones, en la nube, el centro de datos y sus aplicaciones propias. La diseñamos, la implementamos y le damos soporte técnico de principio a fin.',
@@ -195,7 +195,7 @@ const en: UI = {
     servicesTitle: 'Services focused on reducing your real risk.',
     servicesText: 'We find your vulnerabilities and secure access to your critical systems. Every service ends in concrete actions for your team.',
     viewDetails: 'View service',
-    pentestLabel: 'Core service',
+    pentestLabel: 'Offensive security',
     pentestTitle: 'Pentesting: we find your vulnerabilities before an attacker does.',
     pentestText:
       'We simulate real attacks, in a controlled way, on what your company exposes to the internet, your internal network, your web applications and your people. You get a clear report, prioritized by risk, for leadership and for your technical team.',
@@ -211,7 +211,7 @@ const en: UI = {
       ],
       severities: ['Critical', 'High', 'Medium', 'Low'],
     },
-    appgateLabel: 'Technology partner',
+    appgateLabel: 'Secure access',
     appgateTitle: 'Appgate ZTNA: control over access to your entire infrastructure.',
     appgateText:
       'We work with Appgate ZTNA, a platform that controls who accesses what, from which device and under which conditions, across the cloud, the data center and your in-house applications. We design it, implement it and provide technical support from start to finish.',
