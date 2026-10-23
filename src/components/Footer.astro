@@ -2,7 +2,6 @@
 // Site footer (dark): brand, services, company links, contact details and a bottom bar.
 import Icon from './Icon.astro';
 import { site, services } from '../data/site';
-import { showTestPages } from '../data/flags';
 import { useTranslations, localizePath, languages, type Lang } from '../i18n';
 import { ui } from '../i18n/ui';
 
@@ -10,7 +9,7 @@ const { lang, t, path: to } = useTranslations(Astro.url);
 const f = t.footer;
 const company = [
   { href: to('/'), label: f.home },
-  ...(showTestPages ? [{ href: to('/nosotros'), label: f.about }] : []),
+  { href: to('/nosotros'), label: f.about },
   { href: to('/contact'), label: f.contact },
 ];
 const langs = Object.keys(languages) as Lang[];

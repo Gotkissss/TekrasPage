@@ -5,13 +5,12 @@ import Icon from './Icon.astro';
 import Button from './Button.astro';
 import { useTranslations, localizePath, languages, type Lang } from '../i18n';
 import { ui } from '../i18n/ui';
-import { showTestPages } from '../data/flags';
 
 const { lang, t, path } = useTranslations(Astro.url);
 const langs = Object.keys(languages) as Lang[];
 const links = [
   { href: `${path('/')}#servicios`, label: t.nav.services },
-  ...(showTestPages ? [{ href: path('/nosotros'), label: t.nav.about }] : []),
+  { href: path('/nosotros'), label: t.nav.about },
   { href: path('/contact'), label: t.nav.contact },
 ];
 ---

@@ -6,7 +6,6 @@ import ServiceCard from '../../components/ServiceCard.astro';
 import ProfileCard from '../../components/ProfileCard.astro';
 import CtaBand from '../../components/CtaBand.astro';
 import { site, services, standards } from '../../data/site';
-import { showTestPages } from '../../data/flags';
 import { langParams, useTranslations } from '../../i18n';
 
 export const getStaticPaths = () => langParams.map((params) => ({ params }));
@@ -200,7 +199,7 @@ const radarTags = [
         <h2 class="h-section reveal">{h.aboutTitle}</h2>
         <p class="lead reveal">{h.aboutLead} {h.aboutRest}</p>
         <p class="about-direct reveal">{h.aboutDirect}</p>
-        {showTestPages && <Button href={path('/nosotros')} variant="ghost" class="reveal">{h.aboutMore}</Button>}
+        <Button href={path('/nosotros')} variant="ghost" class="reveal">{h.aboutMore}</Button>
       </div>
       <div class="talk reveal">
         <p class="talk-title">{h.talkTitle}</p>

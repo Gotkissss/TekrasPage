@@ -1,21 +1,20 @@
 ---
-// TEST PAGE — "Nosotros / About". Only exists in development (npm run dev) and in the
-// GitHub Pages preview (PREVIEW=true): the production build for Railway skips it.
+// "Nosotros / About": story, mission & vision, values, team, and the technology and standards we work with.
 import Base from '../../layouts/Base.astro';
 import SectionLabel from '../../components/SectionLabel.astro';
 import CtaBand from '../../components/CtaBand.astro';
 import Button from '../../components/Button.astro';
+import Icon from '../../components/Icon.astro';
 import { langParams, useTranslations } from '../../i18n';
-import { showTestPages } from '../../data/flags';
+import { standards } from '../../data/site';
 
-export const getStaticPaths = () => (showTestPages ? langParams.map((params) => ({ params })) : []);
+export const getStaticPaths = () => langParams.map((params) => ({ params }));
 
 const { lang, t, path } = useTranslations(Astro.url);
 
 const copy = {
   es: {
     title: 'Nosotros - Tekras',
-    badge: 'Página de prueba — no se publica',
     label: 'Nosotros',
     heading: 'Quiénes Somos',
     intro:
@@ -42,15 +41,22 @@ const copy = {
     ],
     teamLabel: 'Equipo',
     teamTitle: 'Las personas detrás de Tekras.',
-    partnersLabel: 'Aliados',
-    partnersTitle: 'Tecnología de clase mundial, junto a nuestros aliados.',
-    partnersText:
-      'Trabajamos con fabricantes líderes en ciberseguridad para llevar a cada cliente soluciones probadas a nivel mundial.',
-    cta: 'Hablemos',
+    techLabel: 'Tecnología y estándares',
+    techTitle: 'Una base reconocida a nivel mundial en cada proyecto.',
+    techText: 'Nos apoyamos en fabricantes y marcos de referencia reconocidos internacionalmente, para que nuestro trabajo sea sólido y verificable.',
+    partnerKicker: 'Partner de Appgate',
+    partnerText: 'Implementamos Appgate ZTNA y le damos soporte técnico con nuestro propio equipo, para controlar el acceso a toda la infraestructura de su empresa.',
+    partnerCta: 'Ver Acceso Seguro (ZTNA)',
+    standardsKicker: 'Marcos de referencia',
+    standardsText: {
+      'OWASP WSTG': 'Guía de pruebas para aplicaciones web.',
+      PTES: 'Las fases de un pentest, del acuerdo al informe.',
+      'NIST SP 800-115': 'Guía técnica para evaluaciones de seguridad.',
+      'MITRE ATT&CK': 'Catálogo de técnicas reales de atacantes.',
+    } as Record<string, string>,
   },
   en: {
     title: 'About - Tekras',
-    badge: 'Test page — not published',
     label: 'About',
     heading: 'Who We Are',
     intro: 'A cybersecurity team that stays close to every client and focuses on what truly protects your business.',
@@ -76,10 +82,19 @@ const copy = {
     ],
     teamLabel: 'Team',
     teamTitle: 'The people behind Tekras.',
-    partnersLabel: 'Partners',
-    partnersTitle: 'World-class technology, together with our partners.',
-    partnersText: 'We work with leading cybersecurity vendors to bring every client solutions proven worldwide.',
-    cta: 'Let’s Talk',
+    techLabel: 'Technology & standards',
+    techTitle: 'A globally recognized foundation on every project.',
+    techText: 'We rely on internationally recognized vendors and frameworks, so our work is solid and verifiable.',
+    partnerKicker: 'Appgate partner',
+    partnerText: 'We implement Appgate ZTNA and provide technical support with our own team, to control access across your entire infrastructure.',
+    partnerCta: 'View Secure Access (ZTNA)',
+    standardsKicker: 'Reference frameworks',
+    standardsText: {
+      'OWASP WSTG': 'Testing guide for web applications.',
+      PTES: 'The phases of a pentest, from agreement to report.',
+      'NIST SP 800-115': 'Technical guide to security assessments.',
+      'MITRE ATT&CK': 'Catalog of real-world attacker techniques.',
+    } as Record<string, string>,
   },
 }[lang];
 
@@ -87,32 +102,16 @@ const copy = {
 // (pre-shrunk so the fine pencil lines don't turn into moiré at small sizes).
 const team = [
   { name: 'Diego Quixchan', role: lang === 'es' ? 'Líder de Seguridad Ofensiva' : 'Head of Offensive Security', photo: '/images/team/ventas-pentesting' },
-  { name: 'Oliver Quixchan', role: lang === 'es' ? 'Director General (CEO)' : 'Chief Executive Officer', photo: '/images/team/ceo' },
   { name: 'Cecilia Amezquita', role: lang === 'es' ? 'Gerente de Ventas' : 'Sales Manager', photo: '/images/team/gerente-ventas' },
+  { name: 'Paulo Amezquita', role: lang === 'es' ? 'Ejecutivo de Ventas' : 'Sales Executive', photo: '/images/team/ventas-2' },
 ] as { name: string; role: string; photo?: string }[];
 
-// Partners = electrons of the Tekras "atom". Put the official logo at `logo` (public/partners/).
-// orbit: which of the 3 tilted orbits it rides; phase: starting position on it (degrees).
-const partners = [
-  { name: 'Appgate', logo: '/partners/appgate.png', orbit: 0, phase: 0 },
-  { name: 'Odoo', logo: '/partners/odoo.png', orbit: 0, phase: 180 },
-  { name: 'Lumu', logo: '/partners/lumu.png', orbit: 1, phase: 0 },
-  { name: 'iProov', logo: '/partners/iproov.png', orbit: 1, phase: 180 },
-  { name: 'Proofpoint', logo: '/partners/proofpoint.png', orbit: 2, phase: 0, round: true },
-];
-// Orbit planes: rotation on screen (deg) and seconds per full turn.
-const orbits = [
-  { angle: 0, period: 26 },
-  { angle: 60, period: 34 },
-  { angle: -60, period: 30 },
-];
 ---
 <Base title={copy.title} description={copy.intro}>
   <!-- Hero -->
   <section class="hero">
     <div class="hero-bg" aria-hidden="true"></div>
     <div class="wrap hero-inner">
-      <p class="badge">{copy.badge}</p>
       <span class="eyebrow on-dark">{copy.label}</span>
       <h1 class="h-display">{copy.heading}</h1>
       <p class="intro">{copy.intro}</p>
@@ -180,162 +179,37 @@ const orbits = [
     </ul>
   </section>
 
-  <!-- Partners orbit -->
-  <section class="block partners">
-    <div class="partners-copy">
-      <SectionLabel text={copy.partnersLabel} />
-      <h2 class="block-title reveal">{copy.partnersTitle}</h2>
-      <p class="partners-text reveal">{copy.partnersText}</p>
-      <Button href={path('/contact')} variant="primary">{copy.cta}</Button>
+  <!-- Technology & standards -->
+  <section class="block">
+    <div class="block-head">
+      <SectionLabel text={copy.techLabel} />
+      <h2 class="block-title reveal">{copy.techTitle}</h2>
+      <p class="tech-text reveal">{copy.techText}</p>
     </div>
-    <div class="orbit-wrap">
-      <div class="atom" data-atom data-orbits={JSON.stringify(orbits)} aria-label={copy.partnersLabel}>
-        <svg class="orbit-lines" viewBox="-100 -100 200 200" aria-hidden="true">
-          {orbits.map((o) => <ellipse class="atom-line" cx="0" cy="0" rx="80" ry="27" transform={`rotate(${o.angle})`} />)}
-          <circle class="ring-line" cx="0" cy="0" r="80" />
-          <circle class="ring-line inner" cx="0" cy="0" r="34" />
-        </svg>
-        <span class="glow" aria-hidden="true"></span>
-        <img src="/logo-mark-large.svg" alt="Tekras" class="core" />
-        <ul>
-          {partners.map((p) => (
-            <li class="electron" data-orbit={p.orbit} data-phase={p.phase}>
-              <span class="chip">
-                <img src={p.logo} alt={p.name} class:list={['chip-logo', { round: p.round }]} onerror="this.remove()" />
-                <span class="chip-name">{p.name}</span>
-              </span>
+    <div class="tech">
+      <article class="tech-card partner reveal">
+        <p class="tech-kicker">{copy.partnerKicker}</p>
+        <img src="/partners/appgate.png" alt="Appgate" class="partner-logo" width="600" height="150" loading="lazy" />
+        <p class="tech-body">{copy.partnerText}</p>
+        <Button href={path('/services/ztna')} variant="ghost">{copy.partnerCta}</Button>
+      </article>
+      <article class="tech-card reveal" style="--delay:100ms">
+        <p class="tech-kicker">{copy.standardsKicker}</p>
+        <ul class="standards">
+          {standards.map((name) => (
+            <li>
+              <span class="icon-tile"><Icon name="shieldcheck" /></span>
+              <div><h3>{name}</h3><p>{copy.standardsText[name]}</p></div>
             </li>
           ))}
         </ul>
-      </div>
-      <!-- TEMPORARY: switch between the flat ring and the 3D atom to compare -->
-      <div class="mode-switch" role="group" aria-label={lang === 'es' ? 'Versión de prueba' : 'Test version'}>
-        <span class="mode-hint">{lang === 'es' ? 'Versión de prueba:' : 'Test version:'}</span>
-        <button type="button" data-mode="ring">{lang === 'es' ? 'Anillo' : 'Ring'}</button>
-        <button type="button" data-mode="atom">{lang === 'es' ? 'Átomo' : 'Atom'}</button>
-      </div>
+      </article>
     </div>
   </section>
 
   <CtaBand title={t.home.ctaTitle} text={t.home.ctaText} />
 </Base>
 
-<script>
-  // Tekras atom: each partner logo travels a tilted 3D orbit around the nucleus.
-  // Front of the orbit = bigger, sharper and above the nucleus; back = smaller, faded and behind it.
-  const TILT = (70 * Math.PI) / 180; // how "flat" the orbits look (0 = circle, 90 = line)
-  const DEPTH_SCALE = 0.22; // size difference between front and back
-  document.querySelectorAll<HTMLElement>('[data-atom]').forEach((atom) => {
-    const orbits: { angle: number; period: number }[] = JSON.parse(atom.dataset.orbits!);
-    const electrons = [...atom.querySelectorAll<HTMLElement>('.electron')];
-    const ellipses = [...atom.querySelectorAll<SVGEllipseElement>('.orbit-lines .atom-line')];
-    const ring = atom.querySelector<SVGCircleElement>('.orbit-lines .ring-line:not(.inner)')!;
-    let radius = 0;
-    const measure = () => {
-      const size = atom.clientWidth;
-      const chipHalf = (electrons[0]?.firstElementChild as HTMLElement)?.offsetWidth / 2 || 60;
-      radius = size / 2 - chipHalf - 6;
-      // orbit lines in the SVG's -100..100 coordinate space
-      const rx = (radius / (size / 2)) * 100;
-      ellipses.forEach((e) => { e.setAttribute('rx', String(rx)); e.setAttribute('ry', String(rx * Math.cos(TILT))); });
-      ring.setAttribute('r', String(rx));
-    };
-    measure();
-    new ResizeObserver(measure).observe(atom);
-
-    let paused = false;
-    atom.addEventListener('pointerenter', () => (paused = true));
-    atom.addEventListener('pointerleave', () => (paused = false));
-    const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    // TEMPORARY mode switch: "ring" (flat circle, previous version) or "atom" (3D orbits).
-    // Priority: ?modo=anillo|atomo in the URL > last choice in this browser > atom.
-    const RING_PERIOD = 40; // seconds per turn in ring mode
-    const fromUrl = new URLSearchParams(location.search).get('modo');
-    let saved: string | null = null;
-    try { saved = localStorage.getItem('tekras-atom-mode'); } catch {}
-    let mode: 'ring' | 'atom' = fromUrl === 'anillo' || fromUrl === 'ring' ? 'ring' : fromUrl === 'atomo' || fromUrl === 'atom' ? 'atom' : saved === 'ring' ? 'ring' : 'atom';
-    const buttons = [...(atom.parentElement?.querySelectorAll<HTMLButtonElement>('.mode-switch button') ?? [])];
-    const setMode = (m: 'ring' | 'atom') => {
-      mode = m;
-      atom.dataset.mode = m;
-      buttons.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.mode === m)));
-      try { localStorage.setItem('tekras-atom-mode', m); } catch {}
-    };
-    buttons.forEach((b) => b.addEventListener('click', () => setMode(b.dataset.mode as 'ring' | 'atom')));
-    setMode(mode);
-
-    let clock = 0;
-    let last = performance.now();
-    const frame = (now: number) => {
-      if (!paused && !still) clock += (now - last) / 1000;
-      last = now;
-      if (mode === 'ring') {
-        // Previous version: evenly spaced on one flat circle, turning clockwise, no depth.
-        electrons.forEach((el, i) => {
-          const theta = -Math.PI / 2 + (i * Math.PI * 2) / electrons.length + (clock / RING_PERIOD) * Math.PI * 2;
-          el.style.transform = `translate(${radius * Math.cos(theta)}px, ${radius * Math.sin(theta)}px)`;
-          el.style.opacity = '1';
-          el.style.filter = 'none';
-          el.style.zIndex = '150';
-        });
-        core.style.zIndex = '100';
-        order = null; // recompute cleanly if switching back to the atom
-        requestAnimationFrame(frame);
-        return;
-      }
-      electrons.forEach((el, i) => {
-        const o = orbits[Number(el.dataset.orbit)];
-        const theta = ((Number(el.dataset.phase) * Math.PI) / 180) + (clock / o.period) * Math.PI * 2;
-        // point on a circle tilted away from the viewer, then rotated on screen by the orbit angle
-        const x0 = radius * Math.cos(theta);
-        const y0 = radius * Math.sin(theta) * Math.cos(TILT);
-        const depth = Math.sin(theta); // -1 = back, 1 = front
-        const a = (o.angle * Math.PI) / 180;
-        const x = x0 * Math.cos(a) - y0 * Math.sin(a);
-        const y = x0 * Math.sin(a) + y0 * Math.cos(a);
-        const scale = 1 + depth * DEPTH_SCALE;
-        el.style.transform = `translate(${x}px, ${y}px) scale(${scale})`;
-        el.style.opacity = String(0.45 + 0.55 * ((depth + 1) / 2));
-        el.style.filter = depth < 0 ? `blur(${(-depth * 1.2).toFixed(2)}px)` : 'none';
-        const chip = el.firstElementChild as HTMLElement;
-        layers[i] = { el, depth, x, y, w: chip.offsetWidth * scale, h: chip.offsetHeight * scale };
-      });
-      stack();
-      requestAnimationFrame(frame);
-    };
-
-    // ---- Stacking order (who is drawn on top) ----
-    // Sorting purely by depth makes two overlapping logos swap abruptly the instant their depths cross.
-    // Instead, two layers only trade places while they are NOT touching, so the switch is never visible.
-    // The nucleus (Tekras logo, depth 0) takes part too, so a logo never pops through it either.
-    type Layer = { el: HTMLElement; depth: number; x: number; y: number; w: number; h: number };
-    const core = atom.querySelector<HTMLElement>('.core')!;
-    const layers: Layer[] = [];
-    let order: Layer[] | null = null; // back → front
-    const touching = (p: Layer, q: Layer) =>
-      Math.abs(p.x - q.x) < (p.w + q.w) / 2 + 4 && Math.abs(p.y - q.y) < (p.h + q.h) / 2 + 4;
-    const stack = () => {
-      const size = core.offsetWidth * 0.85;
-      const nucleus: Layer = { el: core, depth: 0, x: 0, y: 0, w: size, h: size };
-      const all = [...layers, nucleus];
-      // first frame: plain depth order; afterwards keep the previous order and only fix what's allowed
-      order = order ? order.map((l) => all.find((n) => n.el === l.el)!) : [...all].sort((p, q) => p.depth - q.depth);
-      for (let pass = 0; pass < order.length; pass++) {
-        for (let k = 0; k < order.length - 1; k++) {
-          const back = order[k];
-          const front = order[k + 1];
-          if (back.depth > front.depth && !touching(back, front)) {
-            order[k] = front;
-            order[k + 1] = back;
-          }
-        }
-      }
-      order.forEach((l, rank) => (l.el.style.zIndex = String(10 + rank)));
-    };
-    requestAnimationFrame(frame);
-  });
-</script>
 
 <style>
   /* ---------- Shared ---------- */
@@ -355,13 +229,12 @@ const orbits = [
     mask-image: linear-gradient(to bottom, #000 60%, transparent);
   }
   .hero-inner { position: relative; display: flex; flex-direction: column; align-items: flex-start; gap: 20px; }
-  .badge { padding: 5px 12px; border: 1px dashed var(--color-brand-soft); border-radius: 6px; font-family: var(--font-mono); font-size: 12px; color: var(--color-brand-soft); }
   .intro { max-width: 720px; font-size: 18px; line-height: 1.65; color: #b9bdc7; }
 
   /* ---------- About ---------- */
   .about { display: grid; gap: 24px; }
   .about-text { display: flex; flex-direction: column; gap: 22px; max-width: 980px; }
-  .lead { font-weight: 500; font-size: 22px; line-height: 1.5; letter-spacing: -0.015em; color: var(--color-ink); }
+  .lead { font-weight: 400; font-size: 21px; line-height: 1.6; letter-spacing: -0.01em; color: var(--color-body); }
   .body { font-size: 17px; line-height: 1.7; color: var(--color-body); }
 
   /* ---------- Mission & Vision ---------- */
@@ -402,109 +275,20 @@ const orbits = [
   .member h3 { margin-top: 24px; font-weight: 600; font-size: 19px; letter-spacing: -0.02em; }
   .member p { margin-top: 4px; font-size: 14px; color: var(--color-muted); }
 
-  /* ---------- Partners orbit ---------- */
-  .partners { display: grid; gap: 56px; align-items: center; }
-  .partners-copy { display: flex; flex-direction: column; align-items: flex-start; gap: 18px; }
-  .partners-text { max-width: 480px; font-size: 17px; line-height: 1.65; color: var(--color-body); }
-
-  .orbit-wrap { container-type: inline-size; } /* the atom sizes itself to its column */
-  .atom {
-    position: relative;
-    width: min(100cqi, 580px);
-    aspect-ratio: 1;
-    margin: 0 auto;
-  }
-  .orbit-lines { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
-  .orbit-lines ellipse, .orbit-lines circle { fill: none; stroke: rgba(92, 45, 50, 0.28); stroke-width: 0.35; vector-effect: non-scaling-stroke; transition: opacity 0.6s ease; }
-  .orbit-lines .ring-line { stroke-dasharray: 4 5; opacity: 0; }
-  .orbit-lines .ring-line.inner { stroke-dasharray: none; stroke: rgba(92, 45, 50, 0.12); }
-  .atom[data-mode='ring'] .atom-line { opacity: 0; }
-  .atom[data-mode='ring'] .ring-line { opacity: 1; }
-
-  /* TEMPORARY comparison switch */
-  .mode-switch {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    width: fit-content;
-    margin: 20px auto 0;
-    padding: 5px;
-    border: 1px dashed var(--color-maroon);
-    border-radius: 999px;
-    font-family: var(--font-mono);
-    font-size: 13px;
-  }
-  .mode-hint { padding: 0 8px 0 10px; font-weight: 300; color: var(--color-maroon); }
-  .mode-switch button {
-    padding: 7px 16px;
-    border-radius: 999px;
-    font: inherit;
-    font-weight: 300;
-    color: var(--color-body);
-    cursor: pointer;
-    transition: background-color 0.25s, color 0.25s;
-  }
-  .mode-switch button:hover { color: var(--color-maroon); }
-  .mode-switch button[aria-pressed='true'] { background: var(--color-maroon); color: #fff; }
-  .glow {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    width: 46%;
-    aspect-ratio: 1;
-    translate: -50% -50%;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(92, 45, 50, 0.22), rgba(92, 45, 50, 0.06) 45%, transparent 70%);
-    animation: pulse 5s ease-in-out infinite;
-  }
-  .core {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    z-index: 100;
-    width: 22%;
-    translate: -50% -50%;
-    filter: drop-shadow(0 12px 24px rgba(92, 45, 50, 0.35));
-    animation: breathe 6s ease-in-out infinite;
-  }
-  .electron {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    width: 0;
-    height: 0;
-    will-change: transform, opacity;
-  }
-  .chip {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 108px;
-    height: 50px;
-    padding: 0 14px;
-    border-radius: 999px;
-    background: #fff;
-    border: 1px solid rgba(92, 45, 50, 0.14);
-    box-shadow: 0 12px 28px -12px rgba(92, 45, 50, 0.4);
-    translate: -50% -50%;
-    transition: border-color 0.4s ease, box-shadow 0.4s ease;
-  }
-  .chip:hover { border-color: var(--color-maroon); box-shadow: 0 16px 34px -10px rgba(92, 45, 50, 0.55); }
-  .chip-logo { max-height: 21px; max-width: 80px; width: auto; height: auto; }
-  .chip-logo.round { max-height: 40px; } /* circular logos need more height to look the same size */
-  .chip-logo + .chip-name { display: none; } /* text shows only while there's no logo file */
-  .chip-name { font-weight: 600; font-size: 15px; letter-spacing: -0.02em; white-space: nowrap; }
-  .partners { overflow-x: clip; padding-bottom: 112px; }
-
-  @keyframes pulse { 50% { scale: 1.12; opacity: 0.75; } }
-  @keyframes breathe { 50% { scale: 1.05; } }
-
-  @media (max-width: 809px) {
-    .chip { width: 84px; height: 40px; padding: 0 10px; }
-    .chip-logo { max-height: 16px; max-width: 62px; }
-    .chip-logo.round { max-height: 32px; }
-  }
+  /* ---------- Technology & standards ---------- */
+  .tech-text { max-width: 680px; font-size: 17px; line-height: 1.65; color: var(--color-body); }
+  .tech { display: grid; gap: 20px; padding-bottom: 112px; }
+  .tech-card { display: flex; flex-direction: column; align-items: flex-start; gap: 20px; padding: 32px 28px; border: 1px solid var(--color-line); border-radius: var(--radius); background: #fff; }
+  .tech-card.partner { background: var(--color-surface-alt); }
+  .tech-kicker { font-family: var(--font-mono); font-weight: 600; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-brand); }
+  .partner-logo { width: 180px; height: auto; }
+  .tech-body { font-size: 17px; line-height: 1.65; color: var(--color-body); }
+  .partner :global(.btn) { margin-top: auto; }
+  .standards { display: flex; flex-direction: column; width: 100%; }
+  .standards li { display: flex; gap: 16px; align-items: center; padding: 14px 0; border-bottom: 1px solid var(--color-line); }
+  .standards li:last-child { border-bottom: 0; padding-bottom: 0; }
+  .standards h3 { font-family: var(--font-mono); font-weight: 600; font-size: 16px; }
+  .standards p { margin-top: 2px; font-size: 15px; line-height: 1.5; color: var(--color-body); }
 
   /* ---------- Tablet / desktop ---------- */
   @media (min-width: 810px) {
@@ -518,15 +302,13 @@ const orbits = [
     .purpose-card h2 { font-size: 48px; }
     .team { grid-template-columns: repeat(3, 1fr); gap: 20px; }
     .values { grid-template-columns: 1fr 1fr; column-gap: 40px; }
-    .partners { grid-template-columns: 1fr 1.1fr; gap: 40px; }
+    .tech { grid-template-columns: 1fr 1fr; }
+    .tech-card { padding: 40px; }
   }
   @media (min-width: 1200px) {
     .block-title { font-size: 44px; }
     .avatar { width: 200px; }
     .values { grid-template-columns: repeat(4, 1fr); column-gap: 32px; border-bottom: 1px solid var(--color-line); }
     .value { padding: 36px 0 44px; border-bottom: 0; }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .glow, .core { animation: none; }
   }
 </style>

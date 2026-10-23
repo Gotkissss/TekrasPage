@@ -1,6 +1,5 @@
 # Preview deploy to GitHub Pages for evaluation. The contact form needs the Node server,
 # so on Pages it shows its error message with the email fallback.
-# PREVIEW=true includes the test pages, which the Railway build leaves out.
 name: Deploy to GitHub Pages
 
 on:
@@ -28,8 +27,6 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run build
-        env:
-          PREVIEW: 'true' # also publish the test pages (Nosotros)
       - run: node scripts/gh-pages-base.mjs
         env:
           BASE_PATH: /${{ github.event.repository.name }}
