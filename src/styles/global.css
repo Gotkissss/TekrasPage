@@ -76,8 +76,11 @@ body {
 
 /* ---------- Typography ---------- */
 /* Eyebrow above titles: small monospace caps with a brand dot — the "code" accent of the brand */
-.eyebrow { display: inline-flex; align-items: center; gap: 10px; font-family: var(--font-mono); font-weight: 400; font-size: 12px; line-height: 16px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-brand); }
-.eyebrow::before { content: ''; width: 6px; height: 6px; border-radius: 2px; background: currentColor; }
+.eyebrow { display: inline-flex; align-items: center; gap: 12px; font-family: var(--font-mono); font-weight: 600; font-size: 14px; line-height: 20px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-brand); }
+.eyebrow::before { content: ''; width: 8px; height: 8px; border-radius: 2px; background: currentColor; }
+@media (min-width: 810px) {
+  .eyebrow { font-size: 15px; }
+}
 .dark .eyebrow, .eyebrow.on-dark { color: var(--color-brand-soft); }
 
 .h-display { font-weight: 700; font-size: 40px; line-height: 1.08; letter-spacing: -0.035em; }
@@ -133,12 +136,12 @@ body {
   align-items: center;
   justify-content: center;
   gap: 10px;
-  height: 50px;
-  padding: 0 24px;
+  height: 54px;
+  padding: 0 28px;
   border-radius: 10px;
   border: 1px solid transparent;
   font-weight: 600;
-  font-size: 15px;
+  font-size: 16px;
   letter-spacing: -0.01em;
   cursor: pointer;
   white-space: nowrap;
@@ -154,14 +157,14 @@ body {
 .btn-primary:hover, .btn-primary:focus-visible { background: var(--color-maroon); box-shadow: 0 10px 24px -10px rgba(110, 47, 56, 0.7); }
 .btn-light { background: #fff; color: var(--color-ink); }
 .btn-light:hover, .btn-light:focus-visible { background: var(--color-brand-tint); color: var(--color-maroon); }
-.btn-ghost { border-color: #cfcbc5; color: var(--color-ink); background: transparent; }
+.btn-ghost { border-color: #b9b3ab; border-width: 1.5px; color: var(--color-ink); background: transparent; }
 .btn-ghost:hover, .btn-ghost:focus-visible { border-color: var(--color-brand); color: var(--color-brand); }
 .btn-ghost-dark { border-color: rgba(255, 255, 255, 0.24); color: #fff; background: transparent; }
 .btn-ghost-dark:hover, .btn-ghost-dark:focus-visible { border-color: #fff; background: rgba(255, 255, 255, 0.06); }
-.btn-sm { height: 42px; padding: 0 18px; font-size: 14px; }
+.btn-sm { height: 44px; padding: 0 20px; font-size: 15px; }
 
 /* Text link with arrow */
-.link-arrow { display: inline-flex; align-items: center; gap: 8px; font-weight: 600; font-size: 15px; color: var(--color-brand); transition: gap 0.3s var(--spring), color 0.2s; }
+.link-arrow { display: inline-flex; align-items: center; gap: 8px; font-weight: 600; font-size: 17px; color: var(--color-brand); transition: gap 0.3s var(--spring), color 0.2s; }
 .link-arrow:hover { gap: 12px; color: var(--color-maroon); }
 .dark .link-arrow { color: var(--color-brand-soft); }
 .dark .link-arrow:hover { color: #fff; }
@@ -171,7 +174,7 @@ body {
 .dark .icon-tile { background: rgba(212, 132, 140, 0.12); color: var(--color-brand-soft); }
 
 /* Small monospace tag */
-.tag { display: inline-flex; align-items: center; height: 28px; padding: 0 10px; border-radius: 6px; border: 1px solid var(--color-line); font-family: var(--font-mono); font-size: 12px; color: var(--color-muted); white-space: nowrap; }
+.tag { display: inline-flex; align-items: center; height: 28px; padding: 0 10px; border-radius: 6px; border: 1px solid var(--color-line); font-family: var(--font-mono); font-size: 13px; color: var(--color-muted); white-space: nowrap; }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }

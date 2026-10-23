@@ -94,8 +94,45 @@ const radarTags = [
     </div>
   </section>
 
-  <!-- Secure access (Appgate ZTNA) -->
+  <!-- Pentesting: the core service -->
   <section class="section alt">
+    <div class="wrap feature">
+      <div class="feature-copy">
+        <span class="eyebrow">{h.pentestLabel}</span>
+        <h2 class="h-section reveal">{h.pentestTitle}</h2>
+        <p class="lead reveal">{h.pentestText}</p>
+        <ul class="areas reveal">
+          {h.pentestAreas.map((a) => <li><Icon name="check" size={15} stroke={2.2} />{a}</li>)}
+        </ul>
+        <div class="feature-actions reveal">
+          <Button href={path('/services/pentesting')} variant="primary">{h.pentestCta}</Button>
+          <Button href={`${path('/contact')}?servicio=pentesting`} variant="ghost" arrow={false}>{t.nav.cta}</Button>
+        </div>
+      </div>
+      <div class="report reveal">
+        <p class="report-label"><Icon name="doc" size={16} /> {h.report.label}</p>
+        <ol class="report-rows">
+          {h.report.rows.map((r, i) => (
+            <li>
+              <span class="report-num">{String(i + 1).padStart(2, '0')}</span>
+              <div>
+                <h3>{r.title}</h3>
+                <p>{r.text}</p>
+                {i === 1 && (
+                  <ul class="sev">
+                    {h.report.severities.map((sv, k) => <li class={`sev-${k}`}>{sv}</li>)}
+                  </ul>
+                )}
+              </div>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- Technology partner: Appgate ZTNA -->
+  <section class="section">
     <div class="wrap appgate">
       <div class="appgate-copy">
         <span class="eyebrow">{h.appgateLabel}</span>
@@ -104,7 +141,7 @@ const radarTags = [
         <ul class="checks reveal">
           {h.appgatePoints.map((p) => <li><span class="check"><Icon name="check" size={14} stroke={2.4} /></span>{p}</li>)}
         </ul>
-        <Button href={path('/services/ztna')} variant="primary" class="reveal">{h.appgateCta}</Button>
+        <Button href={path('/services/ztna')} variant="ghost" class="reveal">{h.appgateCta}</Button>
       </div>
       <div class="appgate-card reveal">
         <img src="/partners/appgate.png" alt="Appgate" class="appgate-logo" width="600" height="150" loading="lazy" />
@@ -126,7 +163,7 @@ const radarTags = [
   </section>
 
   <!-- Process -->
-  <section class="section">
+  <section class="section alt">
     <div class="wrap">
       <div class="section-head">
         <span class="eyebrow">{h.processLabel}</span>
@@ -141,37 +178,29 @@ const radarTags = [
           </li>
         ))}
       </ol>
-    </div>
-  </section>
-
-  <!-- Commitments -->
-  <section class="section dark">
-    <div class="wrap">
-      <div class="section-head">
-        <span class="eyebrow">{h.trustSectionLabel}</span>
-        <h2 class="h-section reveal">{h.trustTitle}</h2>
+      <div class="commit reveal">
+        <p class="commit-label">{h.commitmentsLabel}</p>
+        <ul class="commit-list">
+          {h.commitments.map((c) => (
+            <li>
+              <span class="icon-tile"><Icon name={c.icon} /></span>
+              <div><h3>{c.title}</h3><p>{c.text}</p></div>
+            </li>
+          ))}
+        </ul>
       </div>
-      <ul class="commitments">
-        {h.commitments.map((c, i) => (
-          <li class="commitment reveal" style={`--delay:${i * 80}ms`}>
-            <span class="icon-tile"><Icon name={c.icon} /></span>
-            <h3>{c.title}</h3>
-            <p>{c.text}</p>
-          </li>
-        ))}
-      </ul>
     </div>
   </section>
 
   <!-- About -->
-  <section class="section alt">
+  <section class="section">
     <div class="wrap about">
       <div class="about-copy">
         <span class="eyebrow">{h.aboutLabel}</span>
         <h2 class="h-section reveal">{h.aboutTitle}</h2>
         <p class="lead reveal">{h.aboutLead} {h.aboutRest}</p>
         <p class="about-direct reveal">{h.aboutDirect}</p>
-        {showTestPages && <a href={path('/nosotros')} class="link-arrow reveal">{h.aboutMore} <Icon name="arrow" size={16} stroke={2} /></a>}
+        {showTestPages && <Button href={path('/nosotros')} variant="ghost" class="reveal">{h.aboutMore}</Button>}
       </div>
       <div class="talk reveal">
         <p class="talk-title">{h.talkTitle}</p>
@@ -220,12 +249,35 @@ const radarTags = [
   @keyframes blip { 50% { transform: scale(1.8); opacity: 0.55; } }
 
   .trust { position: relative; display: flex; flex-direction: column; gap: 16px; margin-top: 64px; padding: 28px 0 36px; border-top: 1px solid var(--color-line-dark); }
-  .trust-label { font-size: 13px; color: #8b909b; }
+  .trust-label { font-size: 15px; color: #a3a8b3; }
   .trust-list { display: flex; flex-wrap: wrap; gap: 10px 28px; }
-  .trust-list li { font-family: var(--font-mono); font-size: 14px; letter-spacing: 0.02em; color: #e3e5e9; }
+  .trust-list li { font-family: var(--font-mono); font-weight: 600; font-size: 15px; letter-spacing: 0.02em; color: #e3e5e9; }
 
   /* ---------- Services ---------- */
   .services { display: grid; gap: 16px; }
+
+  /* ---------- Pentesting feature ---------- */
+  .feature { display: grid; gap: 48px; align-items: center; }
+  .feature-copy { display: flex; flex-direction: column; align-items: flex-start; gap: 20px; }
+  .areas { display: grid; grid-template-columns: 1fr; gap: 10px 24px; margin: 4px 0 8px; }
+  .areas li { display: flex; align-items: center; gap: 10px; font-weight: 500; font-size: 16px; }
+  .areas :global(svg) { flex-shrink: 0; color: var(--color-brand); }
+  .feature-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+  .report { padding: 28px 24px; border: 1px solid var(--color-line); border-radius: 20px; background: #fff; box-shadow: 0 30px 60px -40px rgba(17, 19, 24, 0.35); }
+  .report-label { display: flex; align-items: center; gap: 8px; font-family: var(--font-mono); font-weight: 600; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-muted); }
+  .report-label :global(svg) { color: var(--color-brand); }
+  .report-rows { display: flex; flex-direction: column; margin-top: 12px; }
+  .report-rows > li { display: flex; gap: 16px; padding: 18px 0; border-bottom: 1px solid var(--color-line); }
+  .report-rows > li:last-child { border-bottom: 0; padding-bottom: 0; }
+  .report-num { flex-shrink: 0; width: 24px; font-family: var(--font-mono); font-size: 14px; line-height: 24px; color: var(--color-brand); }
+  .report-rows h3 { font-weight: 600; font-size: 17px; line-height: 24px; }
+  .report-rows p { margin-top: 2px; font-size: 15px; line-height: 1.55; color: var(--color-body); }
+  .sev { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+  .sev li { padding: 3px 10px; border-radius: 6px; font-family: var(--font-mono); font-size: 12px; font-weight: 600; }
+  .sev-0 { background: #fbe9ea; color: #9b1c2c; }
+  .sev-1 { background: #fdf0e4; color: #9a4a0b; }
+  .sev-2 { background: #fbf6dd; color: #7a6205; }
+  .sev-3 { background: #ebf3ee; color: #2f6b45; }
 
   /* ---------- Appgate ---------- */
   .appgate { display: grid; gap: 48px; align-items: center; }
@@ -235,7 +287,7 @@ const radarTags = [
   .check { display: grid; place-items: center; flex-shrink: 0; width: 22px; height: 22px; margin-top: 1px; border-radius: 6px; background: var(--color-brand); color: #fff; }
   .appgate-card { padding: 32px 24px; border: 1px solid var(--color-line); border-radius: 20px; background: #fff; box-shadow: 0 30px 60px -40px rgba(17, 19, 24, 0.35); }
   .appgate-logo { width: 150px; height: auto; }
-  .appgate-sub { margin-top: 8px; font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-muted); }
+  .appgate-sub { margin-top: 8px; font-family: var(--font-mono); font-weight: 600; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-muted); }
   .flow { display: flex; align-items: center; gap: 8px; margin-top: 32px; }
   .flow-node { display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center; font-size: 13px; font-weight: 600; color: var(--color-body); }
   .flow-node.brand .icon-tile { background: var(--color-brand); color: #fff; }
@@ -251,23 +303,24 @@ const radarTags = [
   .step { position: relative; padding: 0 0 36px 32px; border-left: 1px solid var(--color-line); }
   .step:last-child { padding-bottom: 0; }
   .step::before { content: ''; position: absolute; left: -5px; top: 4px; width: 9px; height: 9px; border-radius: 2px; background: var(--color-brand); }
-  .step-num { font-family: var(--font-mono); font-size: 13px; color: var(--color-brand); }
+  .step-num { font-family: var(--font-mono); font-weight: 600; font-size: 15px; color: var(--color-brand); }
   .step h3 { margin-top: 6px; font-weight: 600; font-size: 20px; letter-spacing: -0.02em; }
   .step p { margin-top: 8px; max-width: 420px; font-size: 15px; line-height: 1.6; color: var(--color-body); }
 
-  /* ---------- Commitments ---------- */
-  .commitments { display: grid; gap: 16px; }
-  .commitment { padding: 28px; border: 1px solid var(--color-line-dark); border-radius: var(--radius); background: var(--color-ink-2); transition: border-color 0.3s, transform 0.4s var(--ease); }
-  .commitment:hover { border-color: rgba(212, 132, 140, 0.45); transform: translateY(-4px); }
-  .commitment h3 { margin-top: 20px; font-weight: 600; font-size: 18px; letter-spacing: -0.01em; }
-  .commitment p { margin-top: 8px; font-size: 15px; line-height: 1.6; color: #a3a8b3; }
+  /* ---------- Commitments (inside the process section) ---------- */
+  .commit { margin-top: 56px; padding: 28px 24px; border: 1px solid var(--color-line); border-radius: 18px; background: #fff; }
+  .commit-label { font-family: var(--font-mono); font-weight: 600; font-size: 14px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-brand); }
+  .commit-list { display: grid; gap: 20px; margin-top: 20px; }
+  .commit-list li { display: flex; gap: 16px; align-items: flex-start; }
+  .commit-list h3 { font-weight: 600; font-size: 17px; line-height: 24px; }
+  .commit-list p { margin-top: 2px; font-size: 15px; line-height: 1.55; color: var(--color-body); }
 
   /* ---------- About ---------- */
   .about { display: grid; gap: 48px; align-items: center; }
   .about-copy { display: flex; flex-direction: column; align-items: flex-start; gap: 20px; }
   .about-direct { padding-left: 16px; border-left: 2px solid var(--color-brand); font-size: 16px; line-height: 1.6; color: var(--color-ink); }
   .talk { display: flex; flex-direction: column; gap: 22px; padding: 28px; border: 1px solid var(--color-line); border-radius: 20px; background: #fff; }
-  .talk-title { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-muted); }
+  .talk-title { font-family: var(--font-mono); font-weight: 600; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-muted); }
   .talk-list { display: flex; flex-direction: column; gap: 12px; padding-top: 20px; border-top: 1px solid var(--color-line); }
   .talk-list li { display: flex; align-items: center; gap: 12px; font-weight: 500; font-size: 15px; }
   .talk-list :global(svg) { color: var(--color-brand); }
@@ -280,7 +333,9 @@ const radarTags = [
     .trust-label { flex-shrink: 0; }
     .trust-list { justify-content: flex-end; }
     .services { grid-template-columns: 1fr 1fr; gap: 20px; }
-    .commitments { grid-template-columns: 1fr 1fr; gap: 20px; }
+    .areas { grid-template-columns: 1fr 1fr; }
+    .report { padding: 36px; }
+    .commit { padding: 32px 36px; }
     .appgate-card { padding: 40px; }
   }
   @media (min-width: 1200px) {
@@ -290,6 +345,7 @@ const radarTags = [
     .process { grid-template-columns: repeat(4, 1fr); gap: 32px; }
     .step { padding: 32px 0 0; border-left: 0; border-top: 1px solid var(--color-line); }
     .step::before { left: 0; top: -5px; }
-    .commitments { grid-template-columns: repeat(4, 1fr); }
+    .feature { grid-template-columns: 1.1fr 1fr; gap: 80px; }
+    .commit-list { grid-template-columns: repeat(3, 1fr); gap: 32px; }
   }
 </style>

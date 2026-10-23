@@ -162,7 +162,7 @@ const others = services.filter((x) => x.slug !== service.slug);
     mask-image: linear-gradient(to bottom, #000 60%, transparent);
   }
   .hero-inner { position: relative; }
-  .crumbs { display: flex; flex-wrap: wrap; gap: 8px; font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.06em; color: #8b909b; }
+  .crumbs { display: flex; flex-wrap: wrap; gap: 8px; font-family: var(--font-mono); font-size: 14px; letter-spacing: 0.06em; color: #8b909b; }
   .crumbs a { transition: color 0.2s; }
   .crumbs a:hover { color: #fff; }
   .crumbs [aria-current] { color: #d5d8de; }
@@ -174,8 +174,8 @@ const others = services.filter((x) => x.slug !== service.slug);
   .hero-mail:hover { color: #fff; }
   .highlights { display: grid; grid-template-columns: 1fr 1fr; margin-top: 64px; border-top: 1px solid var(--color-line-dark); }
   .highlight { padding: 24px 16px 28px 0; }
-  .highlight dt { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: #8b909b; }
-  .highlight dd { margin-top: 8px; font-weight: 600; font-size: 16px; line-height: 1.4; color: #fff; }
+  .highlight dt { font-family: var(--font-mono); font-weight: 600; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: #8b909b; }
+  .highlight dd { margin-top: 8px; font-weight: 600; font-size: 18px; line-height: 1.4; color: #fff; }
 
   /* ---------- Overview ---------- */
   .overview { display: flex; flex-direction: column; gap: 20px; }
@@ -193,7 +193,7 @@ const others = services.filter((x) => x.slug !== service.slug);
   .step { position: relative; padding: 0 0 32px 32px; border-left: 1px solid var(--color-line); }
   .step:last-child { padding-bottom: 0; }
   .step::before { content: ''; position: absolute; left: -5px; top: 4px; width: 9px; height: 9px; border-radius: 2px; background: var(--color-brand); }
-  .step-num { font-family: var(--font-mono); font-size: 13px; color: var(--color-brand); }
+  .step-num { font-family: var(--font-mono); font-weight: 600; font-size: 15px; color: var(--color-brand); }
   .step h3 { margin-top: 6px; font-weight: 600; font-size: 18px; letter-spacing: -0.01em; }
   .step p { margin-top: 8px; max-width: 440px; font-size: 15px; line-height: 1.6; color: var(--color-body); }
 
@@ -202,7 +202,7 @@ const others = services.filter((x) => x.slug !== service.slug);
   .deliverable { display: flex; flex-direction: column; padding: 32px; border: 1px solid var(--color-line); border-radius: var(--radius); background: #fff; }
   .deliverable.dark { background: var(--color-ink); border-color: var(--color-ink); color: #fff; }
   .deliverable.dark .icon-tile { background: rgba(212, 132, 140, 0.14); color: var(--color-brand-soft); }
-  .deliverable-eyebrow { margin-top: 24px; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-muted); }
+  .deliverable-eyebrow { margin-top: 24px; font-family: var(--font-mono); font-weight: 600; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-muted); }
   .deliverable.dark .deliverable-eyebrow { color: #8b909b; }
   .deliverable h3 { margin-top: 10px; font-weight: 700; font-size: 26px; line-height: 1.2; letter-spacing: -0.02em; }
   .deliverable-text { margin-top: 14px; font-size: 15px; line-height: 1.65; color: var(--color-body); }
@@ -214,9 +214,9 @@ const others = services.filter((x) => x.slug !== service.slug);
 
   /* ---------- Other services ---------- */
   .more-grid { display: grid; gap: 12px; }
-  .more-card { display: flex; align-items: center; gap: 16px; padding: 18px 20px; border: 1px solid var(--color-line); border-radius: var(--radius); transition: border-color 0.3s, background-color 0.3s; }
+  .more-card { display: flex; align-items: center; gap: 16px; padding: 22px 24px; border: 1px solid var(--color-line); border-radius: var(--radius); transition: border-color 0.3s, background-color 0.3s; }
   .more-card:hover { border-color: var(--color-brand); background: var(--color-surface-alt); }
-  .more-title { flex: 1; font-weight: 600; font-size: 16px; line-height: 1.35; letter-spacing: -0.01em; }
+  .more-title { flex: 1; font-weight: 600; font-size: 18px; line-height: 1.35; letter-spacing: -0.01em; }
   .more-card :global(.more-arrow) { color: var(--color-brand); transition: transform 0.3s var(--spring); }
   .more-card:hover :global(.more-arrow) { transform: translateX(4px); }
 
