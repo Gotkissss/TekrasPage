@@ -80,6 +80,7 @@ const others = services.filter((x) => x.slug !== service.slug);
     <div class="section-head">
       <span class="eyebrow">{label.process}</span>
       <h2 class="h-section reveal">{d.titles.process[lang]}</h2>
+      {d.processText && <p class="lead reveal">{d.processText[lang]}</p>}
     </div>
     <ol class="process" style={`--steps:${d.process.length}`}>
       {d.process.map((step, n) => (

@@ -12,6 +12,7 @@ export type ServiceDetails = {
   highlights: { label: L; value: L }[];
   labels?: { scope?: L; process?: L; deliverables?: L }; // small "• Label" above each section (defaults in ui.ts)
   titles: { scope: L; process: L; deliverables: L }; // big title of each section
+  processText?: L; // optional line under the process title
   scope: { icon: string; title: L; text: L }[];
   process: { title: L; text: L }[];
   deliverables: { eyebrow: L; title: L; text: L }[];
@@ -36,6 +37,10 @@ export const serviceDetails: Record<string, ServiceDetails> = {
       scope: { es: 'Buscamos las debilidades antes que los atacantes.', en: 'We find the weaknesses before attackers do.' },
       process: { es: 'Un método claro, de principio a fin.', en: 'A clear method, from start to finish.' },
       deliverables: { es: 'Resultados que su equipo puede usar desde el primer día.', en: 'Results your team can act on from day one.' },
+    },
+    processText: {
+      es: 'Las fases son las mismas en cada prueba. Las técnicas cambian según lo que se evalúe: lo expuesto a internet, la red interna o una aplicación web.',
+      en: 'The phases are the same on every test. The techniques change with what is being assessed: what you expose to the internet, your internal network or a web application.',
     },
     scope: [
       {
@@ -96,24 +101,24 @@ export const serviceDetails: Record<string, ServiceDetails> = {
         },
       },
       {
-        title: { es: 'Reconocimiento y OSINT', en: 'Reconnaissance & OSINT' },
+        title: { es: 'Reconocimiento', en: 'Reconnaissance' },
         text: {
-          es: 'Recopilamos información y mapeamos su superficie de ataque como lo haría un adversario real.',
-          en: 'We gather information and map your attack surface the way a real adversary would.',
+          es: 'Recopilamos información y mapeamos lo que está dentro del alcance, como lo haría un adversario real.',
+          en: 'We gather information and map what is in scope, the way a real adversary would.',
+        },
+      },
+      {
+        title: { es: 'Análisis de vulnerabilidades', en: 'Vulnerability analysis' },
+        text: {
+          es: 'Identificamos las debilidades con herramientas y revisión manual, y descartamos los falsos positivos.',
+          en: 'We identify weaknesses with tools and manual review, and rule out false positives.',
         },
       },
       {
         title: { es: 'Explotación controlada', en: 'Controlled exploitation' },
         text: {
-          es: 'Aprovechamos de forma segura las vulnerabilidades encontradas para obtener un primer acceso y medir su impacto real.',
-          en: 'We safely exploit the vulnerabilities we find to gain an initial foothold and measure their real impact.',
-        },
-      },
-      {
-        title: { es: 'Escalamiento y movimiento lateral', en: 'Escalation & lateral movement' },
-        text: {
-          es: 'Desde ese acceso, evaluamos hasta dónde podría llegar un atacante: privilegios, otros equipos y sus servicios de identidad.',
-          en: 'From that foothold, we assess how far an attacker could go: privileges, other machines and your identity services.',
+          es: 'Comprobamos de forma segura cuáles se pueden aprovechar y hasta dónde llegaría un atacante, para medir su impacto real.',
+          en: 'We safely confirm which ones can be exploited and how far an attacker could get, to measure their real impact.',
         },
       },
       {
