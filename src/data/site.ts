@@ -44,7 +44,7 @@ export const allServices: Service[] = [
     slug: 'pentesting',
     active: true,
     icon: 'target',
-    tags: { es: ['OWASP', 'Red interna', 'OSINT'], en: ['OWASP', 'Internal network', 'OSINT'] },
+    tags: { es: ['Red interna', 'Aplicaciones web', 'OSINT'], en: ['Internal network', 'Web applications', 'OSINT'] },
     image: '/images/pentesting.png',
     date: '2025-06-11',
     title: { es: 'Pentesting', en: 'Pentesting' },

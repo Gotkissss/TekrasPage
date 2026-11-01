@@ -6,6 +6,7 @@ import ServiceCard from '../../components/ServiceCard.astro';
 import ProfileCard from '../../components/ProfileCard.astro';
 import CtaBand from '../../components/CtaBand.astro';
 import { site, services, standards } from '../../data/site';
+import { serviceDetails } from '../../data/service-details';
 import { langParams, useTranslations } from '../../i18n';
 
 export const getStaticPaths = () => langParams.map((params) => ({ params }));
@@ -168,15 +169,22 @@ const radarTags = [
         <span class="eyebrow">{h.processLabel}</span>
         <h2 class="h-section reveal">{h.processTitle}</h2>
       </div>
-      <ol class="process">
-        {h.process.map((step, i) => (
-          <li class="step reveal" style={`--delay:${i * 90}ms`}>
-            <span class="step-num">{String(i + 1).padStart(2, '0')}</span>
-            <h3>{step.title}</h3>
-            <p>{step.text}</p>
-          </li>
+      <div class="tracks">
+        {services.map((s, i) => (
+          <article class="track reveal" style={`--delay:${i * 90}ms`}>
+            <div class="track-head">
+              <span class="icon-tile"><Icon name={s.icon} /></span>
+              <h3>{s.title[lang]}</h3>
+            </div>
+            <ol class="track-steps">
+              {serviceDetails[s.slug].process.map((step, n) => (
+                <li><span class="step-num">{String(n + 1).padStart(2, '0')}</span>{step.title[lang]}</li>
+              ))}
+            </ol>
+            <a href={`${path(`/services/${s.slug}`)}#proceso`} class="track-more">{h.processMore} <Icon name="arrow" size={16} stroke={2} /></a>
+          </article>
         ))}
-      </ol>
+      </div>
       <div class="commit reveal">
         <p class="commit-label">{h.commitmentsLabel}</p>
         <ul class="commit-list">
@@ -298,16 +306,18 @@ const radarTags = [
   .flow-checks :global(svg) { color: var(--color-brand); }
 
   /* ---------- Process ---------- */
-  .process { display: grid; gap: 0; }
-  .step { position: relative; padding: 0 0 36px 32px; border-left: 1px solid var(--color-line); }
-  .step:last-child { padding-bottom: 0; }
-  .step::before { content: ''; position: absolute; left: -5px; top: 4px; width: 9px; height: 9px; border-radius: 2px; background: var(--color-brand); }
-  .step-num { font-family: var(--font-mono); font-weight: 600; font-size: 15px; color: var(--color-brand); }
-  .step h3 { margin-top: 6px; font-weight: 600; font-size: 20px; letter-spacing: -0.02em; }
-  .step p { margin-top: 8px; max-width: 420px; font-size: 15px; line-height: 1.6; color: var(--color-body); }
+  .tracks { display: grid; gap: 16px; }
+  .track { display: flex; flex-direction: column; padding: 28px 24px; border: 1px solid var(--color-line); border-radius: 18px; background: #fff; }
+  .track-head { display: flex; align-items: center; gap: 14px; }
+  .track-head h3 { font-weight: 600; font-size: 22px; line-height: 1.25; letter-spacing: -0.02em; }
+  .track-steps { display: flex; flex-direction: column; margin: 16px 0 20px; }
+  .track-steps li { display: flex; align-items: baseline; gap: 14px; padding: 11px 0; border-bottom: 1px solid var(--color-line); font-weight: 500; font-size: 16px; line-height: 1.4; }
+  .step-num { flex-shrink: 0; font-family: var(--font-mono); font-weight: 600; font-size: 14px; color: var(--color-brand); }
+  .track-more { display: inline-flex; align-items: center; gap: 8px; margin-top: auto; font-weight: 600; font-size: 16px; color: var(--color-brand); transition: gap 0.3s var(--spring); }
+  .track-more:hover { gap: 12px; }
 
   /* ---------- Commitments (inside the process section) ---------- */
-  .commit { margin-top: 56px; padding: 28px 24px; border: 1px solid var(--color-line); border-radius: 18px; background: #fff; }
+  .commit { margin-top: 16px; padding: 28px 24px; border: 1px solid var(--color-line); border-radius: 18px; background: #fff; }
   .commit-label { font-family: var(--font-mono); font-weight: 600; font-size: 14px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-brand); }
   .commit-list { display: grid; gap: 20px; margin-top: 20px; }
   .commit-list li { display: flex; gap: 16px; align-items: flex-start; }
@@ -334,16 +344,15 @@ const radarTags = [
     .services { grid-template-columns: 1fr 1fr; gap: 20px; }
     .areas { grid-template-columns: 1fr 1fr; }
     .report { padding: 36px; }
-    .commit { padding: 32px 36px; }
+    .tracks { grid-template-columns: repeat(auto-fit, minmax(0, 1fr)); gap: 20px; }
+    .track { padding: 32px 36px; }
+    .commit { margin-top: 20px; padding: 32px 36px; }
     .appgate-card { padding: 40px; }
   }
   @media (min-width: 1200px) {
     .hero-grid { grid-template-columns: 1.15fr 1fr; gap: 64px; }
     .appgate { grid-template-columns: 1fr 1fr; gap: 80px; }
     .about { grid-template-columns: 1.3fr 1fr; gap: 80px; }
-    .process { grid-template-columns: repeat(4, 1fr); gap: 32px; }
-    .step { padding: 32px 0 0; border-left: 0; border-top: 1px solid var(--color-line); }
-    .step::before { left: 0; top: -5px; }
     .feature { grid-template-columns: 1.1fr 1fr; gap: 80px; }
     .commit-list { grid-template-columns: repeat(3, 1fr); gap: 32px; }
   }

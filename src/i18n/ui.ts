@@ -39,7 +39,7 @@ const es = {
     report: {
       label: 'Informe final · estructura',
       rows: [
-        { title: 'Resumen ejecutivo', text: 'El nivel de riesgo y las prioridades, sin tecnicismos, para la dirección.' },
+        { title: 'Resumen ejecutivo', text: 'Qué tan expuesta está su empresa y qué impacto tendría un ataque, para quienes toman las decisiones.' },
         { title: 'Hallazgos por severidad', text: 'Cada vulnerabilidad clasificada según su riesgo.' },
         { title: 'Evidencia y reproducción', text: 'Capturas y pasos para que su equipo verifique cada hallazgo.' },
         { title: 'Recomendaciones', text: 'Qué corregir primero y cómo hacerlo.' },
@@ -58,17 +58,12 @@ const es = {
     ],
     appgateCta: 'Ver el servicio',
     processLabel: 'Cómo trabajamos',
-    processTitle: 'Un mismo método para cada proyecto, de la primera llamada a la entrega.',
-    process: [
-      { title: 'Diagnóstico', text: 'Entendemos su entorno, sus objetivos y lo que necesita proteger.' },
-      { title: 'Alcance', text: 'Acordamos por escrito qué haremos, en qué fechas y qué recibirá al final.' },
-      { title: 'Ejecución', text: 'Realizamos las pruebas o la implementación en las ventanas acordadas, sin interrumpir su operación.' },
-      { title: 'Entrega y seguimiento', text: 'Entregamos el informe o la solución documentada, y lo acompañamos con soporte técnico.' },
-    ],
+    processTitle: 'Un proceso claro para cada servicio.',
+    processMore: 'Ver el proceso completo',
     commitmentsLabel: 'En cada proyecto',
     commitments: [
       { icon: 'doc', title: 'Confidencialidad', text: 'Firmamos un NDA antes de acceder a cualquier información de su organización.' },
-      { icon: 'file', title: 'Todo por escrito', text: 'Alcance, fechas y entregables acordados antes de empezar.' },
+      { icon: 'file', title: 'Todo por escrito', text: 'El alcance y las fechas quedan acordados antes de empezar.' },
       { icon: 'clock', title: 'Sin interrumpir su operación', text: 'Trabajamos en horarios acordados, con un contacto directo durante todo el proyecto.' },
     ],
     aboutTitle: 'Especialistas en ciberseguridad, cercanos a cada cliente.',
@@ -204,7 +199,7 @@ const en: UI = {
     report: {
       label: 'Final report · structure',
       rows: [
-        { title: 'Executive summary', text: 'Risk level and priorities, in plain language, for leadership.' },
+        { title: 'Executive summary', text: 'How exposed your company is and what impact an attack would have, for the people making the decisions.' },
         { title: 'Findings by severity', text: 'Every vulnerability rated by its risk.' },
         { title: 'Evidence & reproduction', text: 'Screenshots and steps so your team can verify each finding.' },
         { title: 'Recommendations', text: 'What to fix first, and how.' },
@@ -223,17 +218,12 @@ const en: UI = {
     ],
     appgateCta: 'View the service',
     processLabel: 'How we work',
-    processTitle: 'One method for every project, from the first call to delivery.',
-    process: [
-      { title: 'Assessment', text: 'We get to know your environment, your goals and what you need to protect.' },
-      { title: 'Scope', text: 'We agree in writing on what we’ll do, when, and what you’ll receive.' },
-      { title: 'Execution', text: 'We run the tests or the implementation in the agreed windows, without disrupting your operations.' },
-      { title: 'Delivery & follow-up', text: 'We hand over the report or the documented solution, backed by technical support.' },
-    ],
+    processTitle: 'A clear process for each service.',
+    processMore: 'See the full process',
     commitmentsLabel: 'On every project',
     commitments: [
       { icon: 'doc', title: 'Confidentiality', text: 'We sign an NDA before accessing any information about your organization.' },
-      { icon: 'file', title: 'Everything in writing', text: 'Scope, dates and deliverables agreed before we start.' },
+      { icon: 'file', title: 'Everything in writing', text: 'Scope and dates are agreed before we start.' },
       { icon: 'clock', title: 'No disruption', text: 'We work in agreed time windows, with a direct contact throughout the project.' },
     ],
     aboutTitle: 'Cybersecurity specialists, close to every client.',

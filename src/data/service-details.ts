@@ -15,8 +15,8 @@ export type ServiceDetails = {
   scope: { icon: string; title: L; text: L }[];
   process: { title: L; text: L }[];
   deliverables: { eyebrow: L; title: L; text: L }[];
-  note?: L; // small line under the deliverables
-  noteLink?: { label: L; service: string }; // optional link after the note → contact form with that service preselected
+  followUp?: { title: L; text: L; button: L; service: string }; // optional next step under the deliverables → contact form with that service preselected
+  note?: L; // small print under the deliverables
   cta: { title: L; text: L; button?: L }; // button defaults to "Solicitar una evaluación"
 };
 
@@ -29,7 +29,7 @@ export const serviceDetails: Record<string, ServiceDetails> = {
     highlights: [
       { label: { es: 'Enfoque', en: 'Approach' }, value: { es: 'Hacking ético controlado', en: 'Controlled ethical hacking' } },
       { label: { es: 'Alcance', en: 'Scope' }, value: { es: 'Externo, interno y aplicaciones web', en: 'External, internal & web applications' } },
-      { label: { es: 'Metodología', en: 'Methodology' }, value: { es: 'OWASP', en: 'OWASP' } },
+      { label: { es: 'Metodología', en: 'Methodology' }, value: { es: 'PTES, NIST SP 800-115 y OWASP', en: 'PTES, NIST SP 800-115 & OWASP' } },
       { label: { es: 'Entregable', en: 'Deliverable' }, value: { es: 'Informe final ejecutivo y técnico', en: 'Final executive & technical report' } },
     ],
     titles: {
@@ -129,8 +129,8 @@ export const serviceDetails: Record<string, ServiceDetails> = {
         eyebrow: { es: 'Para la dirección', en: 'For leadership' },
         title: { es: 'Resumen ejecutivo', en: 'Executive summary' },
         text: {
-          es: 'Una visión clara y sin tecnicismos del nivel de riesgo de su empresa, los hallazgos críticos y las prioridades para decidir dónde invertir.',
-          en: 'A clear, jargon-free view of your company’s risk level, the critical findings and the priorities for deciding where to invest.',
+          es: 'Qué tan expuesta está su empresa, qué impacto tendría un ataque en el negocio y cuáles son las prioridades para decidir dónde invertir.',
+          en: 'How exposed your company is, what impact an attack would have on the business and which priorities should guide where you invest.',
         },
       },
       {
@@ -142,12 +142,13 @@ export const serviceDetails: Record<string, ServiceDetails> = {
         },
       },
     ],
-    note: {
-      es: 'El pentesting concluye con la entrega del informe final. Si lo desea, en un servicio aparte nos sentamos con su equipo a revisar cada vulnerabilidad encontrada y definir juntos cómo mitigarla.',
-      en: 'The pentest concludes with the delivery of the final report. If you wish, as a separate service, we sit down with your team to go over every vulnerability we found and plan together how to mitigate it.',
-    },
-    noteLink: {
-      label: { es: 'Consultar sobre mitigación', en: 'Ask about mitigation' },
+    followUp: {
+      title: { es: '¿Quiere ayuda para corregir lo encontrado?', en: 'Want help fixing what we found?' },
+      text: {
+        es: 'Como servicio aparte, revisamos con su equipo cada vulnerabilidad y definimos juntos cómo mitigarla.',
+        en: 'As a separate service, we go over every vulnerability with your team and plan together how to mitigate it.',
+      },
+      button: { es: 'Consultar sobre mitigación', en: 'Ask about mitigation' },
       service: 'mitigation',
     },
     cta: {
