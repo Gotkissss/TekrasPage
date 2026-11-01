@@ -150,11 +150,11 @@ export const serviceDetails: Record<string, ServiceDetails> = {
       },
     ],
     sample: {
-      label: { es: 'Informe de muestra', en: 'Sample report' },
-      title: { es: 'Vea exactamente lo que recibirá.', en: 'See exactly what you’ll receive.' },
+      label: { es: 'Informe de muestra · Ejecutivo y técnico', en: 'Sample report · Executive & technical' },
+      title: { es: 'Vea cómo es el informe que recibirá.', en: 'See what your report will look like.' },
       text: {
-        es: 'Un informe completo, de una empresa ficticia: el resumen para la dirección, el plan de remediación, las rutas de ataque y cada hallazgo con su evidencia.',
-        en: 'A complete report for a fictional company: the summary for leadership, the remediation plan, the attack paths and every finding with its evidence.',
+        es: 'Incluye las dos partes, con una empresa ficticia: el informe ejecutivo, con el resumen y el plan de remediación para la dirección, y el informe técnico, con las rutas de ataque y cada hallazgo con su evidencia.',
+        en: 'It includes both parts, for a fictional company: the executive report, with the summary and remediation plan for leadership, and the technical report, with the attack paths and every finding with its evidence.',
       },
       button: { es: 'Descargar informe de muestra', en: 'Download sample report' },
       meta: { es: 'PDF · 24 páginas · 4 MB', en: 'PDF · 24 pages · 4 MB' },
