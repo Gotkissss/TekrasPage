@@ -1,0 +1,103 @@
+---
+// TEST: shared form for the contact-page design options (contacto-a/b/c). Styles in src/styles/contact-lab.css.
+// services: 'pills' (small chips) or 'cards' (big selectable cards with icon).
+// steps: wraps the fields in 3 groups (service → about you → your need) for the step-by-step option.
+// size: 'select' (native dropdown) or 'chips' (radio buttons styled like the rest of the form).
+import Icon from '../Icon.astro';
+import { site, services as allServices } from '../../data/site';
+import { useTranslations } from '../../i18n';
+
+interface Props { services?: 'pills' | 'cards'; steps?: boolean; size?: 'select' | 'chips'; submitLabel?: string }
+const { services = 'pills', steps = false, size = 'select', submitLabel } = Astro.props;
+const { lang, t } = useTranslations(Astro.url);
+const c = t.contact;
+const f = c.fields;
+const desc = {
+  es: { pentesting: 'Pruebas de penetración y hacking ético', ztna: 'Implementación o soporte técnico de Appgate ZTNA', mitigation: 'Corregir vulnerabilidades ya encontradas', other: 'Cuéntenos y le orientamos' },
+  en: { pentesting: 'Penetration testing and ethical hacking', ztna: 'Appgate ZTNA implementation or technical support', mitigation: 'Fix vulnerabilities already found', other: 'Tell us and we’ll guide you' },
+}[lang] as Record<string, string>;
+const icon: Record<string, string> = { pentesting: 'target', ztna: 'lock', mitigation: 'sliders', other: 'search' };
+const options = [...allServices.map((s) => ({ value: s.slug, label: s.title[lang] })), ...c.extraServices];
+const messages = { submit: submitLabel ?? c.submit, sending: c.sending, sent: c.sent, success: c.success, servicesRequired: c.servicesRequired, fallback: `${c.fallback} ${site.email}.` };
+const label = submitLabel ?? c.submit;
+---
+<form class="lab-form" method="post" action="/api/contact" novalidate data-messages={JSON.stringify(messages)} data-lab-form>
+  <input type="hidden" name="lang" value={lang} />
+
+  <div class:list={['group', { step: steps }]} data-step="0">
+    <fieldset class="field services">
+      <legend class="field-label">{c.servicesLabel} <span class="req" aria-hidden="true">*</span></legend>
+      <p class="hint">{c.servicesHint}</p>
+      <div class:list={[services === 'cards' ? 'svc-cards' : 'pills']}>
+        {options.map((o) =>
+          services === 'cards' ? (
+            <label class="svc-card">
+              <input type="checkbox" name="services" value={o.value} />
+              <span class="svc-inner">
+                <span class="icon-tile"><Icon name={icon[o.value] ?? 'shield'} /></span>
+                <span class="svc-text"><b>{o.label}</b><small>{desc[o.value]}</small></span>
+                <span class="svc-check" aria-hidden="true"><Icon name="check" size={14} stroke={2.6} /></span>
+              </span>
+            </label>
+          ) : (
+            <label class="pill"><input type="checkbox" name="services" value={o.value} /><span>{o.label}</span></label>
+          ),
+        )}
+      </div>
+      <p class="services-error" role="alert" hidden></p>
+    </fieldset>
+  </div>
+
+  <div class:list={['group', { step: steps }]} data-step="1">
+    <div class="row">
+      <label class="field"><span class="field-label">{f.name.label} <span class="req" aria-hidden="true">*</span></span><input type="text" name="name" placeholder={f.name.placeholder} autocomplete="name" required /></label>
+      <label class="field"><span class="field-label">{f.company.label} <span class="req" aria-hidden="true">*</span></span><input type="text" name="company" placeholder={f.company.placeholder} autocomplete="organization" required /></label>
+    </div>
+    <div class="row">
+      <label class="field"><span class="field-label">{f.email.label} <span class="req" aria-hidden="true">*</span></span><input type="email" name="email" placeholder={f.email.placeholder} autocomplete="email" required /></label>
+      <label class="field"><span class="field-label">{f.phone.label} <span class="opt">{c.optional}</span></span><input type="tel" name="phone" placeholder={f.phone.placeholder} autocomplete="tel" /></label>
+    </div>
+  </div>
+
+  <div class:list={['group', { step: steps }]} data-step="2">
+    {size === 'chips' ? (
+      <fieldset class="field">
+        <legend class="field-label">{c.size} <span class="opt">{c.optional}</span></legend>
+        <div class="size-chips">
+          {c.sizes.map((s) => (
+            <label class="size-chip">
+              <input type="radio" name="size" value={s} />
+              <span><Icon name="people" size={18} />{s}</span>
+            </label>
+          ))}
+        </div>
+      </fieldset>
+    ) : (
+      <label class="field">
+        <span class="field-label">{c.size} <span class="opt">{c.optional}</span></span>
+        <span class="select-wrap">
+          <select name="size"><option value="" selected>{c.select}</option>{c.sizes.map((s) => <option value={s}>{s}</option>)}</select>
+          <Icon name="arrow" size={14} class="select-arrow" />
+        </span>
+      </label>
+    )}
+    <label class="field">
+      <span class="field-label">{c.message} <span class="opt">{c.optional}</span></span>
+      <textarea name="message" placeholder={c.messagePlaceholder} rows="4"></textarea>
+    </label>
+  </div>
+
+  <div class="hp" aria-hidden="true">
+    <input type="text" name="website" tabindex="-1" autocomplete="off" />
+    <input type="text" name="fax" tabindex="-1" autocomplete="off" />
+  </div>
+
+  <div class="actions">
+    <slot name="before-submit" />
+    <button type="submit" class="btn btn-primary swap-host submit">
+      <span class="swap"><span data-label>{label}</span><span data-label>{label}</span></span>
+      <Icon name="arrow" size={16} stroke={1.9} />
+    </button>
+  </div>
+  <p class="status" role="status" aria-live="polite"></p>
+</form>

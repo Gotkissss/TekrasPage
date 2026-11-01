@@ -1,0 +1,42 @@
+---
+// TEST: floating switcher between the current contact page and the design options.
+import { useTranslations } from '../../i18n';
+interface Props { current: 'actual' | 'a' | 'b' | 'c' }
+const { current } = Astro.props;
+const { lang, path } = useTranslations(Astro.url);
+const items = [
+  { key: 'actual', label: lang === 'es' ? 'Actual' : 'Current', href: path('/contact') },
+  { key: 'a', label: 'A · ' + (lang === 'es' ? 'Centrado' : 'Centered'), href: path('/contacto-a') },
+  { key: 'b', label: 'B · ' + (lang === 'es' ? 'Pantalla dividida' : 'Split screen'), href: path('/contacto-b') },
+  { key: 'c', label: 'C · ' + (lang === 'es' ? 'Paso a paso' : 'Step by step'), href: path('/contacto-c') },
+];
+---
+<nav class="lab-bar" aria-label="Opciones de diseño (prueba)">
+  <span class="lab-tag">{lang === 'es' ? 'Prueba de diseño' : 'Design test'}</span>
+  {items.map((i) => <a href={i.href} aria-current={i.key === current ? 'page' : undefined}>{i.label}</a>)}
+</nav>
+
+<style>
+  .lab-bar {
+    position: fixed;
+    left: 50%;
+    bottom: 18px;
+    z-index: 60;
+    translate: -50% 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    max-width: calc(100vw - 24px);
+    padding: 6px;
+    border: 1px dashed var(--color-brand-soft);
+    border-radius: 12px;
+    background: rgba(17, 19, 24, 0.94);
+    box-shadow: 0 20px 40px -20px rgba(0, 0, 0, 0.6);
+  }
+  .lab-tag { padding: 0 10px; font-family: var(--font-mono); font-weight: 600; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-brand-soft); }
+  a { padding: 8px 12px; border-radius: 8px; font-weight: 600; font-size: 13px; color: #c9ccd3; white-space: nowrap; transition: background-color 0.2s, color 0.2s; }
+  a:hover { color: #fff; background: rgba(255, 255, 255, 0.06); }
+  a[aria-current='page'] { background: #fff; color: var(--color-ink); }
+</style>

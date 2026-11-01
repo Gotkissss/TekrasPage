@@ -1,0 +1,98 @@
+---
+// TEST — contact page option A ("centered"). Only exists in development (npm run dev).
+import Base from '../../layouts/Base.astro';
+import Icon from '../../components/Icon.astro';
+import LabForm from '../../components/contact-lab/LabForm.astro';
+import LabBar from '../../components/contact-lab/LabBar.astro';
+import { site } from '../../data/site';
+import { langParams, useTranslations } from '../../i18n';
+import '../../styles/contact-lab.css';
+
+export const getStaticPaths = () => (import.meta.env.DEV ? langParams.map((params) => ({ params })) : []);
+const { lang, t } = useTranslations(Astro.url);
+const c = t.contact;
+const { rep } = site;
+---
+<Base title={`A · ${c.title}`}>
+  <section class="top">
+    <div class="wrap top-inner">
+      <span class="eyebrow">{c.label}</span>
+      <h1 class="h-display">{c.heading}</h1>
+      <p class="lead">{c.intro}</p>
+    </div>
+  </section>
+
+  <section class="wrap">
+    <ul class="direct">
+      <li>
+        <span class="icon-tile"><Icon name="mail" /></span>
+        <div><p class="k">{lang === 'es' ? 'Correo' : 'Email'}</p><a href={`mailto:${site.email}`}>{site.email}</a></div>
+      </li>
+      <li>
+        <span class="icon-tile"><Icon name="phone" /></span>
+        <div><p class="k">{lang === 'es' ? 'Teléfono' : 'Phone'}</p><a href={site.phoneHref}>{site.phone}</a></div>
+      </li>
+      <li>
+        <img src={rep.photo} srcset={rep.photoSet} alt={rep.name} width="48" height="56" class="rep" />
+        <div><p class="k">{rep.role[lang]}</p><span class="v">{rep.name}</span></div>
+      </li>
+    </ul>
+
+    <div class="card">
+      <div class="card-head">
+        <h2>{c.kickoff}</h2>
+        <p>{c.brief}</p>
+      </div>
+      <LabForm services="cards" />
+      <p class="confidential"><Icon name="lock" size={16} /> {c.confidential}</p>
+    </div>
+
+    <div class="next">
+      <p class="eyebrow">{c.nextLabel}</p>
+      <ol>
+        {c.next.map((s, i) => (
+          <li><span class="num">{String(i + 1).padStart(2, '0')}</span><h3>{s.title}</h3><p>{s.text}</p></li>
+        ))}
+      </ol>
+    </div>
+  </section>
+  <LabBar current="a" />
+</Base>
+
+<style>
+  .top { padding: 72px 0 40px; background: linear-gradient(var(--color-surface-alt), #fff); }
+  .top-inner { display: flex; flex-direction: column; align-items: center; gap: 18px; text-align: center; }
+  .top .lead { max-width: 640px; }
+
+  .direct { display: grid; gap: 12px; max-width: 880px; margin: 16px auto 0; }
+  .direct li { display: flex; align-items: center; gap: 14px; padding: 16px 18px; border: 1px solid var(--color-line); border-radius: var(--radius); background: #fff; }
+  .direct .k { font-family: var(--font-mono); font-weight: 600; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-muted); }
+  .direct a, .direct .v { font-weight: 600; font-size: 16px; }
+  .direct a:hover { color: var(--color-brand); }
+  .rep { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; border: 1px solid var(--color-line); }
+
+  .card { max-width: 880px; margin: 24px auto 0; padding: 32px 22px; border: 1px solid var(--color-line); border-radius: 20px; background: #fff; box-shadow: 0 40px 80px -50px rgba(17, 19, 24, 0.4); }
+  .card-head { margin-bottom: 28px; }
+  .card-head h2 { font-weight: 700; font-size: 28px; letter-spacing: -0.02em; }
+  .card-head p { margin-top: 6px; font-size: 16px; color: var(--color-body); }
+  .confidential { display: flex; align-items: center; gap: 10px; margin-top: 8px; font-size: 14px; color: var(--color-muted); }
+  .confidential :global(svg) { color: var(--color-brand); }
+
+  .next { max-width: 880px; margin: 72px auto 120px; text-align: center; }
+  .next ol { display: grid; gap: 28px; margin-top: 28px; text-align: left; }
+  .num { font-family: var(--font-mono); font-weight: 600; font-size: 15px; color: var(--color-brand); }
+  .next h3 { margin-top: 6px; font-weight: 600; font-size: 18px; }
+  .next p { margin-top: 6px; font-size: 15px; line-height: 1.6; color: var(--color-body); }
+
+  @media (min-width: 810px) {
+    .top { padding: 104px 0 48px; }
+    .direct { grid-template-columns: repeat(3, 1fr); }
+    .card { padding: 48px 56px; }
+    .next ol { grid-template-columns: repeat(3, 1fr); gap: 32px; }
+  }
+</style>
+
+<script>
+  import { initContactForm } from '../../scripts/contact-form';
+  initContactForm(document.querySelector<HTMLFormElement>('[data-lab-form]')!);
+</script>

@@ -1,0 +1,110 @@
+---
+// TEST — contact page option B ("split screen"). Only exists in development (npm run dev).
+import Base from '../../layouts/Base.astro';
+import Icon from '../../components/Icon.astro';
+import LabForm from '../../components/contact-lab/LabForm.astro';
+import LabBar from '../../components/contact-lab/LabBar.astro';
+import { site } from '../../data/site';
+import { langParams, useTranslations } from '../../i18n';
+import '../../styles/contact-lab.css';
+
+export const getStaticPaths = () => (import.meta.env.DEV ? langParams.map((params) => ({ params })) : []);
+const { lang, t } = useTranslations(Astro.url);
+const c = t.contact;
+const h = t.home;
+const { rep } = site;
+---
+<Base title={`B · ${c.title}`}>
+  <section class="split">
+    <!-- Left: dark panel with the pitch, what happens next and who answers -->
+    <aside class="side">
+      <div class="side-bg" aria-hidden="true"></div>
+      <div class="side-inner">
+        <span class="eyebrow on-dark">{c.label}</span>
+        <h1 class="h-display">{c.heading}</h1>
+        <p class="side-lead">{c.intro}</p>
+
+        <ol class="timeline">
+          {c.next.map((s, i) => (
+            <li><span class="dot">{i + 1}</span><div><h3>{s.title}</h3><p>{s.text}</p></div></li>
+          ))}
+        </ol>
+
+        <ul class="promises">
+          {h.commitments.map((p) => <li><Icon name="check" size={15} stroke={2.4} /> {p.title}</li>)}
+        </ul>
+
+        <div class="person">
+          <img src={rep.photo} srcset={rep.photoSet} alt={rep.name} width="56" height="64" />
+          <div>
+            <p class="person-name">{rep.name}</p>
+            <p class="person-role">{rep.role[lang]} · Tekras</p>
+            <p class="person-links"><a href={`mailto:${site.email}`}>{site.email}</a> · <a href={site.phoneHref}>{site.phone}</a></p>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Right: the form -->
+    <div class="main">
+      <div class="main-inner">
+        <h2>{c.kickoff}</h2>
+        <p class="brief">{c.brief}</p>
+        <LabForm services="pills" />
+        <p class="confidential"><Icon name="lock" size={16} /> {c.confidential}</p>
+      </div>
+    </div>
+  </section>
+  <LabBar current="b" />
+</Base>
+
+<style>
+  .split { display: grid; min-height: calc(100vh - 68px); }
+  .side { position: relative; overflow: hidden; background: var(--color-ink); color: #fff; }
+  .side-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(70% 50% at 20% 100%, rgba(110, 47, 56, 0.55), transparent 70%),
+      linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px) 0 0 / 48px 48px,
+      linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px) 0 0 / 48px 48px;
+  }
+  .side-inner { position: relative; display: flex; flex-direction: column; gap: 24px; padding: 56px var(--gutter); }
+  .side-lead { max-width: 520px; font-size: 18px; line-height: 1.65; color: #b9bdc7; }
+
+  .timeline { display: flex; flex-direction: column; gap: 0; margin-top: 12px; }
+  .timeline li { position: relative; display: flex; gap: 16px; padding-bottom: 22px; }
+  .timeline li:not(:last-child)::after { content: ''; position: absolute; left: 15px; top: 34px; bottom: 4px; width: 1px; background: var(--color-line-dark); }
+  .dot { display: grid; place-items: center; flex-shrink: 0; width: 31px; height: 31px; border-radius: 50%; border: 1px solid rgba(212, 132, 140, 0.5); font-family: var(--font-mono); font-weight: 600; font-size: 13px; color: var(--color-brand-soft); }
+  .timeline h3 { font-weight: 600; font-size: 17px; line-height: 31px; }
+  .timeline p { font-size: 15px; line-height: 1.55; color: #a3a8b3; }
+
+  .promises { display: flex; flex-wrap: wrap; gap: 8px; }
+  .promises li { display: inline-flex; align-items: center; gap: 8px; padding: 8px 12px; border: 1px solid var(--color-line-dark); border-radius: 8px; font-size: 14px; color: #d5d8de; }
+  .promises :global(svg) { color: var(--color-brand-soft); }
+
+  .person { display: flex; align-items: center; gap: 16px; margin-top: 8px; padding: 16px; border-radius: 14px; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--color-line-dark); }
+  .person img { width: 56px; height: 64px; object-fit: cover; border-radius: 10px; background: #fff; }
+  .person-name { font-weight: 600; font-size: 17px; }
+  .person-role { font-size: 14px; color: #a3a8b3; }
+  .person-links { margin-top: 4px; font-size: 14px; color: #d5d8de; }
+  .person-links a:hover { color: #fff; text-decoration: underline; }
+
+  .main { background: #fff; }
+  .main-inner { max-width: 640px; margin: 0 auto; padding: 48px var(--gutter) 120px; }
+  .main h2 { font-weight: 700; font-size: 30px; letter-spacing: -0.02em; }
+  .brief { margin: 6px 0 28px; font-size: 16px; color: var(--color-body); }
+  .confidential { display: flex; align-items: center; gap: 10px; font-size: 14px; color: var(--color-muted); }
+  .confidential :global(svg) { color: var(--color-brand); }
+
+  @media (min-width: 1024px) {
+    .split { grid-template-columns: 0.9fr 1.1fr; }
+    .side-inner { position: sticky; top: 76px; padding: 72px clamp(40px, 5vw, 80px); }
+    .main-inner { padding: 72px clamp(40px, 5vw, 80px) 120px; margin: 0; }
+  }
+</style>
+
+<script>
+  import { initContactForm } from '../../scripts/contact-form';
+  initContactForm(document.querySelector<HTMLFormElement>('[data-lab-form]')!);
+</script>
