@@ -5,7 +5,7 @@ import Icon from '../../components/Icon.astro';
 import ServiceCard from '../../components/ServiceCard.astro';
 import ProfileCard from '../../components/ProfileCard.astro';
 import CtaBand from '../../components/CtaBand.astro';
-import { site, services, standards } from '../../data/site';
+import { site, services, standards, sampleReport } from '../../data/site';
 import { serviceDetails } from '../../data/service-details';
 import { langParams, useTranslations } from '../../i18n';
 
@@ -127,6 +127,7 @@ const radarTags = [
             </li>
           ))}
         </ol>
+        <a href={sampleReport.file[lang]} download class="report-sample"><Icon name="download" size={17} stroke={2} /> {h.report.sample}</a>
       </div>
     </div>
   </section>
@@ -279,6 +280,8 @@ const radarTags = [
   .report-num { flex-shrink: 0; width: 24px; font-family: var(--font-mono); font-size: 14px; line-height: 24px; color: var(--color-brand); }
   .report-rows h3 { font-weight: 600; font-size: 17px; line-height: 24px; }
   .report-rows p { margin-top: 2px; font-size: 15px; line-height: 1.55; color: var(--color-body); }
+  .report-sample { display: inline-flex; align-items: center; gap: 10px; margin-top: 20px; font-weight: 600; font-size: 16px; color: var(--color-brand); transition: gap 0.3s var(--spring); }
+  .report-sample:hover { gap: 14px; }
   .sev { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
   .sev li { padding: 3px 10px; border-radius: 6px; font-family: var(--font-mono); font-size: 12px; font-weight: 600; }
   .sev-0 { background: #fbe9ea; color: #9b1c2c; }

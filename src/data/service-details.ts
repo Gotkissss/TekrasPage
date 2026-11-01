@@ -4,6 +4,7 @@
 // Icons: web api server network mobile people search key lock eyeoff fingerprint laptop activity alert bolt sliders file bug gear
 
 import type { Lang } from '../i18n';
+import { sampleReport } from './site';
 
 type L<T = string> = Record<Lang, T>;
 
@@ -16,6 +17,7 @@ export type ServiceDetails = {
   scope: { icon: string; title: L; text: L }[];
   process: { title: L; text: L }[];
   deliverables: { eyebrow: L; title: L; text: L }[];
+  sample?: { label: L; title: L; text: L; button: L; meta: L; file: L; cover: L }; // optional downloadable sample of the deliverable
   followUp?: { title: L; text: L; button: L; service: string }; // optional next step under the deliverables → contact form with that service preselected
   note?: L; // small print under the deliverables
   cta: { title: L; text: L; button?: L }; // button defaults to "Solicitar una evaluación"
@@ -147,6 +149,18 @@ export const serviceDetails: Record<string, ServiceDetails> = {
         },
       },
     ],
+    sample: {
+      label: { es: 'Informe de muestra', en: 'Sample report' },
+      title: { es: 'Vea exactamente lo que recibirá.', en: 'See exactly what you’ll receive.' },
+      text: {
+        es: 'Un informe completo, de una empresa ficticia: el resumen para la dirección, el plan de remediación, las rutas de ataque y cada hallazgo con su evidencia.',
+        en: 'A complete report for a fictional company: the summary for leadership, the remediation plan, the attack paths and every finding with its evidence.',
+      },
+      button: { es: 'Descargar informe de muestra', en: 'Download sample report' },
+      meta: { es: 'PDF · 24 páginas · 4 MB', en: 'PDF · 24 pages · 4 MB' },
+      file: sampleReport.file,
+      cover: sampleReport.cover,
+    },
     followUp: {
       title: { es: '¿Quiere ayuda para corregir lo encontrado?', en: 'Want help fixing what we found?' },
       text: {

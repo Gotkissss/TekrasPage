@@ -38,6 +38,7 @@ const es = {
     pentestCta: 'Ver Pentesting',
     report: {
       label: 'Informe final · estructura',
+      sample: 'Descargar informe de muestra',
       rows: [
         { title: 'Resumen ejecutivo', text: 'Qué tan expuesta está su empresa y qué impacto tendría un ataque, para quienes toman las decisiones.' },
         { title: 'Hallazgos por severidad', text: 'Cada vulnerabilidad clasificada según su riesgo.' },
@@ -198,6 +199,7 @@ const en: UI = {
     pentestCta: 'View Pentesting',
     report: {
       label: 'Final report · structure',
+      sample: 'Download sample report',
       rows: [
         { title: 'Executive summary', text: 'How exposed your company is and what impact an attack would have, for the people making the decisions.' },
         { title: 'Findings by severity', text: 'Every vulnerability rated by its risk.' },
