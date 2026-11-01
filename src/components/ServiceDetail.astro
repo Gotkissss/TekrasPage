@@ -1,5 +1,5 @@
 ---
-// Full service page: dark hero with key facts, overview beside the scope grid, process, deliverables, other services, CTA band.
+// Full service page: dark hero with key facts, scope title beside the overview above a full-width grid, process, deliverables, other services, CTA band.
 import Icon from './Icon.astro';
 import Button from './Button.astro';
 import CtaBand from './CtaBand.astro';
@@ -58,13 +58,15 @@ const others = services.filter((x) => x.slug !== service.slug);
 <section class="section">
   <div class="wrap scope-layout">
     <div class="scope-intro">
-      <span class="eyebrow">{label.scope}</span>
-      <h2 class="h-section reveal">{d.titles.scope[lang]}</h2>
+      <div class="scope-title">
+        <span class="eyebrow">{label.scope}</span>
+        <h2 class="h-section reveal">{d.titles.scope[lang]}</h2>
+      </div>
       <p class="scope-overview reveal">{d.overview[lang]}</p>
     </div>
     <ul class="scope">
       {d.scope.map((item, n) => (
-        <li class="scope-card reveal" style={`--delay:${(n % 2) * 70}ms`}>
+        <li class="scope-card reveal" style={`--delay:${(n % 3) * 70}ms`}>
           <span class="icon-tile"><Icon name={item.icon} /></span>
           <h3>{item.title[lang]}</h3>
           <p>{item.text[lang]}</p>
@@ -176,8 +178,9 @@ const others = services.filter((x) => x.slug !== service.slug);
   .fact dd { margin-top: 6px; font-weight: 600; font-size: 17px; line-height: 1.4; color: #fff; }
 
   /* ---------- Overview + scope ---------- */
-  .scope-layout { display: grid; gap: 40px; }
-  .scope-intro { display: flex; flex-direction: column; align-items: flex-start; gap: 18px; }
+  .scope-layout { display: flex; flex-direction: column; gap: 40px; }
+  .scope-intro { display: grid; gap: 18px; }
+  .scope-title { display: flex; flex-direction: column; align-items: flex-start; gap: 18px; }
   .scope-overview { font-size: 17px; line-height: 1.65; color: var(--color-body); }
   .scope { display: grid; gap: 16px; }
   .scope-card { padding: 28px; border: 1px solid var(--color-line); border-radius: var(--radius); background: #fff; transition: border-color 0.3s, box-shadow 0.4s, transform 0.4s var(--ease); }
@@ -239,8 +242,9 @@ const others = services.filter((x) => x.slug !== service.slug);
     .hero-grid { grid-template-columns: 1.3fr 1fr; gap: 72px; }
     .facts { grid-template-columns: 1fr; }
     .fact:nth-child(2) { border-top: 1px solid var(--color-line-dark); }
-    .scope-layout { grid-template-columns: 0.8fr 1.2fr; gap: 72px; align-items: start; }
-    .scope-intro { position: sticky; top: 108px; }
+    .scope-layout { gap: 56px; }
+    .scope-intro { grid-template-columns: 1fr 1fr; gap: 72px; align-items: end; }
+    .scope { grid-template-columns: repeat(3, 1fr); }
     .process { grid-template-columns: repeat(var(--steps), 1fr); gap: 28px; }
     .step { padding: 32px 0 0; border-left: 0; border-top: 1px solid var(--color-line); }
     .step::before { left: 0; top: -5px; }
