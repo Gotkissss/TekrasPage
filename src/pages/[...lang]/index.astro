@@ -5,7 +5,7 @@ import Icon from '../../components/Icon.astro';
 import ServiceCard from '../../components/ServiceCard.astro';
 import ProfileCard from '../../components/ProfileCard.astro';
 import CtaBand from '../../components/CtaBand.astro';
-import { site, services, standards, sampleReport } from '../../data/site';
+import { site, services, standards, sampleReport, sampleAccessDesign } from '../../data/site';
 import { serviceDetails } from '../../data/service-details';
 import { langParams, useTranslations } from '../../i18n';
 
@@ -159,6 +159,7 @@ const radarTags = [
           <li><Icon name="laptop" size={16} /> {flow.checks[1]}</li>
           <li><Icon name="eyeoff" size={16} /> {flow.checks[2]}</li>
         </ul>
+        <a href={sampleAccessDesign.file[lang]} download class="report-sample"><Icon name="download" size={17} stroke={2} /> {h.appgateSample}</a>
       </div>
     </div>
   </section>

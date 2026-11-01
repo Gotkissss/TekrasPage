@@ -137,8 +137,12 @@ export const formatDate = (iso: string, lang: Lang) =>
 // Frameworks shown in the home trust strip.
 export const standards = ['OWASP WSTG', 'PTES', 'NIST SP 800-115', 'MITRE ATT&CK'];
 
-// Sample pentest report, one file per site language
+// Sample documents, one file per site language
 export const sampleReport = {
   file: { es: '/downloads/Tekras-Reporte-de-Muestra.pdf', en: '/downloads/Tekras-Sample-Report.pdf' },
   cover: { es: '/images/reports/sample-es.jpg', en: '/images/reports/sample-en.jpg' },
+};
+export const sampleAccessDesign = {
+  file: { es: '/downloads/Tekras-Diseno-de-Acceso-de-Muestra.pdf', en: '/downloads/Tekras-Sample-Access-Design.pdf' },
+  cover: { es: '/images/reports/access-es.jpg', en: '/images/reports/access-en.jpg' },
 };

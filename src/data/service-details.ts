@@ -4,7 +4,7 @@
 // Icons: web api server network mobile people search key lock eyeoff fingerprint laptop activity alert bolt sliders file bug gear
 
 import type { Lang } from '../i18n';
-import { sampleReport } from './site';
+import { sampleReport, sampleAccessDesign } from './site';
 
 type L<T = string> = Record<Lang, T>;
 
@@ -17,7 +17,7 @@ export type ServiceDetails = {
   scope: { icon: string; title: L; text: L }[];
   process: { title: L; text: L }[];
   deliverables: { eyebrow: L; title: L; text: L }[];
-  sample?: { label: L; title: L; text: L; button: L; meta: L; file: L; cover: L }; // optional downloadable sample of the deliverable
+  sample?: { label: L; title: L; text: L; button: L; meta: L; file: L; cover: L; includes?: L<string[]> }; // optional downloadable sample of the deliverable; includes = what the service covers besides it
   followUp?: { title: L; text: L; button: L; service: string }; // optional next step under the deliverables → contact form with that service preselected
   note?: L; // small print under the deliverables
   cta: { title: L; text: L; button?: L }; // button defaults to "Solicitar una evaluación"
@@ -312,6 +312,22 @@ export const serviceDetails: Record<string, ServiceDetails> = {
         },
       },
     ],
+    sample: {
+      label: { es: 'Documento de muestra · Diseño de acceso', en: 'Sample document · Access design' },
+      title: { es: 'Así documentamos cada implementación.', en: 'This is how we document every implementation.' },
+      text: {
+        es: 'El servicio es la implementación de Appgate ZTNA, y este documento es una parte de la documentación que la acompaña. Con una clínica ficticia, muestra la situación inicial, la arquitectura, las políticas de acceso, el plan de despliegue y las pruebas de validación.',
+        en: 'The service is the Appgate ZTNA implementation, and this document is one part of the documentation that comes with it. Using a fictional clinic, it shows the initial situation, the architecture, the access policies, the rollout plan and the validation tests.',
+      },
+      includes: {
+        es: ['Implementación', 'Configuración', 'Documentación', 'Soporte técnico'],
+        en: ['Implementation', 'Configuration', 'Documentation', 'Technical support'],
+      },
+      button: { es: 'Descargar documento de muestra', en: 'Download sample document' },
+      meta: { es: 'PDF · 10 páginas · 270 KB', en: 'PDF · 10 pages · 270 KB' },
+      file: sampleAccessDesign.file,
+      cover: sampleAccessDesign.cover,
+    },
     note: {
       es: 'Appgate y Appgate ZTNA son marcas registradas de Appgate.',
       en: 'Appgate and Appgate ZTNA are trademarks of Appgate.',
