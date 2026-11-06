@@ -9,6 +9,15 @@ export default defineConfig({
   output: 'static',
   adapter: node({ mode: 'standalone' }),
   server: { host: true },
+  // Railway serves the site through a proxy: trust its forwarded host for these domains only,
+  // so the contact form's same-origin check sees the public https URL.
+  security: {
+    allowedDomains: [
+      { hostname: 'tekras.net', protocol: 'https' },
+      { hostname: 'www.tekras.net', protocol: 'https' },
+      { hostname: '*.up.railway.app', protocol: 'https' },
+    ],
+  },
   vite: {
     plugins: [tailwindcss()],
   },
