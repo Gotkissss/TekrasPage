@@ -14,7 +14,7 @@ export const site = {
   } as Localized,
   phone: '+502 3647-9866',
   phoneHref: 'tel:+50236479866',
-  email: 'ventas@tekras.com',
+  email: 'ventas@tekras.net',
   rep: {
     role: { es: 'Gerente de Ventas', en: 'Sales Manager' } as Localized,
     company: { es: 'En Tekras®', en: 'At Tekras®' } as Localized,

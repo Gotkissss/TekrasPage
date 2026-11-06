@@ -3,7 +3,7 @@
 // Delivery, in order of preference (configure with environment variables):
 //   1. Resend HTTP API  -> RESEND_API_KEY (+ CONTACT_FROM on a domain verified in Resend)
 //   2. SMTP             -> SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS (Railway only allows SMTP on Pro plans)
-// CONTACT_TO sets the recipient (defaults to ventas@tekras.com).
+// CONTACT_TO sets the recipient (defaults to ventas@tekras.net).
 import type { APIRoute } from 'astro';
 import nodemailer from 'nodemailer';
 import { ui } from '../../i18n/ui';
@@ -12,7 +12,7 @@ import { services } from '../../data/site';
 export const prerender = false;
 
 const env = (k: string) => process.env[k]?.trim() || undefined;
-const TO = () => env('CONTACT_TO') ?? 'ventas@tekras.com';
+const TO = () => env('CONTACT_TO') ?? 'ventas@tekras.net';
 const FROM = () => env('CONTACT_FROM') ?? 'Tekras Web <no-reply@tekras.net>';
 
 // Basic per-IP rate limit: 5 submissions per 10 minutes.
